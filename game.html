@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<!-- <link rel="canonical" href="game.html"> -->
+<head>
+    <meta charset="UTF-8" />
+    <title>Tanx2 - Return of the XGreen Tanx</title>
+    <script src="combatant.js"></script>
+    <script src="hq.js"></script>
+    <script src="enemy.js"></script>
+    <script src="enemyFollow.js"></script> 
+    <script src="enemyWayPoint.js"></script> 
+    <script src="phaser.min.js"></script>
+    <script src="player.js"></script>
+    <script src="playerStats.js"></script>
+    <script src="round.js"></script>
+    <script src="statusScene.js"></script>
+    <script src="tanxScene.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+
+<script type="text/javascript">
+
+    // statusScene = new StatusScene()
+    // tanxScene = new TanxScene()
+
+    var config = {
+        title: 'Tanx - prepare for inner greeness',
+        type: Phaser.WEBGL,
+        // scale: {
+        //     mode: Phaser.Scale.FIT,
+        //     // parent: 'phaser-example',
+        //     autoCenter: Phaser.Scale.CENTER_BOTH,
+        //     width: 1280,
+        //     height: 1024
+        // },
+
+        scale: {
+            mode: Phaser.Scale.ScaleModes.NONE,
+            width: window.innerWidth,
+            height: window.innerHeight,
+        },
+        parent: 'game',
+        render: {
+            antialiasGL: false,
+            pixelArt: true,
+        },
+        // scale: {
+        //     mode: Phaser.Scale.ENVELOP,
+        //     autoCenter: Phaser.Scale.CENTER_BOTH,
+        //     width: 1920,
+        //     height: 1080,
+        // },
+        autoFocus: true,
+        canvasStyle: `display: block; width: 100%; height: 100%;`,
+        physics: {
+            default: 'arcade',
+            arcade: {
+                debug: false
+            }
+        },
+        dom: {
+            createContainer: true
+        },
+        scene: [TanxScene, StatusScene]
+    };
+
+    var game = new Phaser.Game(config);
+    var hqMenu
+</script>
+
+</body>
+</html>

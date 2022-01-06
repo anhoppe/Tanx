@@ -1,0 +1,60 @@
+Tank System
+ - Carriege Weight
+ - Movement speed
+ - Gun turrent independent
+
+
+Weapon Systems
+ - Guided Missile
+ - Ballistic Bomb
+ - Mine
+ - Machine Gun
+ - Time bomb
+ - Triggered bomb
+ - Rear gun
+
+ Surveillience Systems
+  - Camera
+  - 
+
+Staff
+ - Engineer
+ - Scientist
+ - Drone Pilot
+ - 
+
+Home base
+ - Parkin slot
+ - Repair KIT
+ - Storage capacity
+    - Missile
+    - Ammo
+    - Mines
+
+Stats Improvements
+
+Defense armory
+
+Game Persistency
+ - Auth
+ - WebServer
+
+Multi Player
+
+Destroyable obstacles
+
+Minimap
+
+Fog of war
+
+
+
+- Player is rated based on wins / looses
+- Player starts in home base which can be left and entered at any time
+- It is possible to setup defensive and surveilience systems on the map
+- The player has to destroy the opponent headquarter
+- Before the game starts the player can select which items are stored in the headquarter
+- Player can buy/level tanks
+- Player can level/extened headquater
+- NPC are placed on the map that fight both enemies
+

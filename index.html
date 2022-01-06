@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <script src="playerStats.js"></script>
+    <title>Tanx2 - Return of the XGreen Tanx</title>
+    <a href="game.html" target="_self" class="">Play</a>
+</head>
+<body>
+    <h1>Tanx 2 - The ultimate challange</h1>
+    <button id="startButton" type="button">Start new Game</button>
+</body>
+</html>
+
+
+<script type="text/javascript">
+    PlayerStats.reset()
+
+    document.getElementById("startButton").onclick = function () {
+        location.href = "main.html"
+    };
+</script>
