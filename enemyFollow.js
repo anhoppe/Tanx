@@ -9,13 +9,25 @@ class EnemyFollow extends Enemy
 
     move(player)
     {
-        var vector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
+        this.vector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
 
-        vector.normalize()
-        vector.scale(this._velocity)
+        this.vector.normalize()
+        this.vector.scale(this._velocity)
 
-        this.sprite.setVelocityX(vector.x)
-        this.sprite.setVelocityY(vector.y)
-        this.sprite.setRotation(vector.angle())
+        this.sprite.setVelocityX(this.vector.x)
+        this.sprite.setVelocityY(this.vector.y)
+        this.sprite.setRotation(this.vector.angle())
     }
+
+    fire(round, player)
+    {
+        if (!round.isFiring())
+        {
+            var x = this.sprite.x
+            var y = this.sprite.y
+
+            round.fire(x, y, x + this.vector.x, y + this.vector.y)
+        }
+    }
+
 }

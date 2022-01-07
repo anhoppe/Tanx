@@ -27,6 +27,7 @@ class Enemy extends Combatant
         for (const [key, enemyData] of Object.entries(data)) 
         {
             var enemy = 0
+
             if (enemyData.name == 'base')
             {
                 enemy = new Enemy(scene, group, enemyData, obstacles)

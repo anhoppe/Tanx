@@ -28,6 +28,11 @@ class Player extends Combatant
         this.baseSprite.y = this.turretSprite.y = posVector.y
     }
 
+    getPosition()
+    {
+        return new Phaser.Math.Vector2(this.baseSprite.x, this.baseSprite.y)
+    }
+
     activate(startPosition)
     {
         this.setPosition(startPosition)

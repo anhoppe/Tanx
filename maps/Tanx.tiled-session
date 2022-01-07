@@ -1,0 +1,134 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+        "E:/code/Tanx/assets",
+        ".",
+        "E:/code/Tanx2/assets"
+    ],
+    "file.lastUsedOpenFilter": "Tiled map files (*.tmx *.xml)",
+    "fileStates": {
+        "": {
+            "scaleInEditor": 1
+        },
+        "E:/code/Tanx2/assets/level1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 3128.666666666666,
+                "y": 634
+            }
+        },
+        "E:/code/Tanx2/assets/level1.tmx#background": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/code/Tanx2/assets/level1.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "E:/code/Tanx2/maps/background.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/code/Tanx2/maps/enemies.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1.5
+        },
+        "E:/code/Tanx2/maps/level1.tmx": {
+            "scale": 0.75,
+            "selectedLayer": -1,
+            "viewCenter": {
+                "x": 1470.6666666666665,
+                "y": 2456
+            }
+        },
+        "E:/code/Tanx2/maps/level1.tmx#background": {
+            "scaleInDock": 1
+        },
+        "E:/code/Tanx2/maps/level1.tmx#enemies": {
+            "scaleInDock": 1
+        },
+        "E:/code/Tanx2/maps/level1.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "E:/code/Tanx2/maps/obstacles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "E:/code/robot-e/map/world.tmx": {
+            "scale": 1,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 438,
+                "y": 2857
+            }
+        },
+        "level1.tmx": {
+            "scale": 0.1292890625,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 8450.057405281286,
+                "y": 4667.834914496345
+            }
+        },
+        "level1.tmx#background": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "level2.tmx": {
+            "scale": 0.258578125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 2248.8367877213127,
+                "y": 1330.3522871472596
+            }
+        },
+        "level2.tmx#background": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level2.tmx#obstacles": {
+            "scaleInDock": 1
+        }
+    },
+    "last.exportedFilePath": "E:/code/Tanx2/assets",
+    "last.imagePath": "E:/code/Tanx2/maps",
+    "last.objectTemplatePath": "E:/code/Tanx2/assets",
+    "map.fixedSize": true,
+    "map.height": 100,
+    "map.lastUsedExportFilter": "JSON map files (*.json)",
+    "map.lastUsedFormat": "tmx",
+    "map.orientation": 1,
+    "map.tileHeight": 64,
+    "map.tileWidth": 64,
+    "map.width": 100,
+    "openFiles": [
+    ],
+    "project": "Tanx.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "level1.tmx",
+        "level2.tmx",
+        "E:/code/Tanx2/assets/level1.tmx",
+        "E:/code/Tanx2/maps/enemies.tsx",
+        "E:/code/Tanx2/maps/obstacles.tsx",
+        "E:/code/Tanx2/maps/background.tsx",
+        "E:/code/Tanx2/maps/level1.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.margin": 0,
+    "tileset.spacing": 0,
+    "tileset.tileSize": {
+        "height": 64,
+        "width": 64
+    },
+    "tileset.transparentColor": "#ff00ff",
+    "tileset.type": 0,
+    "tileset.useTransparentColor": false
+}

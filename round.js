@@ -23,7 +23,7 @@ class Round
 
     fire(xFrom, yFrom, xTo, yTo)
     {
-        if (this.isMinTimeElapsed())
+        if (this.isMinTimeElapsed() && !this.isFiring())
         {
             this._lastFireTimeSec = Date.now() / 1000
             this._roundFiring = true
@@ -36,7 +36,7 @@ class Round
                 this._roundFiring = false
 
                 this.setExplosion(round)
-        }, null, this.scene)
+            }, null, this.scene)
 
         }
     }
@@ -60,14 +60,14 @@ class Round
             }
 
             this.scene.physics.add.overlap(this.roundSprite, combatantGroup, (round, combatantSprite) => 
-                { 
-                    round.destroy()
-                    this._roundFiring = false
+            { 
+                round.destroy()
+                this._roundFiring = false
 
-                    this.setExplosion(round)
+                this.setExplosion(round)
 
-                    onRoundHitCallback(combatantSprite, this.damage)
-                }, null, this.scene)
+                onRoundHitCallback(combatantSprite, this.damage)
+            }, null, this.scene)
         }
     }
 
