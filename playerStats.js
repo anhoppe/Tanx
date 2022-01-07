@@ -10,6 +10,7 @@ class PlayerStats
         localStorage.shootDelaySec = JSON.stringify(3)
         localStorage.hitPoints = JSON.stringify(50)
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
+        localStorage.repairKitCount = JSON.stringify(0)
     }
 
     static getMoney()
@@ -69,19 +70,57 @@ class PlayerStats
         return -1
     }
 
+    static debitMoney(amount)
+    {
+        if (PlayerStats.getMoney() >= amount)
+        {
+            PlayerStats.removeMoney(amount)
+            return true
+        }
+
+        return false
+    }
+
     static buyShootDelayDecrease()
     {
-        var price = this.getCostsShootDelayDecrease()
+        var price = PlayerStats.getCostsShootDelayDecrease()
         if (price != -1)
         {
-            if (this.getMoney() >= this.getCostsShootDelayDecrease())
+            if (PlayerStats.debitMoney(price))
             {
-                 this.removeMoney(price)
-                 
-                 var currentDelySec = JSON.parse(localStorage.shootDelaySec)
-                 localStorage.shootDelaySec = JSON.stringify(currentDelySec - 0.5)
+                var currentDelySec = JSON.parse(localStorage.shootDelaySec)
+                localStorage.shootDelaySec = JSON.stringify(currentDelySec - 0.5)
             }
         }
+    }
+
+    static buyRepairKit()
+    {
+        var price = HqStats.getCostsRepairKit()
+        if (PlayerStats.debitMoney(price))
+        {
+            var repairKitCount = JSON.parse(localStorage.repairKitCount)
+            localStorage.repairKitCount = JSON.stringify(repairKitCount + 1)
+        }
+    }
+
+    static useRepairKit()
+    {
+        if (PlayerStats.Player.hitPoints < PlayerStats.getHitPoints())
+        {
+            var repairKitCount = JSON.parse(localStorage.repairKitCount)
+
+            if (repairKitCount > 0)
+            {
+                localStorage.repairKitCount = JSON.stringify(repairKitCount - 1)
+                PlayerStats.Player.hitPoints += 20
+            }
+        }
+    }
+
+    static getRepairKitCount()
+    {
+        return JSON.parse(localStorage.repairKitCount)
     }
 
     static getRoundDamage()

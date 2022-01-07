@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="playerStats.js"></script>
+        <script src="hqStats.js"></script>
+        <title>Maintain your Headquarter</title>
+        <style>
+            .myDiv {
+                border: 5px outset lightseagreen;
+                background-color: lightblue;    
+                text-align: center;
+            }
+            .btn {
+                background-color:red;
+                font:bold 14px Arial;
+                width:200;
+                height:100;
+                background-color:lightsteelblue;
+                vertical-align: middle;
+            }
+            .btn-group button {
+                background-color: #04AA6D; /* Green background */
+                border: 1px solid green; /* Green border */
+                color: white; /* White text */
+                padding: 10px 24px; /* Some padding */
+                cursor: pointer; /* Pointer/hand icon */
+                width: 50%; /* Set a width if needed */
+                /* display: block; Make the buttons appear below each other */
+                text-align: center;
+                vertical-align: middle;
+                }
+
+                .btn-group button:not(:last-child) {
+                border-bottom: none; /* Prevent double borders */
+                }
+
+                /* Add a background color on hover */
+                .btn-group button:hover {
+                background-color: #3e8e41;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="myDiv">
+            <h2>Buy equipment and get ready for the next battle</h2>
+            <label id="moneyLabel"></label>
+            <div class="btn-group">
+                <button id="repairKitButton" type="button" class=btn>Buy repair KIT</button>
+                <button id="backButton" type="button" class=btn>Back</button>   
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    
+    document.getElementById("repairKitButton").onclick = function () {
+        PlayerStats.buyRepairKit()
+        update()
+    }
+
+    document.getElementById("backButton").onclick = function () {
+        location.href = "main.html"
+    }
+
+    update()
+
+    function update()
+    {
+        document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
+
+        document.getElementById("repairKitButton").innerHTML = "Buy repair KIT (" + HqStats.getCostsRepairKit() + "€)"
+
+    }
+</script>

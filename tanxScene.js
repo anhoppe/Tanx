@@ -8,7 +8,7 @@ class TanxScene extends Phaser.Scene
 
     preload()
     {
-        this.load.html('hqMenu', 'assets/hq.html')
+        this.load.html('hqWarMenu', 'assets/hqWarMenu.html')
         this.load.image('round', 'assets/round.png')
     
         this.load.image('brum-boss', 'assets/brum_boss.png')
@@ -32,7 +32,6 @@ class TanxScene extends Phaser.Scene
     
     create()
     {
-
         // Create animations for explosion
         this.anims.create({
             key: 'explosion',
@@ -88,17 +87,21 @@ class TanxScene extends Phaser.Scene
     
     update()
     {
-        this.player.move(this.enemyGroup, (sprite, damage) => {
-            this.enemies.forEach(enemy => {
-                if (enemy.sprite === sprite)
-                {
-                    enemy.takeDamage(damage)
-                }
+        if (!this.hq.isActive())
+        {
+            this.player.move(this.enemyGroup, (sprite, damage) => {
+                this.enemies.forEach(enemy => {
+                    if (enemy.sprite === sprite)
+                    {
+                        enemy.takeDamage(damage)
+                    }
+                })
             })
-        })
+        }
+
         this.player.fire()
 
-        this.hq.displayMenuOnCollision(this.physics, this.player.baseSprite)
+        this.hq.displayMenuOnCollision(this.physics, this.player)
         
         this.updateEnemies()
         this.checkGameFinished()
@@ -110,7 +113,10 @@ class TanxScene extends Phaser.Scene
 
         this.enemies.forEach(enemy => {
             enemy.update(this.player.baseSprite, (sprite, damage) => {
-                this.player.takeDamage(damage)
+                if (!this.hq.isActive())
+                {
+                    this.player.takeDamage(damage)
+                }
             })
 
             if (!enemy.sprite.active)

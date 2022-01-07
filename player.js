@@ -28,6 +28,21 @@ class Player extends Combatant
         this.baseSprite.y = this.turretSprite.y = posVector.y
     }
 
+    activate(startPosition)
+    {
+        this.setPosition(startPosition)
+        this.baseSprite.visible = true
+        this.turretSprite.visible = true
+    }
+
+    deactivate()
+    {
+        this.baseSprite.visible = false
+        this.turretSprite.visible = false
+        this.playerSpriteGroup.setVelocityX(0)
+        this.playerSpriteGroup.setVelocityY(0)
+    }
+
     move(enemyGroup, onRoundHitCallback)
     {
         if (this.hitPoints <= 0)
