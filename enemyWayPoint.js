@@ -2,6 +2,7 @@ class EnemyWayPoint extends Enemy
 {
     MIN_WAY_POINT_DIST_SQUARE = 9
     FireRangeSquare = 300000
+    ChasingRange = 200000
     RotationSpeedRad = 0.03
 
     constructor(scene, group, enemyData, obstacles,  wayPoints)
@@ -29,13 +30,14 @@ class EnemyWayPoint extends Enemy
         }
 
         this.currentDirectionVector = new Phaser.Math.Vector2(1, 0)
+        this.followsPlayer = false
     }
 
     move(playerSprite)
     {
         var currentPos = new Phaser.Math.Vector2(this.sprite.x, this.sprite.y)
         
-        this.setupNextWayPoint(currentPos)
+        this.setupNextWayPoint(currentPos, playerSprite)
 
         var directionToWayPointVector = new Phaser.Math.Vector2(this.currentWayPoint)
         directionToWayPointVector.subtract(currentPos)
@@ -79,9 +81,22 @@ class EnemyWayPoint extends Enemy
         return this.polyline[this.index]
     }
 
-    setupNextWayPoint(currentPos)
+    setupNextWayPoint(currentPos, playerSprite)
     {
-        if (this.currentWayPoint.distanceSq(currentPos) <= this.MIN_WAY_POINT_DIST_SQUARE)
+        var playerPos = new Phaser.Math.Vector2(playerSprite.x, playerSprite.y)
+
+        if (currentPos.distanceSq(playerPos) <= this.ChasingRange)
+        {
+            this.followsPlayer = true
+            this.currentWayPoint = playerPos
+        }
+        else
+        {
+            this.followsPlayer = false
+            this.currentWayPoint = this.getCurrentWayPoint()
+        }
+        
+        if (!this.followsPlayer && this.currentWayPoint.distanceSq(currentPos) <= this.MIN_WAY_POINT_DIST_SQUARE)
         {
             this.index++
             if (this.index == this.polyline.length)

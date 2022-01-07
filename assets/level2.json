@@ -9,7 +9,7 @@
          "name":"Background",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":50,
          "x":0,
          "y":0
@@ -21,7 +21,7 @@
          "name":"Obstacles",
          "opacity":1,
          "type":"tilelayer",
-         "visible":false,
+         "visible":true,
          "width":50,
          "x":0,
          "y":0
@@ -360,10 +360,32 @@
                  "width":62,
                  "x":196,
                  "y":2880
+                }, 
+                {
+                 "height":60,
+                 "id":31,
+                 "name":"base",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"250"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"gun"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":58,
+                 "x":1478,
+                 "y":2942
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -816,7 +838,7 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":false,
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -843,7 +865,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":31,
+ "nextobjectid":32,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

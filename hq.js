@@ -29,12 +29,19 @@ class Hq
             }
         });
 
-        this.hqSprite = scene.physics.add.sprite(hqObject.x, hqObject.y, 'hq')
+        this.hqSpriteGroup = scene.physics.add.staticGroup()
+        this.hqSprite = this.hqSpriteGroup.create(hqObject.x, hqObject.y, 'hq')
+        // this.hqSprite = scene.physics.add.sprite(hqObject.x, hqObject.y, 'hq')
 
         this.playerStartPosition = new Phaser.Math.Vector2(hqObject.x, hqObject.y - hqObject.height)
         player.setPosition(this.playerStartPosition)
 
         hq_global_variable = this
+    }
+
+    setupCollision(physics, spriteGroup)
+    {
+        physics.add.collider(this.hqSpriteGroup, spriteGroup)
     }
 
     displayMenuOnCollision(physics, player)

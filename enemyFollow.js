@@ -29,5 +29,4 @@ class EnemyFollow extends Enemy
             round.fire(x, y, x + this.vector.x, y + this.vector.y)
         }
     }
-
 }

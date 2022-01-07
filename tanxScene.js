@@ -14,6 +14,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('brum-boss', 'assets/brum_boss.png')
         this.load.image('enemy', 'assets/enemy.png')
         this.load.image('turret', 'assets/turret.png')
+        this.load.image('gun', 'assets/gun.png')
 
         this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
@@ -76,6 +77,7 @@ class TanxScene extends Phaser.Scene
         Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.obstacles, wayPoints)
         this.physics.add.collider(this.enemyGroup, this.obstacles);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
+        this.hq.setupCollision(this.physics, this.enemyGroup)
         this.physics.add.collider(this.enemyGroup, this.hq.hqSprite)
 
         // World bounds
