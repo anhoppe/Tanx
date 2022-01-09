@@ -10,6 +10,7 @@
     <script src="enemyFollow.js"></script> 
     <script src="enemyWayPoint.js"></script> 
     <script src="phaser.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/phaser-raycaster@0.10.2/dist/phaser-raycaster.min.js"></script>
     <script src="player.js"></script>
     <script src="playerStats.js"></script>
     <script src="round.js"></script>
@@ -31,13 +32,6 @@
     var config = {
         title: 'Tanx - prepare for inner greeness',
         type: Phaser.WEBGL,
-        // scale: {
-        //     mode: Phaser.Scale.FIT,
-        //     // parent: 'phaser-example',
-        //     autoCenter: Phaser.Scale.CENTER_BOTH,
-        //     width: 1280,
-        //     height: 1024
-        // },
 
         scale: {
             mode: Phaser.Scale.ScaleModes.NONE,
@@ -49,12 +43,6 @@
             antialiasGL: false,
             pixelArt: true,
         },
-        // scale: {
-        //     mode: Phaser.Scale.ENVELOP,
-        //     autoCenter: Phaser.Scale.CENTER_BOTH,
-        //     width: 1920,
-        //     height: 1080,
-        // },
         autoFocus: true,
         canvasStyle: `display: block; width: 100%; height: 100%;`,
         physics: {
@@ -66,7 +54,16 @@
         dom: {
             createContainer: true
         },
-        scene: [TanxScene, StatusScene]
+        scene: [TanxScene, StatusScene],
+        plugins: {
+            scene: [
+                {
+                    key: 'PhaserRaycaster',
+                    plugin: PhaserRaycaster,
+                    mapping: 'raycasterPlugin'
+                }
+            ]
+        }
     };
 
     var game = new Phaser.Game(config);

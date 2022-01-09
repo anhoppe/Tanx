@@ -33,7 +33,7 @@ class EnemyWayPoint extends Enemy
         this.followsPlayer = false
     }
 
-    move(playerSprite)
+    move(playerSprite, ray)
     {
         var currentPos = new Phaser.Math.Vector2(this.sprite.x, this.sprite.y)
         

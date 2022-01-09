@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "level1.tmx",
     "expandedProjectPaths": [
         "E:/code/Tanx/assets",
         ".",
@@ -67,11 +67,11 @@
             }
         },
         "level1.tmx": {
-            "scale": 0.1292890625,
-            "selectedLayer": 0,
+            "scale": 0.5,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 8450.057405281286,
-                "y": 4667.834914496345
+                "x": 2041,
+                "y": 2294
             }
         },
         "level1.tmx#background": {
@@ -81,11 +81,11 @@
             "scaleInDock": 1
         },
         "level2.tmx": {
-            "scale": 0.258578125,
-            "selectedLayer": 0,
+            "scale": 0.5,
+            "selectedLayer": 1,
             "viewCenter": {
-                "x": 2248.8367877213127,
-                "y": 1330.3522871472596
+                "x": 1599,
+                "y": 1599
             }
         },
         "level2.tmx#background": {
@@ -97,23 +97,25 @@
         }
     },
     "last.exportedFilePath": "E:/code/Tanx/assets",
-    "last.imagePath": "E:/code/Tanx2/maps",
+    "last.imagePath": "E:/code/Tanx/assets",
     "last.objectTemplatePath": "E:/code/Tanx2/assets",
     "map.fixedSize": true,
-    "map.height": 100,
+    "map.height": 50,
     "map.lastUsedExportFilter": "JSON map files (*.json)",
     "map.lastUsedFormat": "tmx",
     "map.orientation": 1,
     "map.tileHeight": 64,
     "map.tileWidth": 64,
-    "map.width": 100,
+    "map.width": 50,
     "openFiles": [
+        "level2.tmx",
+        "level1.tmx"
     ],
     "project": "Tanx.tiled-project",
     "property.type": "string",
     "recentFiles": [
-        "level1.tmx",
         "level2.tmx",
+        "level1.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
         "E:/code/Tanx2/maps/obstacles.tsx",

@@ -50,7 +50,7 @@ class Enemy extends Combatant
         }
     }
     
-    update(playerSprite, onRoundHitCallback)
+    update(playerSprite, onRoundHitCallback, ray)
     {
         if (this.sprite.active)
         {
@@ -61,7 +61,7 @@ class Enemy extends Combatant
             }
             else
             {
-                this.move(playerSprite)
+                this.move(playerSprite, ray)
                 this.fire(this.round, playerSprite)    
             }
         }
@@ -73,7 +73,7 @@ class Enemy extends Combatant
         this.healthBar.scaleX = this.hitPoints / this.hitPointsMax
     }
 
-    move(player)
+    move(player, ray)
     {
         var vector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
 

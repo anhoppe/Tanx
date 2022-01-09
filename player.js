@@ -20,6 +20,8 @@ class Player extends Combatant
         this.round = new Round(scene, obstacles, PlayerStats.getShootDelaySec(), PlayerStats.getRoundDamage())
 
         this.drivingAngleRad = 0
+
+        this.primaryGun = 0
     }
 
     setPosition(posVector)
@@ -89,8 +91,8 @@ class Player extends Combatant
         
             this.baseSprite.setRotation(this.drivingAngleRad)
 
-            this.playerSpriteGroup.setVelocityX(-Math.sin(this.drivingAngleRad) * velocityY)
-            this.playerSpriteGroup.setVelocityY(Math.cos(this.drivingAngleRad) * velocityY)
+            this.playerSpriteGroup.setVelocityX(-Math.cos(this.drivingAngleRad) * velocityY)
+            this.playerSpriteGroup.setVelocityY(-Math.sin(this.drivingAngleRad) * velocityY)
         }
 
         this.round.update(enemyGroup, onRoundHitCallback)
