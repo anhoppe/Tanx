@@ -1,0 +1,3 @@
+In-game - The active battle in which the player steers the selected tank / unit
+HQ-menu - Menu that is visible when the player enters the HQ during in-game
+Out-of-game - HTML menus to upgrade stats / start next battle
