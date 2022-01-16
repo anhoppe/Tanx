@@ -32,7 +32,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('background', 'assets/background.png')
         this.load.image('obstacles', 'assets/obstacles.png')
 
-        this.load.tilemapTiledJSON('tilemap', 'assets/level2.json')
+        this.load.tilemapTiledJSON('tilemap', 'assets/level3.json')
     }
     
     create()

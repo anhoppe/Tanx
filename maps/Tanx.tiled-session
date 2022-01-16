@@ -70,8 +70,8 @@
             "scale": 0.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 2041,
-                "y": 2294
+                "x": 2552,
+                "y": 2286
             }
         },
         "level1.tmx#background": {
@@ -82,10 +82,10 @@
         },
         "level2.tmx": {
             "scale": 0.5,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1599,
-                "y": 1599
+                "x": 1458,
+                "y": -56
             }
         },
         "level2.tmx#background": {
@@ -93,6 +93,20 @@
             "scaleInEditor": 1
         },
         "level2.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "level3.tmx": {
+            "scale": 0.3360625,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 1362.8417333085363,
+                "y": 1597.9170541193973
+            }
+        },
+        "level3.tmx#background": {
+            "scaleInDock": 1
+        },
+        "level3.tmx#obstacles": {
             "scaleInDock": 1
         }
     },
