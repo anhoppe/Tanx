@@ -5,9 +5,9 @@
     },
     "activeFile": "level1.tmx",
     "expandedProjectPaths": [
+        "E:/code/Tanx2/assets",
         "E:/code/Tanx/assets",
-        ".",
-        "E:/code/Tanx2/assets"
+        "."
     ],
     "file.lastUsedOpenFilter": "Tiled map files (*.tmx *.xml)",
     "fileStates": {
@@ -70,8 +70,8 @@
             "scale": 0.5,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 2041,
-                "y": 2294
+                "x": 2552,
+                "y": 2286
             }
         },
         "level1.tmx#background": {
@@ -82,9 +82,9 @@
         },
         "level2.tmx": {
             "scale": 0.5,
-            "selectedLayer": 1,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 1599,
+                "x": 1600,
                 "y": 1599
             }
         },
@@ -93,6 +93,20 @@
             "scaleInEditor": 1
         },
         "level2.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "level3.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 782,
+                "y": 836
+            }
+        },
+        "level3.tmx#background": {
+            "scaleInDock": 1
+        },
+        "level3.tmx#obstacles": {
             "scaleInDock": 1
         }
     },
@@ -109,12 +123,14 @@
     "map.width": 50,
     "openFiles": [
         "level2.tmx",
-        "level1.tmx"
+        "level1.tmx",
+        "level3.tmx"
     ],
     "project": "Tanx.tiled-project",
     "property.type": "string",
     "recentFiles": [
         "level2.tmx",
+        "level3.tmx",
         "level1.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
