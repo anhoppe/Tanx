@@ -144,7 +144,7 @@ class TanxScene extends Phaser.Scene
     {
         if (this.enemies == 0)
         {
-            PlayerStats.incMaxLevel()
+            PlayerStats.incMaxLevelReached()
 
             this.game.destroy(true, true)
             this.enemies = []
