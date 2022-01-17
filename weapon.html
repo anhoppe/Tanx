@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="playerStats.js"></script>
+        <title>Tanx2 - Return of the Killer Tanx</title>
+        <link rel="stylesheet" href="styles.css">
+       
+    </head>
+    <body>
+        <div class="myDiv">
+            <h2>Tanx2 - Boost up your war effectiveness</h2>
+            <label id="moneyLabel"></label>
+            <div id="weaponUpgrades" class="btn-group">
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    var index = JSON.parse(localStorage.selectedWeaponForUpgradeIndex)
+
+    var weapon = PlayerStats.getWeaponByIndex(index)
+
+    var priceLookup = {}
+
+    for (const [key, value] of Object.entries(weapon.stats))
+    {
+        var button = document.createElement("button")
+        button.setAttribute("id", key)
+        button.setAttribute("type", "button")
+        button.setAttribute("class", "btn")
+
+        document.getElementById("weaponUpgrades").appendChild(button)
+    }
+
+    var button = document.createElement("button")
+    button.setAttribute("type", "button")
+    button.setAttribute("class", "btn")
+    button.innerHTML = "Back"
+    button.onclick = function () {
+        location.href = "main.html"
+    }
+    document.getElementById("weaponUpgrades").appendChild(button)
+
+    update()
+
+    function update()
+    {
+        document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
+            
+        weapon = PlayerStats.getWeaponByIndex(index)
+
+        for (const [key, value] of Object.entries(weapon.stats))
+        {
+            var price = Math.pow(2, weapon.stats[key].incCount) * weapon.stats[key].basePrice
+            
+            var button = document.getElementById(key)
+            button.setAttribute("price", price)
+            button.innerHTML = key + " (" + price + ")"
+            priceLookup[key] = price
+
+            button.onclick = (event) => {
+                var id = event.srcElement.id
+                var price = priceLookup[id]
+                if (PlayerStats.debitMoney(price))
+                {
+                    PlayerStats.upgradeWeapon(index, id)
+                }
+
+                update()
+            }
+        }
+    }
+</script>

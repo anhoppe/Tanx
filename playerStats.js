@@ -4,17 +4,21 @@ class PlayerStats
     static Player = 0
 
     // Absolute number of levels that are available
-    static TotalLevelCount = 2
+    static TotalLevelCount = 3
 
     static reset()
     {
         localStorage.maxLevelReached = JSON.stringify(1)
         localStorage.currentLevel = JSON.stringify(1)
-        localStorage.money = JSON.stringify(0)
-        localStorage.shootDelaySec = JSON.stringify(3)
+        localStorage.money = JSON.stringify(1000)
         localStorage.hitPoints = JSON.stringify(50)
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
         localStorage.repairKitCount = JSON.stringify(0)
+
+        var weapons = [Weapon.FactoryFromName("gun")]
+        localStorage.primaryWeapons = JSON.stringify(weapons)
+
+        localStorage.mountedPrimaryWeaponIndex = JSON.stringify(0)
     }
 
     static getMoney()
@@ -72,11 +76,13 @@ class PlayerStats
         return JSON.parse(localStorage.rotationSpeedRad)
     }
 
+    // Deprecated
     static getShootDelaySec()
     {
         return JSON.parse(localStorage.shootDelaySec)
     }
 
+    // Deprecated
     static getCostsShootDelayDecrease()
     {
         var currentDelySec = JSON.parse(localStorage.shootDelaySec)
@@ -87,6 +93,96 @@ class PlayerStats
         }
 
         return -1
+    }
+
+    static getAllTanksOwnedByPlayer()
+    {
+        return [
+            {
+                index: 0,
+                name: "ant",
+                shopImage: "assets/shop_tank_ant.png"
+            }
+        ]
+    }
+
+    static getAllWeaponsOwnedByPlayer()
+    {
+        var weapons = JSON.parse(localStorage.primaryWeapons)
+
+        var count = 0
+        for (weapon of weapons)
+        {
+            weapon.index = count++
+        }
+
+        return weapons
+    }
+
+    static addWeapon(weaponName)
+    {
+        var weapons = JSON.parse(localStorage.primaryWeapons)
+
+        weapons.push(Weapon.FactoryFromName(weaponName))
+     
+        localStorage.primaryWeapons = JSON.stringify(weapons)
+    }
+
+    static getBuyableWeapons()
+    {
+        return [{
+            index: 0,
+            name: "gun",
+            price: 200,
+            shopImage: "assets/shop_gun.png"
+        },
+        {
+            index: 1,
+            name: "rearGun",
+            price: 500,
+            shopImage: "assets/shop_rearGun.png"
+        },
+        {
+            index: 2,
+            name: "spreadGun",
+            price: 1000,
+            shopImage: "assets/shop_spread_gun.png"
+        },
+    ]
+    }
+
+    static getWeaponByIndex(index)
+    {
+        var weapons = JSON.parse(localStorage.primaryWeapons)
+        
+        return weapons[index]
+    }
+
+    static setMountedPrimaryWeaponIndex(index)
+    {
+        localStorage.mountedPrimaryWeaponIndex = JSON.stringify(index)
+    }
+
+    static getActiveWeapon(scene, obstacles)
+    {
+        var weapons = JSON.parse(localStorage.primaryWeapons)
+        var index = parseInt(JSON.parse(localStorage.mountedPrimaryWeaponIndex))
+        var activeWeaponTemplate = weapons[index]
+
+        var activeWeapon = Weapon.FactoryFromTemplate(activeWeaponTemplate)
+        activeWeapon.scene = scene
+        activeWeapon.obstacles = obstacles
+
+        return activeWeapon
+    }
+
+    static upgradeWeapon(index, statName)
+    {
+        var weapons = JSON.parse(localStorage.primaryWeapons)
+        var weapon = weapons[index]
+        var oldStats = weapon.stats[statName]
+        weapon.stats[statName] = {value: oldStats.value+oldStats.incLevel, incCount: oldStats.incCount+1, incLevel: oldStats.incLevel, basePrice: oldStats.basePrice}
+        localStorage.primaryWeapons = JSON.stringify(weapons)
     }
 
     static debitMoney(amount)

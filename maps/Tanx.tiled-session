@@ -69,8 +69,8 @@
             "scale": 0.33,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 1793.939393939394,
-                "y": 1321.212121212121
+                "x": 2552,
+                "y": 2286
             }
         },
         "level1.tmx#background": {
@@ -95,11 +95,11 @@
             "scaleInDock": 1
         },
         "level3.tmx": {
-            "scale": 0.5,
+            "scale": 0.3360625,
             "selectedLayer": 2,
             "viewCenter": {
-                "x": 782,
-                "y": 836
+                "x": 1362.8417333085363,
+                "y": 1597.9170541193973
             }
         },
         "level3.tmx#background": {

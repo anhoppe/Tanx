@@ -118,13 +118,10 @@ class EnemyFollow extends Enemy
 
     fire(round, player)
     {
-        if (!round.isFiring())
-        {
-            var x = this.sprite.x
-            var y = this.sprite.y
+        var x = this.sprite.x
+        var y = this.sprite.y
 
-            round.fire(x, y, x + this.vector.x, y + this.vector.y)
-        }
+        round.fire(x, y, x + this.vector.x, y + this.vector.y)
     }
 
     isMinTimeElapsed()

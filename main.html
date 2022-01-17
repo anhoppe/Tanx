@@ -2,79 +2,8 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Verdana;}
-
-/* Style the tab */
-.tab {
-  overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
-}
-
-/* Style the buttons inside the tab */
-.tab button {
-  background-color: inherit;
-  float: left;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  padding: 14px 16px;
-  transition: 0.3s;
-  font-size: 17px;
-}
-
-/* Change background color of buttons on hover */
-.tab button:hover {
-  background-color: #ddd;
-}
-
-/* Create an active/current tablink class */
-.tab button.active {
-  background-color: #ccc;
-}
-
-/* Style the tab content */
-.tabcontent {
-  display: none;
-  padding: 6px 12px;
-  border: 1px solid #ccc;
-  border-top: none;
-  border: 5px outset lightseagreen;
-  background-color: lightblue;    
-  text-align: center;
-}
-
-.btn {
-    background-color:red;
-    font:bold 14px Arial;
-    width:200;
-    height:100;
-    background-color:lightsteelblue;
-    vertical-align: middle;
-}
-.btn-group button {
-    background-color: #04AA6D; /* Green background */
-    border: 1px solid green; /* Green border */
-    color: white; /* White text */
-    padding: 10px 24px; /* Some padding */
-    cursor: pointer; /* Pointer/hand icon */
-    width: 50%; /* Set a width if needed */
-    /* display: block; Make the buttons appear below each other */
-    text-align: center;
-    vertical-align: middle;
-    }
-
-    .btn-group button:not(:last-child) {
-    border-bottom: none; /* Prevent double borders */
-    }
-
-    /* Add a background color on hover */
-    .btn-group button:hover {
-    background-color: #3e8e41;
-}
-          
-</style>
+<script src="playerStats.js"></script>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -83,6 +12,7 @@ body {font-family: Verdana;}
 <div class="tab">
   <button class="tablinks" onclick="onTabClick(event, 'Home')">Home</button>
   <button class="tablinks" onclick="onTabClick(event, 'Tank')">Tanks</button>
+  <button class="tablinks" onclick="onTabClick(event, 'Weapon')">Weapons</button>
   <button class="tablinks" onclick="onTabClick(event, 'HQ')">HQ</button>
 </div>
 
@@ -97,7 +27,21 @@ body {font-family: Verdana;}
 <div id="Tank" class="tabcontent">
   <h3>Maintain your Tanks</h3>
   <div class="btn-group">
+    <div id="tankShopImages" class="row">
+    </div>
     <button id="buyTankEquipmentButton" type="button" class=btn>Buy Equipment</button>
+    <button id="monuntWeaponToTank" type="button" class=btn>Mount Weapon</button>
+  </div>
+</div>
+
+<div id="Weapon" class="tabcontent">
+  <h3>Your weapon systems</h3>
+  <div class="btn-group">
+    <div id="weaponShopImages" class="row">
+    </div>
+    <button id="buyWeapon" type="button" class=btn>Buy</button>
+    <button id="sellWeapon" type="button" class=btn>Sell</button>
+    <button id="upgradeWeapon" type="button" class=btn>Upgrade</button>
   </div>
 </div>
 
@@ -109,54 +53,92 @@ body {font-family: Verdana;}
 </div>
 
 <script type="text/javascript">
-    document.getElementById("startButton").onclick = function () {
+  // Home
+  // Button events for the sub-tabs
+  document.getElementById("startButton").onclick = function () {
       location.href = "levelSelect.html"
-  };
+  }
 
   document.getElementById("quitButton").onclick = function () {
-      location.href = "index.html";
-  };
+      location.href = "index.html"
+  }
+
+  // Tank
+  var tanks = PlayerStats.getAllTanksOwnedByPlayer()
+  var tankLooup = {}
+  for (var tank of tanks)
+  {
+    tankLooup[tank.index] = tank.shopImage
+    var image = document.createElement("img");
+    image.setAttribute("src", tank.shopImage);
+
+    var column = document.createElement("column")
+    column.setAttribute("class", "column")
+    column.appendChild(image)
+
+    document.getElementById("tankShopImages").appendChild(column)
+  }
 
   document.getElementById("buyTankEquipmentButton").onclick = function () {
         location.href = "buy.html"
   }
+  document.getElementById("monuntWeaponToTank").onclick = function () {
+        location.href = "mountWeapon.html"
+  }
+  monuntWeaponToTank
 
+  // Weapons
+
+  // Add all weapons in player's stock to the visualization
+  var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
+  for (var weapon of weapons)
+  {
+    var image = document.createElement("img");
+    image.setAttribute("src", weapon.shopImage);
+    image.setAttribute("id", weapon.index)
+    
+    image.onclick = () => {
+      var index = parseInt(event.srcElement.id)
+
+      document.getElementById("upgradeWeapon").innerHTML = "Upgrade (" + weapons[index].type + ")"
+
+      localStorage.selectedWeaponForUpgradeIndex = JSON.stringify(index)
+    }
+    
+    var column = document.createElement("column")
+    column.setAttribute("class", "column")
+    column.appendChild(image)
+
+    document.getElementById("weaponShopImages").appendChild(column)
+  }
+
+  document.getElementById("buyWeapon").onclick = function() {
+    location.href = "weaponBuy.html"
+  }
+  document.getElementById("upgradeWeapon").onclick = function () {
+    location.href = "weapon.html"
+  }
+
+  // HQ
   document.getElementById("buyHqEquipmentButton").onclick = function () {
         location.href = "hq.html"
   }
+
+  // Select main tab
 function onTabClick(evt, tabName) {
   var i, tabcontent, tablinks;
-  tabcontent = document.getElementsByClassName("tabcontent");
+  tabcontent = document.getElementsByClassName("tabcontent")
   for (i = 0; i < tabcontent.length; i++) {
-    tabcontent[i].style.display = "none";
+    tabcontent[i].style.display = "none"
   }
-  tablinks = document.getElementsByClassName("tablinks");
+  tablinks = document.getElementsByClassName("tablinks")
   for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    tablinks[i].className = tablinks[i].className.replace(" active", "")
   }
-  document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active";
+  document.getElementById(tabName).style.display = "block"
+  evt.currentTarget.className += " active"
 }
 </script>
    
 </body>
-</html> 
-
-
-<!-- <script type="text/javascript">
-    
-    document.getElementById("currentLevelLabel").innerHTML = "Your current level: " + PlayerStats.getLevel()
-
-    document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
-    document.getElementById("startButton").onclick = function () {
-        location.href = "game.html"
-    };
-
-    document.getElementById("buyButton").onclick = function () {
-        location.href = "buy.html"
-    }
-
-    document.getElementById("quitButton").onclick = function () {
-        location.href = "index.html";
-    };
-</script> -->
+</html>
