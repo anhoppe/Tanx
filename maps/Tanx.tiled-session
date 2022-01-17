@@ -67,8 +67,8 @@
             }
         },
         "level1.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 4,
+            "scale": 0.33,
+            "selectedLayer": 0,
             "viewCenter": {
                 "x": 2552,
                 "y": 2286
@@ -85,7 +85,7 @@
             "selectedLayer": 2,
             "viewCenter": {
                 "x": 1458,
-                "y": -56
+                "y": 1594
             }
         },
         "level2.tmx#background": {
@@ -130,6 +130,7 @@
     "recentFiles": [
         "level2.tmx",
         "level1.tmx",
+        "level3.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
         "E:/code/Tanx2/maps/obstacles.tsx",
