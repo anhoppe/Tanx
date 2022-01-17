@@ -20,6 +20,8 @@ class TanxScene extends Phaser.Scene
 
         this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
 
         this.load.image('hq', 'assets/hq.png')
@@ -30,7 +32,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('background', 'assets/background.png')
         this.load.image('obstacles', 'assets/obstacles.png')
 
-        this.load.tilemapTiledJSON('tilemap', 'assets/level1.json')
+        this.load.tilemapTiledJSON('tilemap', 'assets/level3.json')
     }
     
     create()
@@ -70,7 +72,7 @@ class TanxScene extends Phaser.Scene
 
         this.cameras.main.setBounds(0, 0, 100*64, 100*64);
         this.cameras.main.startFollow(this.player.baseSprite);
-        // this.cameras.main.zoom = 2;
+        this.cameras.main.zoom = 2;
         this.physics.add.collider(this.player.playerSpriteGroup, this.obstacles, null, null, this);
 
         // Create HQ + HQ Meno

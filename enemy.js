@@ -1,7 +1,6 @@
 class Enemy extends Combatant
 {
     sprite = null
-    round = null
 
     constructor(scene, group, enemyData, obstacles)
     {
@@ -17,7 +16,18 @@ class Enemy extends Combatant
 
         this.moneyValue = 50
 
-        this.round = new Round(scene, obstacles, 3, 10)
+        var gunTemplate = {
+            stats: {
+                "damage": {value: 10},
+                "range": {value: 450},
+                "reloadDurationSec": {value: 3},
+                "roundSpeed": {value: 400},
+            },
+            shopImage: "assets/shop_gun.png"
+        }
+        this.weapon = new Gun(gunTemplate)
+        this.weapon.scene = scene
+        this.weapon.obstacles = obstacles
 
         this.healthBar = this.makeBar(scene, enemyData.x, enemyData.y - this.sprite.height, 0xcc306c)
     }
@@ -62,11 +72,11 @@ class Enemy extends Combatant
             else
             {
                 this.move(playerSprite, ray)
-                this.fire(this.round, playerSprite)    
+                this.fire(this.weapon, playerSprite)    
             }
         }
 
-        this.round.update(playerSprite, onRoundHitCallback)
+        this.weapon.update(playerSprite, onRoundHitCallback)
 
         this.healthBar.x = this.sprite.x - this.sprite.width / 2
         this.healthBar.y = this.sprite.y - this.sprite.height
@@ -83,13 +93,10 @@ class Enemy extends Combatant
 
     fire(round, player)
     {
-        if (!round.isFiring())
-        {
-            var x = this.sprite.x
-            var y = this.sprite.y
+        var x = this.sprite.x
+        var y = this.sprite.y
 
-            round.fire(x, y, player.x, player.y)
-        }
+        round.fire(x, y, player.x, player.y)
     }
 
     makeBar(scene, x, y, color)

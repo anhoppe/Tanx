@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="weapon.js"></script>
+        <script src="gun.js"></script>
+        <script src="playerStats.js"></script>
+        <title>Tanx2 - Return of the Killer Tanx</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>Buy new weapon systems</h3>
+        <div class="btn-group">
+          <div id="shopImages" class="row">
+          </div>
+          <button id="backButton" type="button" class=btn>Back</button>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+
+    var selectedWeaponToBuyIndex = 0
+
+    var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
+
+    for (var weapon of weapons)
+    {
+        var image = document.createElement("img")
+        image.setAttribute("src", weapon.shopImage)
+        image.setAttribute("id", weapon.index)
+        image.onclick = (event) => {
+            PlayerStats.setMountedPrimaryWeaponIndex(event.srcElement.id)
+        }
+
+        var column = document.createElement("column")
+        column.setAttribute("class", "column")
+        column.appendChild(image)
+
+        document.getElementById("shopImages").appendChild(column)
+    }
+
+    document.getElementById("backButton").onclick = function() {
+        location.href = "main.html"
+    }
+
+</script>
