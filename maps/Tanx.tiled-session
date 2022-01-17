@@ -67,11 +67,11 @@
             }
         },
         "level1.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 4,
+            "scale": 0.33,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 2041,
-                "y": 2294
+                "x": 1793.939393939394,
+                "y": 1321.212121212121
             }
         },
         "level1.tmx#background": {
@@ -84,8 +84,8 @@
             "scale": 0.5,
             "selectedLayer": 1,
             "viewCenter": {
-                "x": 1599,
-                "y": 1599
+                "x": 1458,
+                "y": 1594
             }
         },
         "level2.tmx#background": {
@@ -93,6 +93,20 @@
             "scaleInEditor": 1
         },
         "level2.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "level3.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 782,
+                "y": 836
+            }
+        },
+        "level3.tmx#background": {
+            "scaleInDock": 1
+        },
+        "level3.tmx#obstacles": {
             "scaleInDock": 1
         }
     },
@@ -116,6 +130,7 @@
     "recentFiles": [
         "level2.tmx",
         "level1.tmx",
+        "level3.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
         "E:/code/Tanx2/maps/obstacles.tsx",
