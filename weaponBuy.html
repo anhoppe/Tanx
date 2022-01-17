@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="weapon.js"></script>
+        <script src="gun.js"></script>
+        <script src="rearGun.js"></script>
+        <script src="spreadGun.js"></script>
+        <script src="playerStats.js"></script>
+        <title>Tanx2 - Return of the Killer Tanx</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>Buy new weapon systems</h3>
+        <label id="moneyLabel"></label>
+        <div class="btn-group">
+          <div id="shopImages" class="row">
+          </div>
+          <button id="buyWeapon" type="button" class=btn>Buy</button>
+          <button id="backButton" type="button" class=btn>Back</button>
+        </div>
+      
+    </body>
+</html>
+
+<script type="text/javascript">
+
+    var selectedWeaponToBuyIndex = 0
+
+    var weapons = PlayerStats.getBuyableWeapons()
+    var weaponIds = []
+
+    for (var weapon of weapons)
+    {
+        var image = document.createElement("img")
+        image.setAttribute("src", weapon.shopImage)
+        image.setAttribute("id", weapon.index)
+        weaponIds.push(weapon.index)
+        image.onclick = (event) => {
+            selectedWeaponToBuyIndex = weaponIds[event.srcElement.id]
+        }
+
+        var text = document.createElement("label")
+        text.innerHTML = weapon.price + "€"
+        
+        var column = document.createElement("column")
+        column.setAttribute("class", "column")
+        column.appendChild(image)
+        column.appendChild(text)
+
+        document.getElementById("shopImages").appendChild(column)
+    }
+
+    document.getElementById("buyWeapon").onclick = function() {
+        var weapons = PlayerStats.getBuyableWeapons()
+        var weapon = weapons[selectedWeaponToBuyIndex]
+        if (PlayerStats.debitMoney(weapon.price))
+        {
+            PlayerStats.addWeapon(weapon.name)
+        }
+        update()
+    }
+
+    document.getElementById("backButton").onclick = function() {
+        location.href = "main.html"
+    }
+
+    update()
+
+    function update()
+    {
+        document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
+    }
+</script>

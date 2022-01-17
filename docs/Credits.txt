@@ -1,0 +1,8 @@
+Credits
+=======
+
+Phaser-raycast
+https://wiserim.github.io/phaser-raycaster/
+
+Digital Camouflage
+https://forums.getpaint.net/topic/19292-digital-camouflage/

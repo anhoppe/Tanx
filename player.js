@@ -1,27 +1,25 @@
 class Player extends Combatant
 {
-    roundFiring = false;
-    roundSpeed = 500
-
     constructor(scene, obstacles, startPosition)
     {
         var hp = PlayerStats.getHitPoints()
         super(hp)
 
+        this.primaryGun = PlayerStats.getActiveWeapon(scene, obstacles)
+
         this.playerSpriteGroup = scene.physics.add.group()
 
         this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_base')
-        this.turretSprite = this.playerSpriteGroup.create(0, 0, 'player_turret')
+        this.turretSprite = this.playerSpriteGroup.create(0, 0, this.primaryGun.gameImage)
 
         this.baseSprite.setCollideWorldBounds(true)
         this.turretSprite.setCollideWorldBounds(true)
 
         this.input = scene.input
-        this.round = new Round(scene, obstacles, PlayerStats.getShootDelaySec(), PlayerStats.getRoundDamage())
+        this.round = PlayerStats.getActiveWeapon(scene, obstacles)
 
         this.drivingAngleRad = 0
 
-        this.primaryGun = 0
     }
 
     setPosition(posVector)
@@ -95,7 +93,7 @@ class Player extends Combatant
             this.playerSpriteGroup.setVelocityY(-Math.sin(this.drivingAngleRad) * velocityY)
         }
 
-        this.round.update(enemyGroup, onRoundHitCallback)
+        this.primaryGun.update(enemyGroup, onRoundHitCallback)
     }
 
     fire()
@@ -106,7 +104,7 @@ class Player extends Combatant
             var toX =  Math.sin(angleRad) * 200
             var toY = -Math.cos(angleRad) * 200
 
-            this.round.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
+            this.primaryGun.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
         }
     }
 
