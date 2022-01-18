@@ -6,8 +6,7 @@
     "activeFile": "level1.tmx",
     "expandedProjectPaths": [
         "E:/code/Tanx/assets",
-        ".",
-        "E:/code/Tanx2/assets"
+        "."
     ],
     "file.lastUsedOpenFilter": "Tiled map files (*.tmx *.xml)",
     "fileStates": {
@@ -123,7 +122,8 @@
     "map.width": 50,
     "openFiles": [
         "level2.tmx",
-        "level1.tmx"
+        "level1.tmx",
+        "level3.tmx"
     ],
     "project": "Tanx.tiled-project",
     "property.type": "string",

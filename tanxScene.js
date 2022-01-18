@@ -25,14 +25,12 @@ class TanxScene extends Phaser.Scene
         this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
 
         this.load.image('hq', 'assets/hq.png')
-        // var fileName = 'assets/level2.json' 
-        // var fileName = 'assets/level' + PlayerStats.getLevel() + '.json' 
-        // this.load.json('levelData', fileName)
 
         this.load.image('background', 'assets/background.png')
         this.load.image('obstacles', 'assets/obstacles.png')
 
-        this.load.tilemapTiledJSON('tilemap', 'assets/level3.json')
+        var fileName = 'assets/level' + PlayerStats.getCurrentLevel() + '.json' 
+        this.load.tilemapTiledJSON('tilemap', fileName)
     }
     
     create()
@@ -148,7 +146,7 @@ class TanxScene extends Phaser.Scene
     {
         if (this.enemies == 0)
         {
-            PlayerStats.incLevel()
+            PlayerStats.incMaxLevelReached()
 
             this.game.destroy(true, true)
             this.enemies = []

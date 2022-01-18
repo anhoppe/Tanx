@@ -3,9 +3,13 @@ class PlayerStats
     // Reference to the player instance in TanxScene is used to track the current hit points
     static Player = 0
 
+    // Absolute number of levels that are available
+    static TotalLevelCount = 3
+
     static reset()
     {
-        localStorage.level = JSON.stringify(1)
+        localStorage.maxLevelReached = JSON.stringify(1)
+        localStorage.currentLevel = JSON.stringify(1)
         localStorage.money = JSON.stringify(1000)
         localStorage.hitPoints = JSON.stringify(50)
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
@@ -32,14 +36,29 @@ class PlayerStats
         localStorage.money = JSON.stringify(JSON.parse(localStorage.money) - amount)
     }
     
-    static getLevel()
+    static getCurrentLevel()
     {
-        return localStorage.level
+        return JSON.parse(localStorage.currentLevel)
+    }
+
+    static setCurrentLevel(index)
+    {
+        localStorage.currentLevel = JSON.stringify(index)
+    }
+
+    static getMaxLevelReached()
+    {
+        return JSON.parse(localStorage.maxLevelReached)
     }
     
-    static incLevel()
+    static incMaxLevelReached()
     {
-        return localStorage.level = JSON.stringify(JSON.parse(localStorage.level) + 1)
+        var levelCount = JSON.parse(localStorage.maxLevelReached)
+        
+        if (PlayerStats.getCurrentLevel() == levelCount && levelCount < PlayerStats.TotalLevelCount)
+        {
+            localStorage.maxLevelReached = JSON.stringify(levelCount + 1)
+        }
     }
 
     static getHitPoints()
