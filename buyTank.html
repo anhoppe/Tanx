@@ -58,8 +58,6 @@
         var tank = tanks[selectedTankToBuyIndex]
         if (PlayerStats.debitMoney(tank.price))
         {            
-            alert(tank.name);
-
             PlayerStats.addTank(tank)
         }
         else{
