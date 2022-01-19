@@ -20,7 +20,7 @@ class PlayerStats
                 index: 0,
                 name: "ant",
                 shopImage: "assets/shop_tank_ant.png",
-                price: 20,
+                price: 0,//First tank
             },]
         localStorage.primaryTanks = JSON.stringify(tanks)
         localStorage.tankId = JSON.stringify(0)
@@ -128,7 +128,7 @@ class PlayerStats
                 index: 0,
                 name: "ant",
                 shopImage: "assets/shop_tank_ant.png",
-                price: 20,
+                price: 200,
             },
             {
                 index: 1,
