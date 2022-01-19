@@ -27,8 +27,8 @@
 <div id="Tank" class="tabcontent">
   <h3>Maintain your Tanks</h3>
   <div class="btn-group">
-    <div id="tankShopImages" class="row">
-    </div>
+    <div id="tankShopImages" class="row"></div>
+    <button id="buyTankButton" type="button" class=btn>Buy Tank</button>
     <button id="buyTankEquipmentButton" type="button" class=btn>Buy Equipment</button>
     <button id="monuntWeaponToTank" type="button" class=btn>Mount Weapon</button>
   </div>
@@ -65,27 +65,39 @@
 
   // Tank
   var tanks = PlayerStats.getAllTanksOwnedByPlayer()
-  var tankLooup = {}
+  var tankIds = []
+
   for (var tank of tanks)
   {
-    tankLooup[tank.index] = tank.shopImage
     var image = document.createElement("img");
     image.setAttribute("src", tank.shopImage);
+    image.setAttribute("id", tank.index);
+    tankIds.push(tank.index)
+    image.onclick = (event) => {
+      selectedTankIndex = tankIds[event.srcElement.id]
+      PlayerStats.setTankId(selectedTankIndex)
+    }
+    var nameText = document.createElement("label")
+    nameText.innerHTML = tank.name
 
     var column = document.createElement("column")
     column.setAttribute("class", "column")
     column.appendChild(image)
+    column.appendChild(nameText)
 
     document.getElementById("tankShopImages").appendChild(column)
   }
 
+  document.getElementById("buyTankButton").onclick = function () {
+        location.href = "buyTank.html"
+  }
   document.getElementById("buyTankEquipmentButton").onclick = function () {
         location.href = "buy.html"
   }
   document.getElementById("monuntWeaponToTank").onclick = function () {
         location.href = "mountWeapon.html"
   }
-  monuntWeaponToTank
+  
 
   // Weapons
 

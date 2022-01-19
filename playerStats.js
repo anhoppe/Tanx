@@ -15,6 +15,16 @@ class PlayerStats
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
         localStorage.repairKitCount = JSON.stringify(0)
 
+        var tanks = [
+            {
+                index: 0,
+                name: "ant",
+                shopImage: "assets/shop_tank_ant.png",
+                price: 20,
+            },]
+        localStorage.primaryTanks = JSON.stringify(tanks)
+        localStorage.tankId = JSON.stringify(0)
+
         var weapons = [Weapon.FactoryFromName("gun")]
         localStorage.primaryWeapons = JSON.stringify(weapons)
 
@@ -95,16 +105,56 @@ class PlayerStats
         return -1
     }
 
+    static getTankName(){
+
+        var tanks = this.getAllTanksOwnedByPlayer()
+        var tankId = this.getTankId()
+        var tank = tanks[tankId]
+        return tank.name
+    }
+
     static getAllTanksOwnedByPlayer()
+    {
+        
+        var tanks =  JSON.parse(localStorage.primaryTanks)
+        
+        return tanks
+    }
+
+    static getAllBuyabelTanks()
     {
         return [
             {
                 index: 0,
                 name: "ant",
-                shopImage: "assets/shop_tank_ant.png"
-            }
+                shopImage: "assets/shop_tank_ant.png",
+                price: 20,
+            },
+            {
+                index: 1,
+                name: "cat",
+                shopImage: "assets/shop_tank_cat.png",
+                price: 500,
+            },
         ]
     }
+    
+    static setTankId(id){
+        localStorage.tankId = JSON.stringify(id)
+
+    }
+    static getTankId(){
+        return JSON.parse(localStorage.tankId)
+    }
+    static addTank(tank)
+    {
+        var tanks = JSON.parse(localStorage.primaryTanks)
+
+        tanks.push(tank)
+     
+        localStorage.primaryTanks = JSON.stringify(tanks)
+    }
+
 
     static getAllWeaponsOwnedByPlayer()
     {

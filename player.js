@@ -9,7 +9,13 @@ class Player extends Combatant
 
         this.playerSpriteGroup = scene.physics.add.group()
 
-        this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_base')
+        this.tankName = PlayerStats.getTankName()
+        if (this.tankName == "ant"){
+            this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_ant_base')
+        }        
+        else {//(name == "cat"){
+            this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_cat_base')
+        }
         this.turretSprite = this.playerSpriteGroup.create(0, 0, this.primaryGun.gameImage)
 
         this.baseSprite.setCollideWorldBounds(true)
