@@ -26,8 +26,11 @@ class TanxScene extends Phaser.Scene
 
         this.load.image('hq', 'assets/hq.png')
 
-        this.load.image('background', 'assets/background.png')
-        this.load.image('obstacles', 'assets/obstacles.png')
+        this.load.image('ground', 'assets/ground.png')
+        this.load.image('world', 'assets/world.png')
+        this.load.image('weaponCollision', 'assets/weaponCollision.png')
+
+        this.load.image('skylevel', 'assets/skylevel.png')
 
         var fileName = 'assets/level' + PlayerStats.getCurrentLevel() + '.json' 
         this.load.tilemapTiledJSON('tilemap', fileName)
@@ -50,28 +53,37 @@ class TanxScene extends Phaser.Scene
         // create the Tilemap
         const map = this.make.tilemap({ key: 'tilemap' })
 
-        // add the tileset image we are using
-        const backgroundTileset = map.addTilesetImage('background', 'background')
-        
-        // Create background layer
-        map.createLayer('Background', backgroundTileset)
+        // Setup ground
+        const groundTileset = map.addTilesetImage('ground', 'ground')
+        this.ground = map.createLayer('ground', groundTileset)
 
-        // Create obstacle layer
-        const obstacleTileset = map.addTilesetImage('obstacles', 'obstacles');
-        this.obstacles = map.createLayer('Obstacles', obstacleTileset);
-        this.obstacles.setCollisionByExclusion([-1]);
-        this.raycaster.mapGameObjects(this.obstacles, false, {
-            collisionTiles: this.obstacles.layer.collideIndexes
+        // Setup world (Contains non-collision objects and objects the combatants can collide with)
+        const worldTileset = map.addTilesetImage('world', 'world')
+        this.world = map.createLayer('world', worldTileset)
+        this.world.setCollisionByProperty({ collides: true })
+        this.raycaster.mapGameObjects(this.world, false, {
+            collisionTiles: this.world.layer.collideIndexes
         })
 
+        // Setup weapon collision (contains tiles the round AND the combatants can collide with)
+        const weaponCollisionTileset = map.addTilesetImage('weaponCollision', 'weaponCollision')
+        this.weaponCollision = map.createLayer('weaponCollision', weaponCollisionTileset)
+        this.weaponCollision.setCollisionByProperty({ collides: true })
+
+        // Setup sky level
+        const skylevelTileset = map.addTilesetImage('skylevel', 'skylevel')
+        this.skylevel = map.createLayer('skylevel', skylevelTileset)
+        this.skylevel.setDepth(10)
+
         // Create player with camera
-        this.player = new Player(this, this.obstacles)
+        this.player = new Player(this, this.world)
         PlayerStats.Player = this.player
 
         this.cameras.main.setBounds(0, 0, 100*64, 100*64);
         this.cameras.main.startFollow(this.player.baseSprite);
         this.cameras.main.zoom = 2;
-        this.physics.add.collider(this.player.playerSpriteGroup, this.obstacles, null, null, this);
+        this.physics.add.collider(this.player.playerSpriteGroup, this.world, null, null, this);
+        this.physics.add.collider(this.player.playerSpriteGroup, this.weaponCollision, null, null, this);
 
         // Create HQ + HQ Meno
         this.hq = new Hq(this, map, this.player)
@@ -84,8 +96,9 @@ class TanxScene extends Phaser.Scene
         this.enemies = []
         this.enemyGroup = this.physics.add.group()
         const enemyData = map.getObjectLayer('Enemies').objects
-        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.obstacles, wayPoints)
-        this.physics.add.collider(this.enemyGroup, this.obstacles);
+        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.world, wayPoints)
+        this.physics.add.collider(this.enemyGroup, this.world);
+        this.physics.add.collider(this.enemyGroup, this.weaponCollision);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.hq.setupCollision(this.physics, this.enemyGroup)
         this.physics.add.collider(this.enemyGroup, this.hq.hqSprite)

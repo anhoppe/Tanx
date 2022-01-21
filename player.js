@@ -1,6 +1,6 @@
 class Player extends Combatant
 {
-    constructor(scene, obstacles, startPosition)
+    constructor(scene, obstacles)
     {
         var hp = PlayerStats.getHitPoints()
         super(hp)
@@ -19,7 +19,6 @@ class Player extends Combatant
         this.round = PlayerStats.getActiveWeapon(scene, obstacles)
 
         this.drivingAngleRad = 0
-
     }
 
     setPosition(posVector)
