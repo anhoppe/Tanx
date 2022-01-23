@@ -4,11 +4,11 @@ class PlayerStats
     static Player = 0
 
     // Absolute number of levels that are available
-    static TotalLevelCount = 3
+    static TotalLevelCount = 4
 
     static reset()
     {
-        localStorage.maxLevelReached = JSON.stringify(1)
+        localStorage.maxLevelReached = JSON.stringify(3)
         localStorage.currentLevel = JSON.stringify(1)
         localStorage.money = JSON.stringify(1000)
         localStorage.hitPoints = JSON.stringify(50)

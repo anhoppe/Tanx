@@ -16,6 +16,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('brum-boss', 'assets/brum_boss.png')
         this.load.image('enemy', 'assets/enemy.png')
         this.load.image('turret', 'assets/turret.png')
+        this.load.image('soldier', 'assets/soldier.png')
         this.load.image('gun', 'assets/gun.png')
 
         this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
@@ -30,7 +31,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('world', 'assets/world.png')
         this.load.image('weaponCollision', 'assets/weaponCollision.png')
 
-        this.load.image('skylevel', 'assets/skylevel.png')
+        this.load.image('sky', 'assets/sky.png')
 
         var fileName = 'assets/level' + PlayerStats.getCurrentLevel() + '.json' 
         this.load.tilemapTiledJSON('tilemap', fileName)
@@ -71,17 +72,19 @@ class TanxScene extends Phaser.Scene
         this.weaponCollision.setCollisionByProperty({ collides: true })
 
         // Setup sky level
-        const skylevelTileset = map.addTilesetImage('skylevel', 'skylevel')
-        this.skylevel = map.createLayer('skylevel', skylevelTileset)
-        this.skylevel.setDepth(10)
+        const skyTileset = map.addTilesetImage('sky', 'sky')
+        this.sky = map.createLayer('sky', skyTileset)
+        this.sky.setDepth(10)
 
         // Create player with camera
-        this.player = new Player(this, this.world)
+        this.player = new Player(this, this.weaponCollision)
         PlayerStats.Player = this.player
 
         this.cameras.main.setBounds(0, 0, 100*64, 100*64);
         this.cameras.main.startFollow(this.player.baseSprite);
         this.cameras.main.zoom = 2;
+
+        // Player collision
         this.physics.add.collider(this.player.playerSpriteGroup, this.world, null, null, this);
         this.physics.add.collider(this.player.playerSpriteGroup, this.weaponCollision, null, null, this);
 
@@ -96,7 +99,7 @@ class TanxScene extends Phaser.Scene
         this.enemies = []
         this.enemyGroup = this.physics.add.group()
         const enemyData = map.getObjectLayer('Enemies').objects
-        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.world, wayPoints)
+        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.weaponCollision, wayPoints)
         this.physics.add.collider(this.enemyGroup, this.world);
         this.physics.add.collider(this.enemyGroup, this.weaponCollision);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
