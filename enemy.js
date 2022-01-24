@@ -50,6 +50,10 @@ class Enemy extends Combatant
             {
                 enemy = new EnemyWayPoint(scene, group, enemyData, obstacles, wayPoints)
             }
+            else if (enemyData.name == 'watch')
+            {
+                enemy = new EnemyWatch(scene, group, enemyData, obstacles, wayPoints)
+            }
             else
             {
                 console.error('Unknown enemy type in Enemies layer:' + value.name)
@@ -89,6 +93,8 @@ class Enemy extends Combatant
 
         vector.normalize()
         this.sprite.setRotation(vector.angle())
+
+
     }
 
     fire(round, player)

@@ -32,26 +32,26 @@
          "name":"Enemies",
          "objects":[
                 {
-                 "height":66.6667,
-                 "id":1,
-                 "name":"follow",
+                 "height":63.6364,
+                 "id":10,
+                 "name":"watch",
                  "properties":[
                         {
                          "name":"hitPoints",
                          "type":"string",
-                         "value":"50"
+                         "value":"200"
                         }, 
                         {
                          "name":"image",
                          "type":"string",
-                         "value":"enemy"
+                         "value":"turret"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":75.7576,
-                 "x":512.121,
-                 "y":1412.12
+                 "width":60.6061,
+                 "x":2181.82,
+                 "y":1724.24
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -93,7 +93,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":4,
+ "nextobjectid":12,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

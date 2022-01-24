@@ -36,7 +36,35 @@ class TanxScene extends Phaser.Scene
     create()
     {
         // Create raycaster
-        this.raycaster = this.raycasterPlugin.createRaycaster();
+        //enable debug mode
+        this.raycaster = this.raycasterPlugin.createRaycaster({
+            debug: true
+        });
+
+        //advanced debug mode options
+        this.raycaster = this.raycasterPlugin.createRaycaster({
+            debug: {
+            enabled: false, //enable debug mode
+            maps: true, //enable maps debug
+            rays: true, //enable rays debug
+            graphics: {
+                ray: 0x00ff00, //debug ray color; set false to disable
+                rayPoint: 0xff00ff, //debug ray point color; set false to disable
+                mapPoint: 0x00ffff, //debug map point color; set false to disable
+                mapSegment: 0x0000ff, //debug map segment color; set false to disable
+                mapBoundingBox: 0xff0000 //debug map bounding box color; set false to disable
+            }
+            }
+        });
+
+        //change debug options after initialization
+        this.raycaster.debugOptions.enabled = true;
+
+        this.raycaster.setOptions({
+            debug: true
+        });
+        
+        // this.raycaster = this.raycasterPlugin.createRaycaster();
         this.ray = this.raycaster.createRay();
 
         // Create animations for explosion
@@ -72,6 +100,7 @@ class TanxScene extends Phaser.Scene
         this.cameras.main.startFollow(this.player.baseSprite);
         this.cameras.main.zoom = 2;
         this.physics.add.collider(this.player.playerSpriteGroup, this.obstacles, null, null, this);
+        this.raycaster.mapGameObjects(this.player.baseSprite, true)
 
         // Create HQ + HQ Meno
         this.hq = new Hq(this, map, this.player)
