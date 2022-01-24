@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="follow" width="54.5455" height="66.6667">
+  <properties>
+   <property name="hitPoints" value="30"/>
+   <property name="image" value="soldier"/>
+  </properties>
+ </object>
+</template>

@@ -56,52 +56,8 @@
          "name":"Enemies",
          "objects":[
                 {
-                 "height":63.6364,
-                 "id":11,
-                 "name":"base",
-                 "properties":[
-                        {
-                         "name":"hitPoints",
-                         "type":"string",
-                         "value":"200"
-                        }, 
-                        {
-                         "name":"image",
-                         "type":"string",
-                         "value":"turret"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":66.6667,
-                 "x":578.788,
-                 "y":700
-                }, 
-                {
-                 "height":78.7879,
-                 "id":12,
-                 "name":"waypoint",
-                 "properties":[
-                        {
-                         "name":"hitPoints",
-                         "type":"string",
-                         "value":"50"
-                        }, 
-                        {
-                         "name":"image",
-                         "type":"string",
-                         "value":"enemy"
-                        }],
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":75.7576,
-                 "x":651.515,
-                 "y":263.636
-                }, 
-                {
-                 "height":56,
-                 "id":14,
+                 "height":66.6667,
+                 "id":200,
                  "name":"follow",
                  "properties":[
                         {
@@ -117,13 +73,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":52,
-                 "x":1476,
-                 "y":1024
+                 "width":54.5455,
+                 "x":606.060606060606,
+                 "y":1248.48484848485
                 }, 
                 {
-                 "height":46.5,
-                 "id":15,
+                 "height":66.6667,
+                 "id":201,
                  "name":"follow",
                  "properties":[
                         {
@@ -139,13 +95,13 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":59,
-                 "x":1474.5,
-                 "y":904
+                 "width":54.5455,
+                 "x":860.606060606061,
+                 "y":1000
                 }, 
                 {
-                 "height":49,
-                 "id":16,
+                 "height":66.6667,
+                 "id":202,
                  "name":"follow",
                  "properties":[
                         {
@@ -161,9 +117,273 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":60.5,
-                 "x":1473,
-                 "y":802
+                 "width":54.5455,
+                 "x":418.181818181818,
+                 "y":1351.51515151515
+                }, 
+                {
+                 "height":66.6667,
+                 "id":203,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1009.09090909091,
+                 "y":854.545454545455
+                }, 
+                {
+                 "height":66.6667,
+                 "id":204,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1236.36363636364,
+                 "y":830.30303030303
+                }, 
+                {
+                 "height":66.6667,
+                 "id":205,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1509.09090909091,
+                 "y":942.424242424242
+                }, 
+                {
+                 "height":66.6667,
+                 "id":206,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1636.36363636364,
+                 "y":1066.66666666667
+                }, 
+                {
+                 "height":66.6667,
+                 "id":207,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1712.12121212121,
+                 "y":1321.21212121212
+                }, 
+                {
+                 "height":66.6667,
+                 "id":208,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1790.90909090909,
+                 "y":1560.60606060606
+                }, 
+                {
+                 "height":66.6667,
+                 "id":209,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":1927.27272727273,
+                 "y":1654.54545454545
+                }, 
+                {
+                 "height":66.6667,
+                 "id":210,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":2000,
+                 "y":1818.18181818182
+                }, 
+                {
+                 "height":66.6667,
+                 "id":211,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":2030.30303030303,
+                 "y":1957.57575757576
+                }, 
+                {
+                 "height":66.6667,
+                 "id":212,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":2100,
+                 "y":2081.81818181818
+                }, 
+                {
+                 "height":66.6667,
+                 "id":213,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":266.666666666667,
+                 "y":1512.12121212121
+                }, 
+                {
+                 "height":66.6667,
+                 "id":214,
+                 "name":"follow",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"30"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"soldier"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":54.5455,
+                 "x":154.545454545455,
+                 "y":1754.54545454545
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -178,7 +398,7 @@
          "objects":[
                 {
                  "height":0,
-                 "id":13,
+                 "id":23,
                  "name":"",
                  "polyline":[
                         {
@@ -186,33 +406,33 @@
                          "y":0
                         }, 
                         {
-                         "x":0,
-                         "y":706.061
+                         "x":-24.2424242424242,
+                         "y":433.333333333333
                         }, 
                         {
-                         "x":848.485,
-                         "y":700
+                         "x":-451.515151515152,
+                         "y":442.424242424242
                         }, 
                         {
-                         "x":348.485,
-                         "y":-3.0303
+                         "x":-254.545454545455,
+                         "y":6.06060606060601
                         }],
                  "properties":[
                         {
                          "name":"parentId",
                          "type":"string",
-                         "value":"12"
+                         "value":"22"
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":339.394,
-                 "y":296.97
+                 "x":842.424242424242,
+                 "y":812.121212121212
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }, 
@@ -234,12 +454,12 @@
                 }],
          "opacity":1,
          "type":"objectgroup",
-         "visible":true,
+         "visible":false,
          "x":0,
          "y":0
         }],
  "nextlayerid":11,
- "nextobjectid":17,
+ "nextobjectid":215,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
