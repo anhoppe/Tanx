@@ -35,36 +35,40 @@ class TanxScene extends Phaser.Scene
     
     create()
     {
+        //////////////////////////////////////////////////
         // Create raycaster
-        //enable debug mode
+        // Do not deleted out-commented code, can be used for debugging raycasting
+        //
+        // Normal raycaster creation. Comment-out if debug raycaster instance is used
         this.raycaster = this.raycasterPlugin.createRaycaster({
-            debug: true
+            autoUpdate: true
         });
 
-        //advanced debug mode options
-        this.raycaster = this.raycasterPlugin.createRaycaster({
-            debug: {
-            enabled: false, //enable debug mode
-            maps: true, //enable maps debug
-            rays: true, //enable rays debug
-            graphics: {
-                ray: 0x00ff00, //debug ray color; set false to disable
-                rayPoint: 0xff00ff, //debug ray point color; set false to disable
-                mapPoint: 0x00ffff, //debug map point color; set false to disable
-                mapSegment: 0x0000ff, //debug map segment color; set false to disable
-                mapBoundingBox: 0xff0000 //debug map bounding box color; set false to disable
-            }
-            }
-        });
+        // Use this if debugging of the raycaster is needed
+        // this.raycaster = this.raycasterPlugin.createRaycaster({
+        //     debug: {
+        //     enabled: false, //enable debug mode
+        //     maps: true, //enable maps debug
+        //     rays: true, //enable rays debug
+        //     graphics: {
+        //         ray: 0x00ff00, //debug ray color; set false to disable
+        //         rayPoint: 0xff00ff, //debug ray point color; set false to disable
+        //         mapPoint: 0x00ffff, //debug map point color; set false to disable
+        //         mapSegment: 0x0000ff, //debug map segment color; set false to disable
+        //         mapBoundingBox: 0xff0000 //debug map bounding box color; set false to disable
+        //     }
+        //     },
+        //     autoUpdate: true
+        // });
 
-        //change debug options after initialization
-        this.raycaster.debugOptions.enabled = true;
+        // //change debug options after initialization
+        // this.raycaster.debugOptions.enabled = true;
 
-        this.raycaster.setOptions({
-            debug: true
-        });
-        
-        // this.raycaster = this.raycasterPlugin.createRaycaster();
+        // this.raycaster.setOptions({
+        //     debug: true
+        // });
+        //////////////////////////////////////////////////
+
         this.ray = this.raycaster.createRay();
 
         // Create animations for explosion
