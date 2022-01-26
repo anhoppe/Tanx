@@ -115,7 +115,6 @@ class PlayerStats
 
     static getAllTanksOwnedByPlayer()
     {
-        
         var tanks =  JSON.parse(localStorage.primaryTanks)
         
         return tanks

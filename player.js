@@ -13,8 +13,13 @@ class Player extends Combatant
         if (this.tankName == "ant"){
             this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_ant_base')
         }        
-        else {//(name == "cat"){
+        else if (this.tankName == "cat")
+        {
             this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_cat_base')
+        }
+        else
+        {
+            console.log("tank name does not match ");
         }
         this.turretSprite = this.playerSpriteGroup.create(0, 0, this.primaryGun.gameImage)
 

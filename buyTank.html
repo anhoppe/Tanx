@@ -54,13 +54,13 @@
     }
 
     document.getElementById("buyTankButton").onclick = function() {
-        var tanks = PlayerStats.getAllBuyabelTanks()
         var tank = tanks[selectedTankToBuyIndex]
         if (PlayerStats.debitMoney(tank.price))
         {            
             PlayerStats.addTank(tank)
         }
-        else{
+        else
+        {
             alert("You have only " + PlayerStats.getMoney() + "$");
         }
         update()
