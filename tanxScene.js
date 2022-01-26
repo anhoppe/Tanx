@@ -80,7 +80,7 @@ class TanxScene extends Phaser.Scene
         this.player = new Player(this, this.weaponCollision)
         PlayerStats.Player = this.player
 
-        this.cameras.main.setBounds(0, 0, 100*64, 100*64);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player.baseSprite);
         this.cameras.main.zoom = 2;
 
@@ -107,7 +107,7 @@ class TanxScene extends Phaser.Scene
         this.physics.add.collider(this.enemyGroup, this.hq.hqSprite)
 
         // World bounds
-        this.physics.world.setBounds(0, 0, 100*64, 100*64)
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
         // Hide mouse pointer
         this.sys.canvas.style.cursor = 'none'
