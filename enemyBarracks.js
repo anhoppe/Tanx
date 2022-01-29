@@ -36,38 +36,9 @@ class EnemyBarracks extends Enemy
 
         ray.setOrigin(this.sprite.x, this.sprite.y)
 
-        if (this.polygon != 0)
-        {
-            this.polygon.destroy()
-        }
+        this.createLightConePolygon()
 
-        var points = this.rayCasting.getConeColisionPoints(this.angleRad)
-
-        if (points.length != 0)
-        {
-            points.push({
-                x: this.sprite.x,
-                y: this.sprite.y
-            })
-            this.polygon = this.scene.add.polygon(0, 0, points, 0xFFF78E, 124)
-            this.polygon.setOrigin(0, 0)
-        }
-
-        var classification = this.rayCasting.classifySearchedSpriteOnCone(this.angleRad, playerSprite)
-
-        if (classification != CastClassificationEnum.NotFound && this.isMinTimeElapsed())
-        {
-            const spawnEnemyCount = 5
-
-            for (var index = 0; index < spawnEnemyCount; index++)
-            {
-                var soldierData = this.getSoldierTemplate(this.sprite.x + 100, this.sprite.y - spawnEnemyCount / 2 * 60 + index * 60 )
-
-                Enemy.factory(this.enemies, soldierData, this.scene, this.enemyGroup, this.obstacles, null)
-            }
-
-            this.lastSpawnTimeSec = Date.now() / 1000
-        }
+        this.spawnEnemyWhenPlayerInLightCone(playerSprite)
 
         this.angleRad += this.RotationSpeedRad
         this.lampSprite.setAngle(this.angleRad / Math.PI * 180)
@@ -110,6 +81,39 @@ class EnemyBarracks extends Enemy
                     value: 'enemy'
                 }
             ]
+        }
+    }
+    
+    spawnEnemyWhenPlayerInLightCone(playerSprite) {
+        var classification = this.rayCasting.classifySearchedSpriteOnCone(this.angleRad, playerSprite)
+
+        if (classification != CastClassificationEnum.NotFound && this.isMinTimeElapsed()) {
+            const spawnEnemyCount = 5
+
+            for (var index = 0; index < spawnEnemyCount; index++) {
+                var soldierData = this.getSoldierTemplate(this.sprite.x + 100, this.sprite.y - spawnEnemyCount / 2 * 60 + index * 60)
+
+                Enemy.factory(this.enemies, soldierData, this.scene, this.enemyGroup, this.obstacles, null)
+            }
+
+            this.lastSpawnTimeSec = Date.now() / 1000
+        }
+    }
+
+    createLightConePolygon() {
+        if (this.polygon != 0) {
+            this.polygon.destroy()
+        }
+
+        var points = this.rayCasting.getConeColisionPoints(this.angleRad)
+
+        if (points.length != 0) {
+            points.push({
+                x: this.sprite.x,
+                y: this.sprite.y
+            })
+            this.polygon = this.scene.add.polygon(0, 0, points, 0xFFF78E, 124)
+            this.polygon.setOrigin(0, 0)
         }
     }
 
