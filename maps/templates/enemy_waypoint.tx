@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+ <object name="waypoint" width="75.7576" height="78.7879">
+  <properties>
+   <property name="hitPoints" value="50"/>
+   <property name="image" value="enemy"/>
+  </properties>
+ </object>
+</template>
