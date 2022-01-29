@@ -1,6 +1,6 @@
 class Player extends Combatant
 {
-    constructor(scene, obstacles, startPosition)
+    constructor(scene, obstacles)
     {
         var hp = PlayerStats.getHitPoints()
         super(hp)

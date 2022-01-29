@@ -4,7 +4,7 @@ class PlayerStats
     static Player = 0
 
     // Absolute number of levels that are available
-    static TotalLevelCount = 3
+    static TotalLevelCount = 4
 
     static reset()
     {
