@@ -15,7 +15,6 @@ class Player extends Combatant
         this.baseSprite.setCollideWorldBounds(true)
         this.turretSprite.setCollideWorldBounds(true)
         
-
         this.input = scene.input
         this.round = PlayerStats.getActiveWeapon(scene, obstacles)
 
