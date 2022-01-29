@@ -8,12 +8,11 @@ class CastClassificationEnum
 
 class RayCasting
 {
-    constructor(ray, coneAngleRad, viewDistance, totalRayCount)
+    constructor(ray, coneAngleRad, viewDistance)
     {
         this.ray = ray
         this.coneAngleRad = coneAngleRad
         this.viewDistance = viewDistance
-        this.totalRayCount = totalRayCount
     }
 
     // Casts a cone into viewAngleRad direction.
@@ -40,7 +39,7 @@ class RayCasting
                 if (distVector.lengthSq() < this.viewDistance * this.viewDistance)
                 {
                     result = CastClassificationEnum.CounterClockDirection
-                    if (index > 5)
+                    if (index > totalRayCount / 2)
                     {
                         result = CastClassificationEnum.ClockwiseDirection
                     }    

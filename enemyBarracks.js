@@ -31,7 +31,7 @@ class EnemyBarracks extends Enemy
 
         if (this.rayCasting == 0)
         {
-            this.rayCasting = new RayCasting(ray, this.coneAngleRad, this.viewDistance, 50)
+            this.rayCasting = new RayCasting(ray, this.coneAngleRad, this.viewDistance)
         }
 
         ray.setOrigin(this.sprite.x, this.sprite.y)

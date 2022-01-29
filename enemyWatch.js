@@ -21,7 +21,7 @@ class EnemyWatch extends Enemy
     {
         if (this.rayCasting == 0)
         {
-            this.rayCasting = new RayCasting(ray, this.ViewConeAngle, this.ChasingRange, 10)
+            this.rayCasting = new RayCasting(ray, this.ViewConeAngle, this.ChasingRange)
         }
 
         ray.setOrigin(this.sprite.x, this.sprite.y)
