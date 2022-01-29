@@ -1,6 +1,6 @@
 class EnemyBarracks extends Enemy
 {
-    RotationSpeedRad = 0.005
+    RotationSpeedRad = 0.007
     SpawnFreqSec = 3
 
     constructor(scene, enemyGroup, enemyData, obstacles, enemies)
@@ -18,6 +18,8 @@ class EnemyBarracks extends Enemy
         this.rayCasting = 0
 
         this.polygon = 0
+
+        this.lampSprite = enemyGroup.create(enemyData.x, enemyData.y, "barracks_lamp")
     }
 
     move(playerSprite, ray)
@@ -68,6 +70,7 @@ class EnemyBarracks extends Enemy
         }
 
         this.angleRad += this.RotationSpeedRad
+        this.lampSprite.setAngle(this.angleRad / Math.PI * 180)
     }
 
     fire(round, player)
@@ -81,6 +84,8 @@ class EnemyBarracks extends Enemy
 
         if (this.hitPoints < 0)
         {
+            this.lampSprite.destroy()
+
             if (this.polygon != 0)
             {
                 this.polygon.destroy()

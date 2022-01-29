@@ -17,6 +17,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('enemy', 'assets/enemy.png')
         this.load.image('turret', 'assets/turret.png')
         this.load.image('barracks', 'assets/barracks.png')
+        this.load.image('barracks_lamp', 'assets/barracks_lamp.png')
         this.load.image('soldier', 'assets/soldier.png')
         this.load.image('gun', 'assets/gun.png')
 
