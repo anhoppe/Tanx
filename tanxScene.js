@@ -197,7 +197,12 @@ class TanxScene extends Phaser.Scene
                 PlayerStats.addMoney(enemy.moneyValue)
             }
         })
+        
+        this.removeKilledEnemiesFromList()
+    }
 
+    removeKilledEnemiesFromList()
+    {
         var removedKilled = true
         while (removedKilled)
         {
@@ -213,7 +218,6 @@ class TanxScene extends Phaser.Scene
                 }
             }
         }
-        // this.enemies = this.enemies.filter(item => !enemyForDeletion.includes(item))
     }
 
     checkGameFinished()

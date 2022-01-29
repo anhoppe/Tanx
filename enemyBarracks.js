@@ -84,7 +84,8 @@ class EnemyBarracks extends Enemy
         }
     }
     
-    spawnEnemyWhenPlayerInLightCone(playerSprite) {
+    spawnEnemyWhenPlayerInLightCone(playerSprite) 
+    {
         var classification = this.rayCasting.classifySearchedSpriteOnCone(this.angleRad, playerSprite)
 
         if (classification != CastClassificationEnum.NotFound && this.isMinTimeElapsed()) {
@@ -100,7 +101,8 @@ class EnemyBarracks extends Enemy
         }
     }
 
-    createLightConePolygon() {
+    createLightConePolygon() 
+    {
         if (this.polygon != 0) {
             this.polygon.destroy()
         }
