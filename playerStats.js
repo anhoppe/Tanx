@@ -8,7 +8,7 @@ class PlayerStats
 
     static reset()
     {
-        localStorage.maxLevelReached = JSON.stringify(3)
+        localStorage.maxLevelReached = JSON.stringify(1)
         localStorage.currentLevel = JSON.stringify(1)
         localStorage.money = JSON.stringify(1000)
         localStorage.hitPoints = JSON.stringify(50)
