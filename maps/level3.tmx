@@ -2013,7 +2013,7 @@
    <polyline points="0,0 2.66667,553.333"/>
   </object>
  </objectgroup>
- <objectgroup id="5" name="Hq">
-  <object id="9" x="1511.62" y="3011.34" width="163.66" height="172.587"/>
+ <objectgroup id="5" name="Buildings">
+  <object id="9" name="hq" x="1511.62" y="3011.34" width="163.66" height="172.587"/>
  </objectgroup>
 </map>

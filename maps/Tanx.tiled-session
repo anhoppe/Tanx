@@ -67,11 +67,11 @@
             }
         },
         "level1.tmx": {
-            "scale": 0.25,
-            "selectedLayer": 3,
+            "scale": 0.33,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 1600,
-                "y": 1598
+                "x": 2051.515151515151,
+                "y": 1630.3030303030305
             }
         },
         "level1.tmx#background": {
@@ -106,10 +106,10 @@
         },
         "level2.tmx": {
             "scale": 0.25,
-            "selectedLayer": 3,
+            "selectedLayer": 6,
             "viewCenter": {
                 "x": 1600,
-                "y": 1598
+                "y": 1600
             }
         },
         "level2.tmx#background": {
@@ -151,7 +151,7 @@
             "selectedLayer": 3,
             "viewCenter": {
                 "x": 1600,
-                "y": 1598
+                "y": 1600
             }
         },
         "level3.tmx#background": {
@@ -175,10 +175,10 @@
         },
         "level4.tmx": {
             "scale": 0.29331250000000003,
-            "selectedLayer": 4,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 1598.977200085233,
-                "y": 1598.977200085233
+                "x": 2366.0771361602383,
+                "y": 2209.247815896015
             }
         },
         "level4.tmx#ground": {

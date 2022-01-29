@@ -2,11 +2,8 @@ var hq_global_variable = 0
 
 class Hq
 {
-    constructor(scene, map, player)
+    constructor(scene, hqObject, player)
     {
-        const hqLayer = map.getObjectLayer('Hq')
-        const hqObject = hqLayer.objects[0]
-        
         this.hqMenu = scene.add.dom(hqObject.x, hqObject.y).createFromCache('hqWarMenu');
         this.hqMenu.setPerspective(800)
         this.hqMenu.visible = false

@@ -2945,7 +2945,7 @@
    <polyline points="0,0 -8,-2682 -2564,-2684 -2572,8"/>
   </object>
  </objectgroup>
- <objectgroup id="8" name="Hq">
-  <object id="29" x="2964" y="2956" width="156" height="168"/>
+ <objectgroup id="8" name="Buildings">
+  <object id="29" name="hq" x="2964" y="2956" width="156" height="168"/>
  </objectgroup>
 </map>
