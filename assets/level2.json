@@ -845,12 +845,12 @@
         {
          "draworder":"topdown",
          "id":8,
-         "name":"Hq",
+         "name":"Buildings",
          "objects":[
                 {
                  "height":168,
                  "id":29,
-                 "name":"",
+                 "name":"hq",
                  "rotation":0,
                  "type":"",
                  "visible":true,

@@ -54,7 +54,7 @@
                  "y":1724.24
                 }, 
                 {
-                 "height":60.6060606060606,
+                 "height":60.6061,
                  "id":12,
                  "name":"watch",
                  "properties":[
@@ -71,12 +71,12 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":66.666666666667,
-                 "x":2621.21212121212,
-                 "y":839.393939393939
+                 "width":66.6667,
+                 "x":2621.21,
+                 "y":839.394
                 }, 
                 {
-                 "height":63.636363636364,
+                 "height":63.6364,
                  "id":13,
                  "name":"watch",
                  "properties":[
@@ -93,9 +93,31 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":69.69696969697,
-                 "x":2466.66666666667,
-                 "y":2824.24242424242
+                 "width":69.697,
+                 "x":2466.67,
+                 "y":2824.24
+                }, 
+                {
+                 "height":66.6667,
+                 "id":15,
+                 "name":"barracks",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"500"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"barracks"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":69.697,
+                 "x":2812.12151515152,
+                 "y":2030.30263636364
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -117,12 +139,12 @@
         {
          "draworder":"topdown",
          "id":5,
-         "name":"Hq",
+         "name":"Buildings",
          "objects":[
                 {
                  "height":163.636,
                  "id":3,
-                 "name":"",
+                 "name":"hq",
                  "rotation":0,
                  "type":"",
                  "visible":true,
@@ -137,7 +159,7 @@
          "y":0
         }],
  "nextlayerid":6,
- "nextobjectid":15,
+ "nextobjectid":16,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

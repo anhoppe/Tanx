@@ -2217,12 +2217,12 @@
         {
          "draworder":"topdown",
          "id":5,
-         "name":"Hq",
+         "name":"Buildings",
          "objects":[
                 {
                  "height":172.587,
                  "id":9,
-                 "name":"",
+                 "name":"hq",
                  "rotation":0,
                  "type":"",
                  "visible":true,

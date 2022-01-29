@@ -16,6 +16,7 @@ class TanxScene extends Phaser.Scene
         this.load.image('brum-boss', 'assets/brum_boss.png')
         this.load.image('enemy', 'assets/enemy.png')
         this.load.image('turret', 'assets/turret.png')
+        this.load.image('barracks', 'assets/barracks.png')
         this.load.image('gun', 'assets/gun.png')
 
         this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
@@ -106,9 +107,17 @@ class TanxScene extends Phaser.Scene
         this.physics.add.collider(this.player.playerSpriteGroup, this.obstacles, null, null, this);
         this.raycaster.mapGameObjects(this.player.baseSprite, true)
 
-        // Create HQ + HQ Meno
-        this.hq = new Hq(this, map, this.player)
-        this.raycaster.mapGameObjects(this.hq.hqSprite)
+        // Create buildings 
+        var buildings = map.getObjectLayer('Buildings')
+
+        for (var building of buildings.objects)
+        {
+            if (building.name == "hq")
+            {
+                this.hq = new Hq(this, building, this.player)
+                this.raycaster.mapGameObjects(this.hq.hqSprite)
+            }
+        }
         
         // Create waypoints for enemies
         const wayPoints = map.getObjectLayer('Waypoints')
@@ -117,7 +126,7 @@ class TanxScene extends Phaser.Scene
         this.enemies = []
         this.enemyGroup = this.physics.add.group()
         const enemyData = map.getObjectLayer('Enemies').objects
-        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.obstacles, wayPoints)
+        Enemy.multiFactory(this.enemies, enemyData, this, this.enemyGroup, this.obstacles, wayPoints)
         this.physics.add.collider(this.enemyGroup, this.obstacles);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.hq.setupCollision(this.physics, this.enemyGroup)
@@ -148,7 +157,6 @@ class TanxScene extends Phaser.Scene
 
         this.hq.displayMenuOnCollision(this.physics, this.player)
 
-
         this.updateEnemies()
         this.checkGameFinished()
     }
@@ -172,7 +180,22 @@ class TanxScene extends Phaser.Scene
             }
         })
 
-        this.enemies = this.enemies.filter(item => !enemyForDeletion.includes(item))
+        var removedKilled = true
+        while (removedKilled)
+        {
+            removedKilled = false
+
+            for (var index = 0; index < this.enemies.length; index++)
+            {
+                if (!this.enemies[index].sprite.active)
+                {
+                    this.enemies.splice(index, 1)
+                    removedKilled = true
+                    break
+                }
+            }
+        }
+        // this.enemies = this.enemies.filter(item => !enemyForDeletion.includes(item))
     }
 
     checkGameFinished()
