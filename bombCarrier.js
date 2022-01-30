@@ -4,27 +4,27 @@ class BombCarrier extends Weapon
     {
         super("bombCarrier", template)
 
-        this.droppedBomb = 0
-        this.droppedBombSprite = 0
-        this.applyDamageToEnemiesOnUpdate = false
+        this.droppedBombs = []
     }
 
     update(combatantGroup, onRoundHitCallback)
     {
-        if (this.applyDamageToEnemiesOnUpdate)
+
+        for (var droppedBombPair of this.droppedBombs)
         {
-            this.applyDamageToEnemiesOnUpdate = false
+            var droppedBomb = droppedBombPair[0]
+            var droppedBombSprite = droppedBombPair[1]
 
-            for (var combatantSprite of combatantGroup.children.entries)
-            {
-                const dist = new Phaser.Math.Vector2(this.xExplosion - combatantSprite.x, this.yExplosion - combatantSprite.y)
-
-                if (dist.lengthSq() < this.explosionRadius * this.explosionRadius)
-                {
-                    onRoundHitCallback(combatantSprite, this.explosionDamage)
-                }
-            }
+            this.checkTimeBombDurationExpired(droppedBomb, droppedBombSprite)
+            
+            this.terminateExplodingBombs(droppedBomb, droppedBombSprite, combatantGroup, onRoundHitCallback)
         }
+
+        if (this.droppedBombs.length > 0)
+        {
+            this.droppedBombs = this.droppedBombs.filter(x => !x[0].removeBomb)
+        }
+
     }
 
     fire(xFrom, yFrom, xTo, yTo)
@@ -34,8 +34,19 @@ class BombCarrier extends Weapon
         if (selectedAmmoIndex != -1)
         {
             var ammos = PlayerStats.getAllAmmoOwnedByPlayer()
-            this.droppedBomb = ammos[selectedAmmoIndex]
-            this.droppedBombSprite = this.scene.add.sprite(xFrom, yFrom, this.droppedBomb.name)
+            var droppedBomb = ammos[selectedAmmoIndex] 
+
+            droppedBomb.isExploding = false
+            droppedBomb.removeBomb = false
+
+            var droppedBombSprite = this.scene.add.sprite(xFrom, yFrom, droppedBomb.name)
+
+            if (droppedBomb.type == 'time')
+            {
+                droppedBomb.startTimeSec = Date.now() / 1000
+            }
+            
+            this.droppedBombs.push([droppedBomb, droppedBombSprite])
 
             PlayerStats.removeSecondaryWeaponAmmoByIndex(selectedAmmoIndex)
             PlayerStats.setSelectedSecondaryWeaponAmmoIndex(-1)
@@ -44,23 +55,62 @@ class BombCarrier extends Weapon
 
     alternativeFire()
     {
-        if (this.droppedBomb != 0)
+        for (var droppedBombPair of this.droppedBombs)
         {
-            var explosion = this.scene.physics.add.sprite(this.droppedBombSprite.x, this.droppedBombSprite.y, 'bombExplosionSmall');
-            explosion.anims.play('bombExplosionSmall', true)
-            explosion.on('animationcomplete', () => {
-                    this.applyDamageToEnemiesOnUpdate = true
-                    explosion.destroy()
-                }
-            )
+            var droppedBomb = droppedBombPair[0]
+            var droppedBombSprite = droppedBombPair[1]
 
-            this.droppedBombSprite.destroy()
-            this.explosionDamage = this.droppedBomb.damage
-            this.explosionRadius = this.droppedBomb.radius
-            this.xExplosion = this.droppedBombSprite.x
-            this.yExplosion = this.droppedBombSprite.y
-            this.droppedBomb = 0
-            this.droppedBombSprite = 0
+            if (droppedBomb.type == 'trigger' && !droppedBomb.isExploding)
+            {
+                this.triggerExplosion(droppedBomb, droppedBombSprite)
+            }
         }
+    }
+
+    checkTimeBombDurationExpired(droppedBomb, droppedBombSprite)
+    {
+        if (droppedBomb.type == 'time' && !droppedBomb.isExploding)
+        {
+            const timeNowSec = Date.now() / 1000
+
+            if (timeNowSec - droppedBomb.startTimeSec > droppedBomb.durationSec)
+            {
+                this.triggerExplosion(droppedBomb, droppedBombSprite)
+            }
+        }
+    }
+
+    terminateExplodingBombs(droppedBomb, droppedBombSprite, combatantGroup, onRoundHitCallback)
+    {
+        if (droppedBomb.hasOwnProperty('explosionAnimation'))
+        {
+            if (!droppedBomb.explosionAnimation.anims.isPlaying)
+            {
+                for (var combatantSprite of combatantGroup.children.entries)
+                {
+                    const dist = new Phaser.Math.Vector2(droppedBombSprite.x - combatantSprite.x, droppedBombSprite.y - combatantSprite.y)
+    
+                    if (dist.lengthSq() < droppedBomb.radius * droppedBomb.radius)
+                    {
+                        onRoundHitCallback(combatantSprite, droppedBomb.damage)
+                    }
+                }
+
+                droppedBomb.explosionAnimation.destroy()
+                droppedBomb.removeBomb = true
+            }
+        }
+    }
+
+    triggerExplosion(droppedBomb, droppedBombSprite)
+    {
+        droppedBomb.isExploding = true
+
+        var explosion = this.scene.physics.add.sprite(droppedBombSprite.x, droppedBombSprite.y, 'bombExplosionSmall');
+        explosion.anims.play('bombExplosionSmall', true)
+
+        droppedBomb.explosionAnimation = explosion
+
+        droppedBombSprite.destroy()
     }
 }

@@ -16,7 +16,9 @@ class Player extends Combatant
         {
             this.secondaryGun.scene = scene
             this.secondaryWeaponSprite = this.playerSpriteGroup.create(0, 0, this.secondaryGun.gameImage)
+            this.secondaryWeaponSprite.setCollideWorldBounds(true)
         }
+
         this.turretSprite = this.playerSpriteGroup.create(0, 0, this.primaryGun.gameImage)
 
         this.baseSprite.setCollideWorldBounds(true)
@@ -55,6 +57,10 @@ class Player extends Combatant
     {
         this.baseSprite.visible = false
         this.turretSprite.visible = false
+        if (this.secondaryGun != 0)
+        {
+            this.secondaryWeaponSprite.visible = false
+        }
         this.playerSpriteGroup.setVelocityX(0)
         this.playerSpriteGroup.setVelocityY(0)
     }
@@ -65,6 +71,10 @@ class Player extends Combatant
         {
             this.baseSprite.disableBody(true, true)
             this.turretSprite.disableBody(true, true)
+            if (this.secondaryGun != 0)
+            {
+                this.secondaryWeaponSprite.disableBody(true, true)
+            }
         }
         else
         {

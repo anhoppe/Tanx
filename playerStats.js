@@ -227,7 +227,8 @@ class PlayerStats
                 shopImage: "assets/shop_trigger_bomb_small.png",
                 weaponType: "bombCarrier",
                 radius: 128,
-                damage: 500
+                damage: 500,
+                type: 'trigger'
             },
             {
                 index: 1,
@@ -236,7 +237,9 @@ class PlayerStats
                 shopImage: "assets/shop_timed_bomb_small.png",
                 weaponType: "bombCarrier",
                 radius: 128,
-                damage: 500
+                damage: 500,
+                type: 'time',
+                durationSec: 5
             }
         ]
     }

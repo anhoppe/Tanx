@@ -386,7 +386,7 @@
                  "y":1754.55
                 }, 
                 {
-                 "height":182.666666666667,
+                 "height":182.667,
                  "id":215,
                  "name":"barracks",
                  "properties":[
@@ -404,8 +404,8 @@
                  "type":"",
                  "visible":true,
                  "width":248,
-                 "x":2777.33333333333,
-                 "y":966.666666666667
+                 "x":2777.33,
+                 "y":966.667
                 }, 
                 {
                  "height":92,
@@ -427,7 +427,29 @@
                  "visible":true,
                  "width":96,
                  "x":1048,
-                 "y":1414.66666666667
+                 "y":1414.67
+                }, 
+                {
+                 "height":172.727272727273,
+                 "id":217,
+                 "name":"barracks",
+                 "properties":[
+                        {
+                         "name":"hitPoints",
+                         "type":"string",
+                         "value":"500"
+                        }, 
+                        {
+                         "name":"image",
+                         "type":"string",
+                         "value":"barracks"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":245.454545454545,
+                 "x":2484.84848484848,
+                 "y":1315.15151515152
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -469,7 +491,7 @@
          "y":0
         }],
  "nextlayerid":12,
- "nextobjectid":217,
+ "nextobjectid":219,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",
