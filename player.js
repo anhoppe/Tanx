@@ -6,17 +6,23 @@ class Player extends Combatant
         super(hp)
 
         this.primaryGun = PlayerStats.getActiveWeapon(scene, obstacles)
-
+        this.secondaryGun = PlayerStats.getActiveSecondaryWeapon()
+        
         this.playerSpriteGroup = scene.physics.add.group()
 
         this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_base')
+
+        if (this.secondaryGun != 0)
+        {
+            this.secondaryGun.scene = scene
+            this.secondaryWeaponSprite = this.playerSpriteGroup.create(0, 0, this.secondaryGun.gameImage)
+        }
         this.turretSprite = this.playerSpriteGroup.create(0, 0, this.primaryGun.gameImage)
 
         this.baseSprite.setCollideWorldBounds(true)
         this.turretSprite.setCollideWorldBounds(true)
         
         this.input = scene.input
-        this.round = PlayerStats.getActiveWeapon(scene, obstacles)
 
         this.drivingAngleRad = 0
     }
@@ -25,6 +31,12 @@ class Player extends Combatant
     {
         this.baseSprite.x = this.turretSprite.x = posVector.x
         this.baseSprite.y = this.turretSprite.y = posVector.y
+
+        if (this.secondaryGun != 0)
+        {
+            this.secondaryWeaponSprite.x = posVector.x
+            this.secondaryWeaponSprite.y = posVector.y                
+        }
     }
 
     getPosition()
@@ -88,22 +100,44 @@ class Player extends Combatant
         
             this.baseSprite.setRotation(this.drivingAngleRad)
 
+            if (this.secondaryGun != 0)
+            {
+                this.secondaryWeaponSprite.setRotation(this.drivingAngleRad)
+            }
+
             this.playerSpriteGroup.setVelocityX(-Math.cos(this.drivingAngleRad) * velocityY)
             this.playerSpriteGroup.setVelocityY(-Math.sin(this.drivingAngleRad) * velocityY)
         }
 
         this.primaryGun.update(enemyGroup, onRoundHitCallback)
+        
+        if (this.secondaryGun != 0)
+        {
+            this.secondaryGun.update(enemyGroup, onRoundHitCallback)
+        }
     }
 
     fire()
     {
-        if (this.input.mousePointer.isDown && this.playerSpriteGroup.active)
+        if (this.input.mousePointer.leftButtonDown() && this.playerSpriteGroup.active)
         {
             var angleRad = this.getTurretAngleRad()
             var toX =  Math.sin(angleRad) * 200
             var toY = -Math.cos(angleRad) * 200
 
             this.primaryGun.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
+        }
+
+        if (this.input.mousePointer.rightButtonDown() && this.playerSpriteGroup.active && this.secondaryGun != 0)
+        {
+            this.secondaryGun.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
+        }
+
+        var space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
+
+        if (space.isDown && this.secondaryGun != 0)
+        {
+            this.secondaryGun.alternativeFire()
         }
     }
 

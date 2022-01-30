@@ -9,10 +9,10 @@
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h3>Buy new weapon systems</h3>
+        <h3>Mount weapon systems to tank</h3>
         <div class="btn-group">
-          <div id="shopImages" class="row">
-          </div>
+          <div id="weaponShopImages" class="row" />
+          <div id="secondaryWeaponShopImages" class="row" />
           <button id="backButton" type="button" class=btn>Back</button>
         </div>
     </body>
@@ -37,7 +37,26 @@
         column.setAttribute("class", "column")
         column.appendChild(image)
 
-        document.getElementById("shopImages").appendChild(column)
+        document.getElementById("weaponShopImages").appendChild(column)
+    }
+
+    var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
+
+    for (weapon of secondaryWeapons)
+    {
+        var image = document.createElement("img")
+        image.setAttribute("src", weapon.shopImage)
+        image.setAttribute("id", weapon.index)
+
+        image.onclick = (event) => {
+            PlayerStats.setMountedSecondaryWeaponIndex(event.srcElement.id)
+        }
+
+        var column = document.createElement("column")
+        column.setAttribute("class", "column")
+        column.appendChild(image)
+
+        document.getElementById("secondaryWeaponShopImages").appendChild(column)
     }
 
     document.getElementById("backButton").onclick = function() {

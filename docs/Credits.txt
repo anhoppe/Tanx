@@ -10,3 +10,7 @@ https://forums.getpaint.net/topic/19292-digital-camouflage/
 Tutorial for tiled in Phaser 3
 https://medium.com/@michaelwesthadley/modular-game-worlds-in-phaser-3-tilemaps-1-958fc7e6bbd6
 Got useful information on how to handle tile collision
+
+Explosion (rewritten)
+https://forums.getpaint.net/topic/113824-explosion-rewritten/
+Very nice tutorial for explosions, used for creating the explosion for bombs

@@ -3,7 +3,7 @@ class EnemyWatch extends Enemy
     MIN_WAY_POINT_DIST_SQUARE = 9
     FireRangeSquare = 300000
     ChasingRange = 500
-    RotationSpeedRad = 0.01
+    RotationSpeedRad = 0.02
     ViewConeAngle = 0.8
 
     constructor(scene, group, enemyData, obstacles,  wayPoints)

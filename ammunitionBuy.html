@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="playerStats.js"></script>
+        <title>Tanx2 - Return of the Killer Tanx</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <h3>Buy ammunition</h3>
+        <label id="moneyLabel"></label>
+        <div class="btn-group">
+          <div id="shopImages" class="row">
+          </div>
+          <button id="buyAmmo" type="button" class=btn>Buy</button>
+          <button id="backButton" type="button" class=btn>Back</button>
+        </div>
+      
+    </body>
+</html>
+
+<script type="text/javascript">
+
+    var selectedAmmoToBuyIndex = 0
+
+    var ammos = PlayerStats.getBuyableAmmunition()
+    var ammoIds = []
+
+    for (var ammo of ammos)
+    {
+        var image = document.createElement("img")
+        image.setAttribute("src", ammo.shopImage)
+        image.setAttribute("id", ammo.index)
+        ammoIds.push(ammo.index)
+        image.onclick = (event) => {
+            selectedAmmoToBuyIndex = ammoIds[event.srcElement.id]
+        }
+
+        var text = document.createElement("label")
+        text.innerHTML = ammo.price + "€"
+        
+        var column = document.createElement("column")
+        column.setAttribute("class", "column")
+        column.appendChild(image)
+        column.appendChild(text)
+
+        document.getElementById("shopImages").appendChild(column)
+    }
+
+    document.getElementById("buyAmmo").onclick = function() {
+        var ammos = PlayerStats.getBuyableAmmunition()
+        var ammo = ammos[selectedAmmoToBuyIndex]
+        if (PlayerStats.debitMoney(ammo.price))
+        {
+            PlayerStats.addAmmo(ammo.index)
+        }
+        update()
+    }
+
+    document.getElementById("backButton").onclick = function() {
+        location.href = "main.html"
+    }
+
+    update()
+
+    function update()
+    {
+        document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
+    }
+</script>

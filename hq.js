@@ -16,6 +16,24 @@ class Hq
                 PlayerStats.useRepairKit()
                 hq_global_variable.hqMenu.getChildByProperty("id", "repairButton").innerHTML = "Repair Tank (" + PlayerStats.getRepairKitCount() + " units left)"
             }
+            else if (event.target.id === 'armSecondaryWeapon')
+            {
+                var ammos = PlayerStats.getAllAmmoOwnedByPlayer()
+
+                var selectedSecondaryWeapon = PlayerStats.getActiveSecondaryWeapon()
+
+                var index = 0
+                for (var ammo of ammos)
+                {
+                    if (ammo.weaponType == selectedSecondaryWeapon.type)
+                    {
+                        PlayerStats.setSelectedSecondaryWeaponAmmoIndex(index)
+                        break
+                    }
+
+                    index++
+                }
+            }
             else if (event.target.id === 'leaveButton')
             {
                 //  Turn off the click events
@@ -28,7 +46,6 @@ class Hq
 
         this.hqSpriteGroup = scene.physics.add.staticGroup()
         this.hqSprite = this.hqSpriteGroup.create(hqObject.x, hqObject.y, 'hq')
-        // this.hqSprite = scene.physics.add.sprite(hqObject.x, hqObject.y, 'hq')
 
         this.playerStartPosition = new Phaser.Math.Vector2(hqObject.x, hqObject.y - hqObject.height)
         player.setPosition(this.playerStartPosition)

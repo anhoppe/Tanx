@@ -62,6 +62,18 @@ class Weapon
             }
             weapon = new SpreadGun(template)
         }
+        else if (weaponName == "bombCarrier")
+        {
+            var template = {
+                stats: {
+
+                },
+                gameImage: "player_bombCarrier",
+                shopImage: "assets/shop_bomb_carrier.png"    
+            }
+
+            weapon = new BombCarrier(template)
+        }
         else
         {
 
@@ -85,6 +97,10 @@ class Weapon
         else if (template.type == "spreadGun")
         {
             weapon = new SpreadGun(template)
+        }
+        else if (template.type == "bombCarrier")
+        {
+            weapon = new BombCarrier(template)
         }
 
         return weapon
@@ -111,6 +127,11 @@ class Weapon
                 }, null, this.scene)
             }
         }
+    }
+
+    alternativeFire()
+    {
+        // the alternativeFire method can be used by derived weapons to trigger special weapon behavior, e.g. for bomb carrier to trigger the detonation of the dropped bomb
     }
 
     update(combatantGroup, onRoundHitCallback)

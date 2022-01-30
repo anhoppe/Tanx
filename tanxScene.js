@@ -25,8 +25,13 @@ class TanxScene extends Phaser.Scene
         this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('player_bombCarrier', 'assets/player_bombCarrier.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('triggerBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('timedBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
+        
         this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
-
+        this.load.spritesheet('bombExplosionSmall', 'assets/bomb_explosion_small.png', { frameWidth: 256, frameHeight: 256 })
+        
         this.load.image('hq', 'assets/hq.png')
 
         this.load.image('ground', 'assets/ground.png')
@@ -77,13 +82,20 @@ class TanxScene extends Phaser.Scene
 
         this.ray = this.raycaster.createRay();
 
-        // Create animations for explosion
+        // Create animations for explosions
         this.anims.create({
             key: 'explosion',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 7 }),
             frameRate: 10,
             repeat: 0
-        });
+        })
+
+        this.anims.create({
+            key: 'bombExplosionSmall',
+            frames: this.anims.generateFrameNumbers('bombExplosionSmall', { start: 0, end: 8}),
+            frameRate: 15,
+            repeat: 0
+        })
 
         // create the Tilemap
         const map = this.make.tilemap({ key: 'tilemap' })
@@ -155,6 +167,9 @@ class TanxScene extends Phaser.Scene
 
         // Hide mouse pointer
         this.sys.canvas.style.cursor = 'none'
+
+        // Disable context menu
+        this.input.mouse.disableContextMenu();
     }
     
     update()

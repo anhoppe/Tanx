@@ -107,3 +107,8 @@ body {font-family: Verdana;}
   color: white;
   font-size: 20px;
 }
+
+.vertical div {
+  position:relative;
+  display : block;
+}

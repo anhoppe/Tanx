@@ -30,18 +30,7 @@
     <div id="tankShopImages" class="row">
     </div>
     <button id="buyTankEquipmentButton" type="button" class=btn>Buy Equipment</button>
-    <button id="monuntWeaponToTank" type="button" class=btn>Mount Weapon</button>
-  </div>
-</div>
-
-<div id="Weapon" class="tabcontent">
-  <h3>Your weapon systems</h3>
-  <div class="btn-group">
-    <div id="weaponShopImages" class="row">
-    </div>
-    <button id="buyWeapon" type="button" class=btn>Buy</button>
-    <button id="sellWeapon" type="button" class=btn>Sell</button>
-    <button id="upgradeWeapon" type="button" class=btn>Upgrade</button>
+    <button id="mountWeaponToTank" type="button" class=btn>Mount Weapon</button>
   </div>
 </div>
 
@@ -49,6 +38,20 @@
   <h3>Manage your HQ</h3>
   <div class="btn-group">
     <button id="buyHqEquipmentButton" type="button" class=btn>Buy Equipment</button>
+  </div>
+</div>
+
+<div id="Weapon" class="tabcontent">
+  <h3>Your weapon systems</h3>
+  <div class="btn-group">
+    <div>
+      <div id="weaponShopImages" class="row" />
+      <div id="secondaryWeaponShopIamges" class="row" />
+    </div>
+    <button id="buyWeapon" type="button" class=btn>Buy Primary Weapon</button>
+    <button id="buySecondaryWeapon" type="button" class=btn>Buy Secondary Weapon</button>
+    <button id="buyAmmunition" type="button" class=btn>Buy Ammunition</button>
+    <button id="upgradeWeapon" type="button" class=btn>Upgrade</button>
   </div>
 </div>
 
@@ -82,10 +85,10 @@
   document.getElementById("buyTankEquipmentButton").onclick = function () {
         location.href = "buy.html"
   }
-  document.getElementById("monuntWeaponToTank").onclick = function () {
+  document.getElementById("mountWeaponToTank").onclick = function () {
         location.href = "mountWeapon.html"
   }
-  monuntWeaponToTank
+  mountWeaponToTank
 
   // Weapons
 
@@ -109,12 +112,39 @@
     column.setAttribute("class", "column")
     column.appendChild(image)
 
+    document.getElementById("secondaryWeaponShopIamges").appendChild(column)
+  }
+
+  // Add all secondary weapons in player's stock to the visualization
+  var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
+  for (weapon of secondaryWeapons)
+  {
+    var image = document.createElement("img");
+    image.setAttribute("src", weapon.shopImage);
+    image.setAttribute("id", weapon.index)
+
+    // ToDo: add on click method
+
+    var column = document.createElement("column")
+    column.setAttribute("class", "column")
+    column.appendChild(image)
+
     document.getElementById("weaponShopImages").appendChild(column)
+
   }
 
   document.getElementById("buyWeapon").onclick = function() {
     location.href = "weaponBuy.html"
   }
+
+  document.getElementById("buySecondaryWeapon").onclick = function() {
+    location.href = "secondaryWeaponBuy.html"
+  }
+
+  document.getElementById("buyAmmunition").onclick = function() {
+    location.href = "ammunitionBuy.html"
+  }
+
   document.getElementById("upgradeWeapon").onclick = function () {
     location.href = "weapon.html"
   }
