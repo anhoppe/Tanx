@@ -44,10 +44,8 @@
 <div id="Weapon" class="tabcontent">
   <h3>Your weapon systems</h3>
   <div class="btn-group">
-    <div>
-      <div id="weaponShopImages" class="row" />
-      <div id="secondaryWeaponShopIamges" class="row" />
-    </div>
+    <div id="weaponShopImages" class="row"></div>
+    <div id="secondaryWeaponShopIamges" class="row"></div>
     <button id="buyWeapon" type="button" class=btn>Buy Primary Weapon</button>
     <button id="buySecondaryWeapon" type="button" class=btn>Buy Secondary Weapon</button>
     <button id="buyAmmunition" type="button" class=btn>Buy Ammunition</button>
@@ -63,7 +61,10 @@
   }
 
   document.getElementById("quitButton").onclick = function () {
-      location.href = "index.html"
+      if (confirm("Do you really want to quit? All progress will be lost") == true) 
+      {
+        location.href = "index.html"
+      } 
   }
 
   // Tank
@@ -112,7 +113,7 @@
     column.setAttribute("class", "column")
     column.appendChild(image)
 
-    document.getElementById("secondaryWeaponShopIamges").appendChild(column)
+    document.getElementById("weaponShopImages").appendChild(column)
   }
 
   // Add all secondary weapons in player's stock to the visualization
@@ -129,7 +130,7 @@
     column.setAttribute("class", "column")
     column.appendChild(image)
 
-    document.getElementById("weaponShopImages").appendChild(column)
+    document.getElementById("secondaryWeaponShopIamges").appendChild(column)
 
   }
 

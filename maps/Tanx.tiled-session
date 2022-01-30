@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "level4.tmx",
+    "activeFile": "level1.tmx",
     "expandedProjectPaths": [
         ".",
         "E:/code/Tanx/assets"
@@ -68,9 +68,9 @@
         },
         "level1.tmx": {
             "scale": 0.33,
-            "selectedLayer": 5,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 1600.0000000000002,
+                "x": 2036.3636363636363,
                 "y": 1600
             }
         },
@@ -215,9 +215,9 @@
     "property.type": "string",
     "recentFiles": [
         "level2.tmx",
-        "level1.tmx",
-        "level3.tmx",
         "level4.tmx",
+        "level3.tmx",
+        "level1.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
         "E:/code/Tanx2/maps/obstacles.tsx",
