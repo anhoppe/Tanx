@@ -4,6 +4,48 @@
       background-color: lightblue;    
       text-align: center;
   }
+
+    
+  /* Style the tab */
+  .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+    background-color: #ddd;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+    background-color: #ccc;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+    border: 5px outset lightseagreen;
+    background-color: lightblue;    
+    text-align: center;
+  }
+
   .btn {
       background-color:red;
       font:bold 14px Arial;
@@ -32,13 +74,91 @@
       .btn-group button:hover {
       background-color: #3e8e41;
   }
+
+  .column {
+  float: left;
+  width: 25%;
+  padding: 10px;
+  border: 1px solid green; /* Green border */
+  }
+
+  /* Style the images inside the grid */
+  .column img {
+    opacity: 0.5; 
+    cursor: pointer; 
+  }
+
+  .column img:hover {
+    opacity: 1;
+  }
+  /* The grid: Four equal columns that floats next to each other */
+  .activeColumn {
+    float: left;
+    width: 25%;
+    padding: 10px;
+  }
+
+  /* Style the images inside the grid */
+  .activeColumn img {
+    opacity: 1.0; 
+  }
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 </style>
 
-<div class="myDiv">
-  <h2>You are in the HQ</h2>
-  <label id="moneyLabel"></label>
+<h2>You are in the HQ</h2>
+
+<div class="tab">
+  <button class="tablinks" onclick="onTabClick(event, 'Home')">Home</button>
+  <button class="tablinks" onclick="onTabClick(event, 'Tank')">Tanks</button>
+  <button class="tablinks" onclick="onTabClick(event, 'Weapons')">Weapons</button>
+  <button class="tablinks" onclick="onTabClick(event, 'HQ')">HQ</button>
+</div>
+
+<div id="Home" class="tabcontent">
+  <h3>Home</h3>
   <div class="btn-group">
-      <button id="repairButton" type="button" class=btn>Repair Tank</button>    
-      <button id="leaveButton" type="button" class=btn>Leave HQ</button>    
+    <button id="leaveButton" type="button" class=btn>Leave HQ</button>
+    <button id="capitulateButton" type="button" class=btn>Capitulate</button>
+  </div>
+</div>
+
+<div id="Tank" class="tabcontent">
+  <h3>Maintain your Tanks</h3>
+  <div class="btn-group">
+  </div>
+</div>
+
+<div id="HQ" class="tabcontent">
+  <h3>Manage your HQ</h3>
+  <div class="btn-group">
+      <button id="repairButton" type="button" class=btn>Repair Tank</button>
+    </div>
+</div>
+
+<div id="Weapons" class="tabcontent">
+  <h3>Your weapon systems</h3>
+  <div class="btn-group">
+    <div class="row">
+      <p id="activeSecondaryWeaponLabel"></p>
+    </div>
+    <div class="row">
+      <p>Secondary Weapon Slots</p>
+      <div id="availableSlots">
+        <column id="slotColumn" class="column">
+          <img id="secondayWeaponSlotImage"></img>
+        </column>
+      </div>
+    </div>
+    <div class="row">
+      <p>Your ammo</p>
+      <div id="availableAmmo"></div>
+    </div>
   </div>
 </div>
