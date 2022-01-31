@@ -108,6 +108,7 @@ button[disabled]{
   float: left;
   width: 25%;
   padding: 10px;
+  border: 5px outset lightseagreen;
 }
 
 /* Style the images inside the grid */

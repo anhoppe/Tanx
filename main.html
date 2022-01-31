@@ -89,7 +89,6 @@
   document.getElementById("mountWeaponToTank").onclick = function () {
         location.href = "mountWeapon.html"
   }
-  mountWeaponToTank
 
   // Weapons
 
@@ -101,7 +100,7 @@
     image.setAttribute("src", weapon.shopImage);
     image.setAttribute("id", weapon.index)
     
-    image.onclick = () => {
+    image.onclick = (event) => {
       var index = parseInt(event.srcElement.id)
 
       document.getElementById("upgradeWeapon").innerHTML = "Upgrade (" + weapons[index].type + ")"

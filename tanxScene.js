@@ -11,6 +11,7 @@ class TanxScene extends Phaser.Scene
     preload()
     {
         this.load.html('hqWarMenu', 'assets/hqWarMenu.html')
+        this.load.html('hqWarMenuLoadSecondary', 'assets/hqWarMenuLoadSecondary.html')
         this.load.image('round', 'assets/round.png')
     
         this.load.image('brum-boss', 'assets/brum_boss.png')
@@ -184,11 +185,11 @@ class TanxScene extends Phaser.Scene
                     }
                 })
             })
+            this.player.fire()
+            this.hq.displayMenuOnCollision(this.physics, this.player, this.cameras.main)
         }
 
-        this.player.fire()
 
-        this.hq.displayMenuOnCollision(this.physics, this.player)
 
         this.updateEnemies()
         this.checkGameFinished()
