@@ -256,9 +256,19 @@ class PlayerStats
         localStorage.mountedPrimaryWeaponIndex = JSON.stringify(index)
     }
 
+    static getMountedPrimaryWeaponIndex()
+    {
+        return parseInt(JSON.parse(localStorage.mountedPrimaryWeaponIndex))
+    }
+
     static setMountedSecondaryWeaponIndex(index)
     {
         localStorage.mountedSecondaryWeaponIndex = JSON.stringify(index)
+    }
+
+    static getMountedSecondaryWeaponIndex()
+    {
+        return parseInt(JSON.parse(localStorage.mountedSecondaryWeaponIndex))
     }
 
     static setSelectedSecondaryWeaponAmmoIndex(index)

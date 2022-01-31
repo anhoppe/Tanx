@@ -12,7 +12,7 @@
         <div class="btn-group">
           <div id="shopImages" class="row">
           </div>
-          <button id="buyAmmo" type="button" class=btn>Buy</button>
+          <button id="buyAmmo" type="button" class=btn disabled>Buy</button>
           <button id="backButton" type="button" class=btn>Back</button>
         </div>
       
@@ -34,6 +34,15 @@
         ammoIds.push(ammo.index)
         image.onclick = (event) => {
             selectedAmmoToBuyIndex = ammoIds[event.srcElement.id]
+
+            var ammoImages = document.getElementsByTagName("column")
+            for (i = 0; i < ammoImages.length; i++) {
+                ammoImages[i].className = "column"
+            }
+            ammoImages[selectedAmmoToBuyIndex].className = "activeColumn"
+
+            var buyButton = document.getElementById("buyAmmo")
+            buyButton.disabled = false
         }
 
         var text = document.createElement("label")

@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
 
-    var selectedWeaponToBuyIndex = 0
+    var mounterWeaponIndex = PlayerStats.getMountedPrimaryWeaponIndex()
 
     var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
 
@@ -32,17 +32,35 @@
         image.setAttribute("src", weapon.shopImage)
         image.setAttribute("id", weapon.index)
         image.onclick = (event) => {
-            PlayerStats.setMountedPrimaryWeaponIndex(event.srcElement.id)
+            var index = event.srcElement.id
+            PlayerStats.setMountedPrimaryWeaponIndex(index)
+
+            var weaponImagesDiv = document.getElementById("weaponShopImages")
+            var weaponImages = weaponImagesDiv.getElementsByTagName("column")
+            for (i = 0; i < weaponImages.length; i++) 
+            {
+                weaponImages[i].className = "column"
+            }
+            weaponImages[index].className = "activeColumn"
         }
 
         var column = document.createElement("column")
-        column.setAttribute("class", "column")
+
+        if (weapon.index == mounterWeaponIndex)
+        {
+            column.setAttribute("class", "activeColumn")
+        }
+        else
+        {
+            column.setAttribute("class", "column")
+        }
         column.appendChild(image)
 
         document.getElementById("weaponShopImages").appendChild(column)
     }
 
     var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
+    var mountedSecondaryWeaponIndex = PlayerStats.getMountedSecondaryWeaponIndex()
 
     for (weapon of secondaryWeapons)
     {
@@ -51,11 +69,29 @@
         image.setAttribute("id", weapon.index)
 
         image.onclick = (event) => {
-            PlayerStats.setMountedSecondaryWeaponIndex(event.srcElement.id)
+            var index = event.srcElement.id
+            PlayerStats.setMountedSecondaryWeaponIndex(index)
+
+            var secondaryWeaponImagesDiv = document.getElementById("secondaryWeaponShopImages")
+            var secondaryWeaponImages = secondaryWeaponImagesDiv.getElementsByTagName("column")
+            for (i = 0; i < secondaryWeaponImages.length; i++) 
+            {
+                secondaryWeaponImages[i].className = "column"
+            }
+            secondaryWeaponImages[index].className = "activeColumn"
         }
 
         var column = document.createElement("column")
-        column.setAttribute("class", "column")
+
+        if (weapon.index == mountedSecondaryWeaponIndex)
+        {
+            column.setAttribute("class", "activeColumn")
+        }
+        else
+        {
+            column.setAttribute("class", "column")
+        }
+        
         column.appendChild(image)
 
         document.getElementById("secondaryWeaponShopImages").appendChild(column)

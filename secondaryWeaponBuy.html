@@ -15,7 +15,7 @@
             <div class="btn-group">
                 <div id="shopImages" class="row">
                 </div>
-                <button id="buyWeapon" type="button" class=btn>Buy</button>
+                <button id="buyWeapon" type="button" class=btn disabled>Buy</button>
                 <button id="backButton" type="button" class=btn>Back</button>
             </div>
         </div>
@@ -37,6 +37,15 @@
         weaponIds.push(weapon.index)
         image.onclick = (event) => {
             selectedWeaponToBuyIndex = weaponIds[event.srcElement.id]
+
+            var weaponImages = document.getElementsByTagName("column")
+            for (i = 0; i < weaponImages.length; i++) {
+                weaponImages[i].className = "column"
+            }
+            weaponImages[parseInt(selectedWeaponToBuyIndex)].className = "activeColumn"
+
+            var buyButton = document.getElementById("buyWeapon")
+            buyButton.disabled = false
         }
 
         var text = document.createElement("label")

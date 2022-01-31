@@ -49,7 +49,7 @@
     <button id="buyWeapon" type="button" class=btn>Buy Primary Weapon</button>
     <button id="buySecondaryWeapon" type="button" class=btn>Buy Secondary Weapon</button>
     <button id="buyAmmunition" type="button" class=btn>Buy Ammunition</button>
-    <button id="upgradeWeapon" type="button" class=btn>Upgrade</button>
+    <button id="upgradeWeapon" type="button" class=btn disabled>Upgrade</button>
   </div>
 </div>
 
@@ -105,6 +105,16 @@
       var index = parseInt(event.srcElement.id)
 
       document.getElementById("upgradeWeapon").innerHTML = "Upgrade (" + weapons[index].type + ")"
+
+      var weaponImagesDiv = document.getElementById("weaponShopImages")
+      var weaponImages = weaponImagesDiv.getElementsByTagName("column")
+            for (i = 0; i < weaponImages.length; i++) {
+                weaponImages[i].className = "column"
+            }
+            weaponImages[index].className = "activeColumn"
+
+            var upgradeButton = document.getElementById("upgradeWeapon")
+            upgradeButton.disabled = false
 
       localStorage.selectedWeaponForUpgradeIndex = JSON.stringify(index)
     }
