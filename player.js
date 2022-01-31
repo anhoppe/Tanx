@@ -51,6 +51,10 @@ class Player extends Combatant
         this.setPosition(startPosition)
         this.baseSprite.visible = true
         this.turretSprite.visible = true
+        if (this.secondaryGun != 0)
+        {
+            this.secondaryWeaponSprite.visible = true
+        }
     }
 
     deactivate()
