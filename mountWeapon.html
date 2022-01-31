@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script src="imageCreator.js"></script>
         <script src="weapon.js"></script>
         <script src="gun.js"></script>
         <script src="playerStats.js"></script>
@@ -28,9 +29,7 @@
 
     for (var weapon of weapons)
     {
-        var image = document.createElement("img")
-        image.setAttribute("src", weapon.shopImage)
-        image.setAttribute("id", weapon.index)
+        var image = createImageWithActivatedState("weaponShopImages", weapon.shopImage, weapon.index, weapon.index == mounterWeaponIndex)
         image.onclick = (event) => {
             var index = event.srcElement.id
             PlayerStats.setMountedPrimaryWeaponIndex(index)
@@ -43,20 +42,6 @@
             }
             weaponImages[index].className = "activeColumn"
         }
-
-        var column = document.createElement("column")
-
-        if (weapon.index == mounterWeaponIndex)
-        {
-            column.setAttribute("class", "activeColumn")
-        }
-        else
-        {
-            column.setAttribute("class", "column")
-        }
-        column.appendChild(image)
-
-        document.getElementById("weaponShopImages").appendChild(column)
     }
 
     var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
@@ -64,9 +49,7 @@
 
     for (weapon of secondaryWeapons)
     {
-        var image = document.createElement("img")
-        image.setAttribute("src", weapon.shopImage)
-        image.setAttribute("id", weapon.index)
+        var image = createImageWithActivatedState("secondaryWeaponShopImages", weapon.shopImage, weapon.index, weapon.index == mounterWeaponIndex)
 
         image.onclick = (event) => {
             var index = event.srcElement.id
@@ -80,21 +63,6 @@
             }
             secondaryWeaponImages[index].className = "activeColumn"
         }
-
-        var column = document.createElement("column")
-
-        if (weapon.index == mountedSecondaryWeaponIndex)
-        {
-            column.setAttribute("class", "activeColumn")
-        }
-        else
-        {
-            column.setAttribute("class", "column")
-        }
-        
-        column.appendChild(image)
-
-        document.getElementById("secondaryWeaponShopImages").appendChild(column)
     }
 
     document.getElementById("backButton").onclick = function() {

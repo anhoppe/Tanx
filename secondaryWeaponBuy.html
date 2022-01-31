@@ -2,6 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script src="imageCreator.js"></script>
         <script src="weapon.js"></script>
         <script src="bombCarrier.js"></script>
         <script src="playerStats.js"></script>
@@ -31,10 +32,7 @@
 
     for (var weapon of weapons)
     {
-        var image = document.createElement("img")
-        image.setAttribute("src", weapon.shopImage)
-        image.setAttribute("id", weapon.index)
-        weaponIds.push(weapon.index)
+        var image = createImageWithText("shopImages", weapon.shopImage, weapon.index, weapon.price + "€")
         image.onclick = (event) => {
             selectedWeaponToBuyIndex = weaponIds[event.srcElement.id]
 
@@ -48,15 +46,7 @@
             buyButton.disabled = false
         }
 
-        var text = document.createElement("label")
-        text.innerHTML = weapon.price + "€"
-        
-        var column = document.createElement("column")
-        column.setAttribute("class", "column")
-        column.appendChild(image)
-        column.appendChild(text)
-
-        document.getElementById("shopImages").appendChild(column)
+        weaponIds.push(weapon.index)
     }
 
     document.getElementById("buyWeapon").onclick = function() {

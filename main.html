@@ -3,6 +3,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="playerStats.js"></script>
+<script src="imageCreator.js"></script>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -96,9 +97,7 @@
   var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
   for (var weapon of weapons)
   {
-    var image = document.createElement("img");
-    image.setAttribute("src", weapon.shopImage);
-    image.setAttribute("id", weapon.index)
+    var image = createImage("weaponShopImages", weapon.shopImage, weapon.index)
     
     image.onclick = (event) => {
       var index = parseInt(event.srcElement.id)
@@ -107,40 +106,26 @@
 
       var weaponImagesDiv = document.getElementById("weaponShopImages")
       var weaponImages = weaponImagesDiv.getElementsByTagName("column")
-            for (i = 0; i < weaponImages.length; i++) {
-                weaponImages[i].className = "column"
-            }
-            weaponImages[index].className = "activeColumn"
+      for (i = 0; i < weaponImages.length; i++) {
+        weaponImages[i].className = "column"
+      }
+      weaponImages[index].className = "activeColumn"
 
-            var upgradeButton = document.getElementById("upgradeWeapon")
-            upgradeButton.disabled = false
+      var upgradeButton = document.getElementById("upgradeWeapon")
+      upgradeButton.disabled = false
 
       localStorage.selectedWeaponForUpgradeIndex = JSON.stringify(index)
-    }
-    
-    var column = document.createElement("column")
-    column.setAttribute("class", "column")
-    column.appendChild(image)
-
-    document.getElementById("weaponShopImages").appendChild(column)
+    }    
   }
 
   // Add all secondary weapons in player's stock to the visualization
   var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
   for (weapon of secondaryWeapons)
   {
-    var image = document.createElement("img");
-    image.setAttribute("src", weapon.shopImage);
-    image.setAttribute("id", weapon.index)
+
+    var image = createImage("secondaryWeaponShopIamges", weapon.shopImage, weapon.index)
 
     // ToDo: add on click method
-
-    var column = document.createElement("column")
-    column.setAttribute("class", "column")
-    column.appendChild(image)
-
-    document.getElementById("secondaryWeaponShopIamges").appendChild(column)
-
   }
 
   document.getElementById("buyWeapon").onclick = function() {

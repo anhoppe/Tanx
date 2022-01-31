@@ -117,15 +117,12 @@ class Hq
     }
     
     setAvailableAmmoImages(ammoOwnedByPlayer, player) 
-    {
-        
+    {    
         document.getElementById("availableAmmo").innerHTML = '';
 
         for (var index = 0; index < ammoOwnedByPlayer.length; index++) {
             if (ammoOwnedByPlayer[index].weaponType == player.secondaryGun.type) {
-                var image = document.createElement("img");
-                image.setAttribute("src", ammoOwnedByPlayer[index].shopImage);
-                image.setAttribute("id", ammoOwnedByPlayer[index].index);
+                var image = createImage("availableAmmo", ammoOwnedByPlayer[index].shopImage, ammoOwnedByPlayer[index].index)
 
                 image.onclick = (event) => {
                     var id = parseInt(event.srcElement.id);
@@ -144,12 +141,6 @@ class Hq
                     }
                     PlayerStats.setSelectedSecondaryWeaponAmmoIndex(id);
                 };
-
-                var column = document.createElement("column");
-                column.setAttribute("class", "column");
-                column.appendChild(image);
-
-                document.getElementById("availableAmmo").appendChild(column);
             }
         }
     }

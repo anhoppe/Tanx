@@ -2,25 +2,25 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script src="imageCreator.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
-        <h3>Buy ammunition</h3>
-        <label id="moneyLabel"></label>
-        <div class="btn-group">
-          <div id="shopImages" class="row">
-          </div>
-          <button id="buyAmmo" type="button" class=btn disabled>Buy</button>
-          <button id="backButton" type="button" class=btn>Back</button>
+        <div class="mainDivContent">
+            <h3>Buy ammunition</h3>
+            <label id="moneyLabel"></label>
+            <div class="btn-group">
+                <div id="shopImages" class="row"></div>
+                <button id="buyAmmo" type="button" class=btn disabled>Buy</button>
+                <button id="backButton" type="button" class=btn>Back</button>
+            </div>
         </div>
-      
     </body>
 </html>
 
 <script type="text/javascript">
-
     var selectedAmmoToBuyIndex = 0
 
     var ammos = PlayerStats.getBuyableAmmunition()
@@ -28,10 +28,7 @@
 
     for (var ammo of ammos)
     {
-        var image = document.createElement("img")
-        image.setAttribute("src", ammo.shopImage)
-        image.setAttribute("id", ammo.index)
-        ammoIds.push(ammo.index)
+        var image = createImageWithText("shopImages", ammo.shopImage, ammo.index, ammo.price + "€")
         image.onclick = (event) => {
             selectedAmmoToBuyIndex = ammoIds[event.srcElement.id]
 
@@ -45,15 +42,7 @@
             buyButton.disabled = false
         }
 
-        var text = document.createElement("label")
-        text.innerHTML = ammo.price + "€"
-        
-        var column = document.createElement("column")
-        column.setAttribute("class", "column")
-        column.appendChild(image)
-        column.appendChild(text)
-
-        document.getElementById("shopImages").appendChild(column)
+        ammoIds.push(ammo.index)
     }
 
     document.getElementById("buyAmmo").onclick = function() {
