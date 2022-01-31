@@ -21,7 +21,10 @@ class TanxScene extends Phaser.Scene
         this.load.image('soldier', 'assets/soldier.png')
         this.load.image('gun', 'assets/gun.png')
 
-        this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
+
+        this.load.spritesheet('player_ant_base', 'assets/player_ant_base.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('player_cat_base', 'assets/player_cat_base.png', { frameWidth: 48, frameHeight: 48 });   
+
         this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 });

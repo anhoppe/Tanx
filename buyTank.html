@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <script src="playerStats.js"></script>
+        <title>Tanx2 - Return of the Killer Tanx</title>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <div class="myDiv">
+            <h2>Tanx2 - Buy new Tanks</h2>
+            <label id="moneyLabel"></label>
+            <div class="btn-group">
+                <div id="shopImages" class="row"></div>
+                <button id="buyTankButton" type="button" class=btn>Buy Tank</button>
+                <button id="backButton" type="button" class=btn>Back</button>    
+            </div>
+        </div>
+    </body>
+</html>
+
+<script type="text/javascript">
+    
+
+    document.getElementById("backButton").onclick = function () {
+        location.href = "main.html"
+    }
+
+
+    var selectedTankToBuyIndex = 0
+
+    var tanks = PlayerStats.getAllBuyabelTanks()
+    var tankIds = []
+
+    for (var tank of tanks)
+    {
+        var image = document.createElement("img")
+        image.setAttribute("src", tank.shopImage)
+        image.setAttribute("id", tank.index)
+        tankIds.push(tank.index)
+        image.onclick = (event) => {
+            selectedTankToBuyIndex = tankIds[event.srcElement.id]
+        }
+
+        var text = document.createElement("label")
+        text.innerHTML = tank.price + "€"
+        
+        var column = document.createElement("column")
+        column.setAttribute("class", "column")
+        column.appendChild(image)
+        column.appendChild(text)
+
+        document.getElementById("shopImages").appendChild(column)
+    }
+
+    document.getElementById("buyTankButton").onclick = function() {
+        var tank = tanks[selectedTankToBuyIndex]
+        if (PlayerStats.debitMoney(tank.price))
+        {            
+            PlayerStats.addTank(tank)
+        }
+        else
+        {
+            alert("You have only " + PlayerStats.getMoney() + "$");
+        }
+        update()
+    }
+
+
+    update()
+
+    function update()
+    {
+        document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
+    }
+</script>
