@@ -9,7 +9,6 @@ class BombCarrier extends Weapon
 
     update(combatantGroup, onRoundHitCallback)
     {
-
         for (var droppedBombPair of this.droppedBombs)
         {
             var droppedBomb = droppedBombPair[0]
@@ -24,7 +23,6 @@ class BombCarrier extends Weapon
         {
             this.droppedBombs = this.droppedBombs.filter(x => !x[0].removeBomb)
         }
-
     }
 
     fire(xFrom, yFrom, xTo, yTo)
@@ -84,6 +82,8 @@ class BombCarrier extends Weapon
     {
         if (droppedBomb.hasOwnProperty('explosionAnimation'))
         {
+            // Currently the isPlaying property is used to define when the impact of the bomb
+            // is applied to the combatants
             if (!droppedBomb.explosionAnimation.anims.isPlaying)
             {
                 for (var combatantSprite of combatantGroup.children.entries)

@@ -65,9 +65,7 @@ class Hq
             secondaryGunName = player.secondaryGun.type
             
             var ammoOwnedByPlayer = PlayerStats.getAllAmmoOwnedByPlayer()
-
-           this.setAmmoSlotImage(ammoOwnedByPlayer);
-
+            this.setAmmoSlotImage(ammoOwnedByPlayer);
             this.setAvailableAmmoImages(ammoOwnedByPlayer, player);
         }
         
