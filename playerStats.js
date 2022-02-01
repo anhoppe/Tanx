@@ -152,6 +152,15 @@ class PlayerStats
         return ammunition
     }
 
+    static decAmmoUnitCount(index)
+    {
+        var ammunition = JSON.parse(localStorage.ammunition)
+
+        ammunition[index].units--
+
+        localStorage.ammunition = JSON.stringify(ammunition)
+    }
+
     static addWeapon(weaponName)
     {
         var weapons = JSON.parse(localStorage.primaryWeapons)
@@ -213,6 +222,12 @@ class PlayerStats
                 name: "bombCarrier",
                 price: 2000,
                 shopImage: "assets/shop_bomb_carrier.png"
+            },
+            {
+                index: 1,
+                name: "minelayer",
+                price: 1200,
+                shopImage: "assets/shop_minelayer.png",
             }
         ]
     }
@@ -236,10 +251,41 @@ class PlayerStats
                 price: 200,
                 shopImage: "assets/shop_timed_bomb_small.png",
                 weaponType: "bombCarrier",
+                type: 'time',
                 radius: 128,
                 damage: 500,
-                type: 'time',
                 durationSec: 5
+            },
+            {
+                index: 2,
+                name: "mine",
+                price: 200,
+                shopImage: "assets/shop_mine.png",
+                weaponType: "minelayer",
+                type: 'direct',
+                damage: 120,
+                units: 10
+            },
+            {
+                index: 3,
+                name: "mine",
+                price: 500,
+                shopImage: "assets/shop_mine.png",
+                weaponType: "minelayer",
+                type: 'direct',
+                damage: 120,
+                units: 20
+            },
+            {
+                index: 4,
+                name: "mine",
+                price: 500,
+                shopImage: "assets/shop_mine_area_damage.png",
+                weaponType: "minelayer",
+                type: 'area',
+                radius: 128,
+                damage: 100,
+                units: 5
             }
         ]
     }
@@ -309,6 +355,20 @@ class PlayerStats
     static getSelectedSecondaryWeaponAmmoIndex()
     {
         return JSON.parse(localStorage.selectedSecondaryWeaponAmmoIndex)
+    }
+
+    static getSelectedAmmo()
+    {
+        var ammo = PlayerStats.getAllAmmoOwnedByPlayer()
+
+        var index = PlayerStats.getSelectedSecondaryWeaponAmmoIndex()
+
+        if (index != -1)
+        {
+            return ammo[PlayerStats.getSelectedSecondaryWeaponAmmoIndex()]
+        }
+
+        return 0
     }
 
     static removeSecondaryWeaponAmmoByIndex(index)

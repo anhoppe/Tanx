@@ -22,13 +22,15 @@ class TanxScene extends Phaser.Scene
         this.load.image('soldier', 'assets/soldier.png')
         this.load.image('gun', 'assets/gun.png')
 
-        this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_bombCarrier', 'assets/player_bombCarrier.png', { frameWidth: 48, frameHeight: 48 });
+        this.load.spritesheet('player_base', 'assets/player_base.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_bombCarrier', 'assets/player_bombCarrier.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_minelayer', "assets/player_minelayer.png", { frameWidth: 48, frameHeight: 48 })
         this.load.spritesheet('triggerBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
         this.load.spritesheet('timedBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('mine', 'assets/mine.png', { frameWidth: 16, frameHeight: 16 })
         
         this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('bombExplosionSmall', 'assets/bomb_explosion_small.png', { frameWidth: 256, frameHeight: 256 })
@@ -188,8 +190,6 @@ class TanxScene extends Phaser.Scene
             this.player.fire()
             this.hq.displayMenuOnCollision(this.physics, this.player, this.cameras.main)
         }
-
-
 
         this.updateEnemies()
         this.checkGameFinished()

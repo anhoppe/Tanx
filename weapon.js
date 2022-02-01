@@ -74,6 +74,18 @@ class Weapon
 
             weapon = new BombCarrier(template)
         }
+        else if (weaponName == "minelayer")
+        {
+            var template = {
+                stats: {
+                    "mineDropDelaySec": { value: 3, incCount: 0, incLevel: -0.5, basePrice: 20 },
+                },
+                gameImage: "player_minelayer",
+                shopImage: "assets/shop_minelayer.png"
+            }
+
+            weapon = new Minelayer(template)
+        }
         else
         {
 
@@ -101,6 +113,10 @@ class Weapon
         else if (template.type == "bombCarrier")
         {
             weapon = new BombCarrier(template)
+        }
+        else if (template.type == "minelayer")
+        {
+            weapon = new Minelayer(template)
         }
 
         return weapon
