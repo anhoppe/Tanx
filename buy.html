@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script src="playerStatsAmmo.js"></script>
+        <script src="playerStatsSecondaryWeapon.js"></script>
+        <script src="playerStatsWeapons.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
@@ -11,8 +14,6 @@
             <h2>Tanx2 - Boost up your war effectiveness</h2>
             <label id="moneyLabel"></label>
             <div class="btn-group">
-                <button id="shotDelayButton" type="button" class=btn>Increase weapon shot frequency</button>
-                <button id="motorButton" type="button" class=btn>Improve Engine</button>
                 <button id="backButton" type="button" class=btn>Back</button>    
             </div>
         </div>
@@ -21,10 +22,6 @@
 
 <script type="text/javascript">
     
-    document.getElementById("shotDelayButton").onclick = function () {
-            PlayerStats.buyShootDelayDecrease()
-            update()
-    }
 
         document.getElementById("backButton").onclick = function () {
         location.href = "main.html"
@@ -35,8 +32,5 @@
     function update()
     {
         document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
-
-        document.getElementById("shotDelayButton").innerHTML = "Increase weapon shot frequency (" + PlayerStats.getCostsShootDelayDecrease() + "€)"
-
     }
 </script>

@@ -5,6 +5,9 @@
         <script src="imageCreator.js"></script>
         <script src="weapon.js"></script>
         <script src="gun.js"></script>
+        <script src="playerStatsAmmo.js"></script>
+        <script src="playerStatsSecondaryWeapon.js"></script>
+        <script src="playerStatsWeapons.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
@@ -23,16 +26,16 @@
 
 <script type="text/javascript">
 
-    var mounterWeaponIndex = PlayerStats.getMountedPrimaryWeaponIndex()
+    var mounterWeaponIndex = PlayerStats.Weapons.getMountedIndex()
 
-    var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
+    var weapons = PlayerStats.Weapons.getOwnedByPlayer()
 
     for (var weapon of weapons)
     {
         var image = createImageWithActivatedState("weaponShopImages", weapon.shopImage, weapon.index, weapon.index == mounterWeaponIndex)
         image.onclick = (event) => {
             var index = event.srcElement.id
-            PlayerStats.setMountedPrimaryWeaponIndex(index)
+            PlayerStats.Weapons.setMountedIndex(index)
 
             var weaponImagesDiv = document.getElementById("weaponShopImages")
             var weaponImages = weaponImagesDiv.getElementsByTagName("column")
@@ -44,8 +47,8 @@
         }
     }
 
-    var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
-    var mountedSecondaryWeaponIndex = PlayerStats.getMountedSecondaryWeaponIndex()
+    var secondaryWeapons = PlayerStats.Secondary.getOwnedByPlayer()
+    var mountedSecondaryWeaponIndex = PlayerStats.Secondary.getMountedIndex()
 
     for (weapon of secondaryWeapons)
     {
@@ -53,7 +56,7 @@
 
         image.onclick = (event) => {
             var index = event.srcElement.id
-            PlayerStats.setMountedSecondaryWeaponIndex(index)
+            PlayerStats.Secondary.setMountedIndex(index)
 
             var secondaryWeaponImagesDiv = document.getElementById("secondaryWeaponShopImages")
             var secondaryWeaponImages = secondaryWeaponImagesDiv.getElementsByTagName("column")

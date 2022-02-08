@@ -5,8 +5,8 @@ class Player extends Combatant
         var hp = PlayerStats.getHitPoints()
         super(hp)
 
-        this.primaryGun = PlayerStats.getActiveWeapon(scene, obstacles)
-        this.secondaryGun = PlayerStats.getActiveSecondaryWeapon()
+        this.primaryGun = PlayerStats.Weapons.getActive(scene, obstacles)
+        this.secondaryGun = PlayerStats.Secondary.getActive()
         
         this.playerSpriteGroup = scene.physics.add.group()
 

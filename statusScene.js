@@ -23,13 +23,13 @@ class StatusScene extends Phaser.Scene
     {
         this.setValue(this.healthBar, PlayerStats.getHitPointsInPerCent())
 
-        var secondaryWeapon = PlayerStats.getActiveSecondaryWeapon()
+        var secondaryWeapon = PlayerStats.Secondary.getActive()
         if (secondaryWeapon != 0)
         {
 
             var text = secondaryWeapon.type
 
-            var ammo = PlayerStats.getSelectedAmmo()
+            var ammo = PlayerStats.Ammo.getSelected()
 
             if (ammo != 0)
             {

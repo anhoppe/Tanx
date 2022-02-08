@@ -64,7 +64,7 @@ class Hq
         {
             secondaryGunName = player.secondaryGun.type
             
-            var ammoOwnedByPlayer = PlayerStats.getAllAmmoOwnedByPlayer()
+            var ammoOwnedByPlayer = PlayerStats.Ammo.getOwnedByPlayer()
             this.setAmmoSlotImage(ammoOwnedByPlayer);
             this.setAvailableAmmoImages(ammoOwnedByPlayer, player);
         }
@@ -104,7 +104,7 @@ class Hq
             slotColumn.removeChild(slotImage);
         }
     
-        var loadedAmmoIndex = PlayerStats.getSelectedSecondaryWeaponAmmoIndex()
+        var loadedAmmoIndex = PlayerStats.Ammo.getSelectedSecondaryWeaponAmmoIndex()
 
         if (loadedAmmoIndex != -1) {
             var ammo = ammoOwnedByPlayer[loadedAmmoIndex];
@@ -139,7 +139,7 @@ class Hq
                     else {
                         document.getElementById("slotColumn").appendChild(image);
                     }
-                    PlayerStats.setSelectedSecondaryWeaponAmmoIndex(id);
+                    PlayerStats.Ammo.setSelectedSecondaryWeaponAmmoIndex(id);
                 };
             }
         }

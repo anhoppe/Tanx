@@ -66,13 +66,13 @@ class Minelayer extends Weapon
 
     fire(xFrom, yFrom, xTo, yTo)
     {
-        var selectedAmmoIndex = PlayerStats.getSelectedSecondaryWeaponAmmoIndex()
+        var selectedAmmoIndex = PlayerStats.Ammo.getSelectedSecondaryWeaponAmmoIndex()
 
         if (selectedAmmoIndex != -1 && this.isMinTimeElapsed())
         {
             this.lastFireTimeSec = Date.now() / 1000
 
-            var droppedMine = PlayerStats.getSelectedAmmo()
+            var droppedMine = PlayerStats.Ammo.getSelected()
 
             droppedMine.isExploding = false
             droppedMine.removeMine = false
@@ -80,13 +80,13 @@ class Minelayer extends Weapon
             var droppedMineSprite = this.scene.physics.add.sprite(xFrom, yFrom, droppedMine.name)
             this.droppedMines.push([droppedMine, droppedMineSprite])
 
-            PlayerStats.decAmmoUnitCount(selectedAmmoIndex)
+            PlayerStats.Ammo.decUnitCount(selectedAmmoIndex)
             droppedMine.units -= 1
 
             if (droppedMine.units == 0)
             {
-                PlayerStats.removeSecondaryWeaponAmmoByIndex(selectedAmmoIndex)
-                PlayerStats.setSelectedSecondaryWeaponAmmoIndex(-1)    
+                PlayerStats.Ammo.removeSecondaryWeaponAmmoByIndex(selectedAmmoIndex)
+                PlayerStats.Ammo.setSelectedSecondaryWeaponAmmoIndex(-1)    
             }
         }
     }

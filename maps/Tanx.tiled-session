@@ -5,6 +5,7 @@
     },
     "activeFile": "level1.tmx",
     "expandedProjectPaths": [
+        "templates",
         ".",
         "E:/code/Tanx/assets"
     ],
@@ -70,7 +71,7 @@
             "scale": 0.33,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 2036.3636363636363,
+                "x": 1600,
                 "y": 1600
             }
         },
@@ -108,8 +109,8 @@
             "scale": 0.25,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 1404,
-                "y": 1600
+                "x": -1436,
+                "y": 228
             }
         },
         "level2.tmx#background": {
@@ -177,8 +178,8 @@
             "scale": 0.29331250000000003,
             "selectedLayer": 6,
             "viewCenter": {
-                "x": 1602.3865331344557,
-                "y": 1602.3865331344555
+                "x": 1598.977200085233,
+                "y": 1598.977200085233
             }
         },
         "level4.tmx#ground": {
@@ -191,6 +192,26 @@
             "scaleInDock": 1
         },
         "level4.tmx#world": {
+            "scaleInDock": 1
+        },
+        "level5.tmx": {
+            "scale": 0.5,
+            "selectedLayer": 4,
+            "viewCenter": {
+                "x": 1862,
+                "y": 1588
+            }
+        },
+        "level5.tmx#ground": {
+            "scaleInDock": 1
+        },
+        "level5.tmx#sky": {
+            "scaleInDock": 1
+        },
+        "level5.tmx#weaponCollision": {
+            "scaleInDock": 1
+        },
+        "level5.tmx#world": {
             "scaleInDock": 1
         }
     },

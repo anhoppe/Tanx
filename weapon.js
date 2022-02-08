@@ -86,6 +86,15 @@ class Weapon
 
             weapon = new Minelayer(template)
         }
+        else if (weaponName == 'groundCannon')
+        {
+            var template = {
+                gameImage: 'player_groundCannon',
+                shopImage: 'assets/shop_ground_cannon.png'
+            }
+
+            weapon = new GroundCannon(template)
+        }
         else
         {
 

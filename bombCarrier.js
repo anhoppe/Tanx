@@ -27,11 +27,11 @@ class BombCarrier extends Weapon
 
     fire(xFrom, yFrom, xTo, yTo)
     {
-        var selectedAmmoIndex = PlayerStats.getSelectedSecondaryWeaponAmmoIndex()
+        var selectedAmmoIndex = PlayerStats.Ammo.getSelectedSecondaryWeaponAmmoIndex()
 
         if (selectedAmmoIndex != -1)
         {
-            var ammos = PlayerStats.getAllAmmoOwnedByPlayer()
+            var ammos = PlayerStats.Ammo.getOwnedByPlayer()
             var droppedBomb = ammos[selectedAmmoIndex] 
 
             droppedBomb.isExploding = false
@@ -46,8 +46,8 @@ class BombCarrier extends Weapon
             
             this.droppedBombs.push([droppedBomb, droppedBombSprite])
 
-            PlayerStats.removeSecondaryWeaponAmmoByIndex(selectedAmmoIndex)
-            PlayerStats.setSelectedSecondaryWeaponAmmoIndex(-1)
+            PlayerStats.Ammo.removeSecondaryWeaponAmmoByIndex(selectedAmmoIndex)
+            PlayerStats.Ammo.setSelectedSecondaryWeaponAmmoIndex(-1)
         }
     }
 

@@ -6,6 +6,9 @@
         <script src="weapon.js"></script>
         <script src="bombCarrier.js"></script>
         <script src="minelayer.js"></script>
+        <script src="playerStatsAmmo.js"></script>
+        <script src="playerStatsSecondaryWeapon.js"></script>
+        <script src="playerStatsWeapons.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
@@ -28,7 +31,7 @@
 
     var selectedWeaponToBuyIndex = 0
 
-    var weapons = PlayerStats.getBuyableSecondaryWeapons()
+    var weapons = PlayerStats.Secondary.getBuyable()
     var weaponIds = []
 
     for (var weapon of weapons)
@@ -51,11 +54,11 @@
     }
 
     document.getElementById("buyWeapon").onclick = function() {
-        var weapons = PlayerStats.getBuyableSecondaryWeapons()
+        var weapons = PlayerStats.Secondary.getBuyable()
         var weapon = weapons[selectedWeaponToBuyIndex]
         if (PlayerStats.debitMoney(weapon.price))
         {
-            PlayerStats.addSecondaryWeapon(weapon.name)
+            PlayerStats.Secondary.add(weapon.name)
         }
         update()
     }

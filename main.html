@@ -2,6 +2,9 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="playerStatsAmmo.js"></script>
+<script src="playerStatsSecondaryWeapon.js"></script>
+<script src="playerStatsWeapons.js"></script>
 <script src="playerStats.js"></script>
 <script src="imageCreator.js"></script>
 <link rel="stylesheet" href="styles.css">
@@ -50,6 +53,7 @@
     <button id="buyWeapon" type="button" class=btn>Buy Primary Weapon</button>
     <button id="buySecondaryWeapon" type="button" class=btn>Buy Secondary Weapon</button>
     <button id="buyAmmunition" type="button" class=btn>Buy Ammunition</button>
+    <button id="buyDefenseEquipment" type="button" class=btn>Buy Defense Equipment</button>
     <button id="upgradeWeapon" type="button" class=btn disabled>Upgrade</button>
   </div>
 </div>
@@ -94,7 +98,7 @@
   // Weapons
 
   // Add all weapons in player's stock to the visualization
-  var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
+  var weapons = PlayerStats.Weapons.getOwnedByPlayer()
   for (var weapon of weapons)
   {
     var image = createImage("weaponShopImages", weapon.shopImage, weapon.index)
@@ -119,7 +123,7 @@
   }
 
   // Add all secondary weapons in player's stock to the visualization
-  var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
+  var secondaryWeapons = PlayerStats.Secondary.getOwnedByPlayer()
   for (weapon of secondaryWeapons)
   {
 
@@ -139,6 +143,11 @@
   document.getElementById("buyAmmunition").onclick = function() {
     location.href = "ammunitionBuy.html"
   }
+
+  document.getElementById("buyDefenseEquipment").onclick = function() {
+    location.href = "defenseEquipmentBuy.html"
+  }
+
 
   document.getElementById("upgradeWeapon").onclick = function () {
     location.href = "weapon.html"

@@ -2,6 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script src="playerStatsAmmo.js"></script>
+        <script src="playerStatsSecondaryWeapon.js"></script>
+        <script src="playerStatsWeapons.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
@@ -18,7 +21,7 @@
 <script type="text/javascript">
     var index = JSON.parse(localStorage.selectedWeaponForUpgradeIndex)
 
-    var weapon = PlayerStats.getWeaponByIndex(index)
+    var weapon = PlayerStats.Weapons.getByIndex(index)
 
     var priceLookup = {}
 
@@ -47,7 +50,7 @@
     {
         document.getElementById("moneyLabel").innerHTML = "You own: " + PlayerStats.getMoney() + "€"
             
-        weapon = PlayerStats.getWeaponByIndex(index)
+        weapon = PlayerStats.Weapons.getByIndex(index)
 
         for (const [key, value] of Object.entries(weapon.stats))
         {
@@ -63,7 +66,7 @@
                 var price = priceLookup[id]
                 if (PlayerStats.debitMoney(price))
                 {
-                    PlayerStats.upgradeWeapon(index, id)
+                    PlayerStats.Weapons.upgrade(index, id)
                 }
 
                 update()
