@@ -77,20 +77,14 @@ class Enemy extends Combatant
     
     update(playerSprite, onRoundHitCallback, ray)
     {
-        
-        if (this.baseSprite.active)
+        if (this.hitPoints > 0)
         {
             this.move(playerSprite, ray)
             this.fire(this.weapon, playerSprite) 
-
-            if (this.hitPoints <= 0)
-            {
-                this.healthBar.destroy()         
-            }
-            else
-            {
-   
-            }
+        }
+        else
+        {
+            this.healthBar.destroy()
         }
 
         this.weapon.update(playerSprite, onRoundHitCallback)

@@ -25,7 +25,7 @@ class PlayerStats
         localStorage.currentLevel = JSON.stringify(1)
         localStorage.money = JSON.stringify(10000)
         localStorage.hitPoints = JSON.stringify(50)
-        localStorage.rotationSpeedRad = JSON.stringify(0.02)
+        localStorage.rotationSpeedRad = JSON.stringify(0.03)
         localStorage.repairKitCount = JSON.stringify(0)
     }
 
