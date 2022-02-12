@@ -26,7 +26,7 @@ class Weapon
                 stats: {
                     "damage": {value: 30, incCount: 0, incLevel: 5, basePrice: 30},
                     "range": {value: 500, incCount: 0, incLevel: 20, basePrice: 15},
-                    "reloadDurationSec": {value: 3, incCount: 0, incLevel: -0.4, basePrice: 25},
+                    "reloadDurationSec": {value: 2, incCount: 0, incLevel: -0.2, basePrice: 25},
                     "roundSpeed": {value: 400, incCount: 0, incLevel: 20, basePrice: 20},
                 },
                 gameImage: "player_turret",
@@ -40,7 +40,7 @@ class Weapon
                 stats: {
                     "damage": {value: 30, incCount: 0, incLevel: 5, basePrice: 30},
                     "range": {value: 500, incCount: 0, incLevel: 20, basePrice: 15},
-                    "reloadDurationSec": {value: 3, incCount: 0, incLevel: -0.4, basePrice: 25},
+                    "reloadDurationSec": {value: 2, incCount: 0, incLevel: -0.2, basePrice: 25},
                     "roundSpeed": {value: 400, incCount: 0, incLevel: 20, basePrice: 20},
                 },
                 gameImage: "player_rearGun",
@@ -54,7 +54,7 @@ class Weapon
                 stats: {
                     "damage": {value: 30, incCount: 0, incLevel: 5, basePrice: 30},
                     "range": {value: 500, incCount: 0, incLevel: 20, basePrice: 15},
-                    "reloadDurationSec": {value: 3, incCount: 0, incLevel: -0.4, basePrice: 25},
+                    "reloadDurationSec": {value: 2, incCount: 0, incLevel: -0.2, basePrice: 25},
                     "roundSpeed": {value: 400, incCount: 0, incLevel: 20, basePrice: 20},
                 },
                 gameImage: "player_spreadGun",
@@ -85,15 +85,6 @@ class Weapon
             }
 
             weapon = new Minelayer(template)
-        }
-        else if (weaponName == 'groundCannon')
-        {
-            var template = {
-                gameImage: 'player_groundCannon',
-                shopImage: 'assets/shop_ground_cannon.png'
-            }
-
-            weapon = new GroundCannon(template)
         }
         else
         {

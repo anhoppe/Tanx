@@ -60,7 +60,7 @@ class Hq
 
         var secondaryGunName = "None"
 
-        if (player.secsecondaryGun != 0)
+        if (player.secondaryGun != 0)
         {
             secondaryGunName = player.secondaryGun.type
             
@@ -70,6 +70,10 @@ class Hq
         }
         
         document.getElementById("activeSecondaryWeaponLabel").innerHTML = secondaryGunName
+
+        var defenseSystemsOwnedByPlayer = PlayerStats.Defense.getOwnedByPlayer()
+        this.setDefenseSystemSlotImage(defenseSystemsOwnedByPlayer)
+        this.setAvailableDefenseSystemImages(defenseSystemsOwnedByPlayer, player)
 
         this.hqMenu.on('click', function (event) {
     
@@ -141,6 +145,58 @@ class Hq
                     }
                     PlayerStats.Ammo.setSelectedSecondaryWeaponAmmoIndex(id);
                 };
+            }
+        }
+    }
+
+    setDefenseSystemSlotImage(defenseOwnedByPlayer) 
+    {
+        var slotColumn = document.getElementById("defenseSystemSlotColumn")
+        var slotImage = document.getElementById("defenseSystemSlotImage")
+        if (slotImage != null) {
+            slotColumn.removeChild(slotImage);
+        }
+    
+        var selectedDefenseIndex = PlayerStats.Defense.getSelectedIndex()
+
+        if (selectedDefenseIndex != -1) 
+        {
+            var defenseSystem = defenseOwnedByPlayer[selectedDefenseIndex];
+
+            var slotImage = document.createElement("img");
+            slotImage.setAttribute("src", defenseSystem.shopImage);
+            slotImage.setAttribute("id", "defenseSystemSlotImage");
+            slotColumn.appendChild(slotImage);
+        }
+    }
+    
+    setAvailableDefenseSystemImages(defenseOwnedByPlayer, player) 
+    {    
+        document.getElementById("availableDefenseSystems").innerHTML = '';
+
+        for (var index = 0; index < defenseOwnedByPlayer.length; index++) 
+        {
+            if (!player.usedDefenseSystemIndices.includes(index))
+            {
+                var image = createImage("availableDefenseSystems", defenseOwnedByPlayer[index].shopImage, defenseOwnedByPlayer[index].index)
+
+                image.onclick = (event) => {
+                    var id = parseInt(event.srcElement.id);
+    
+                    var image = document.createElement("img");
+                    image.setAttribute("src", defenseOwnedByPlayer[id].shopImage);
+                    image.setAttribute("id", "defenseSystemSlotImage");
+    
+                    var oldImage = document.getElementById("defenseSystemSlotImage");
+                    if (oldImage != null) {
+                        document.getElementById("defenseSystemSlotColumn").replaceChild(image, oldImage);
+                    }
+    
+                    else {
+                        document.getElementById("defenseSystemSlotColumn").appendChild(image);
+                    }
+                    PlayerStats.Defense.setSelectedIndex(id);
+                };    
             }
         }
     }

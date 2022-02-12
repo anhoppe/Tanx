@@ -12,22 +12,21 @@ class PlayerStats
 
     static Ammo = new PlayerStatsAmmo()
 
+    static Defense = new PlayerStatsDefenseSystem()
+
     static reset()
     {
         PlayerStats.Weapons.reset()
         PlayerStats.Secondary.reset()
         PlayerStats.Ammo.reset()
-
+        PlayerStats.Defense.reset()
+        
         localStorage.maxLevelReached = JSON.stringify(1)
         localStorage.currentLevel = JSON.stringify(1)
         localStorage.money = JSON.stringify(10000)
         localStorage.hitPoints = JSON.stringify(50)
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
         localStorage.repairKitCount = JSON.stringify(0)
-
-
-        var defenseSystems = []
-        localStorage.defenseSystems = JSON.stringify(defenseSystems)
     }
 
     static getMoney()
@@ -94,27 +93,6 @@ class PlayerStats
                 shopImage: "assets/shop_tank_ant.png"
             }
         ]
-    }
-
-    static getBuyableDefenseSystems()
-    {
-        return [
-            {
-                index: 0,
-                name: 'groundCannon',
-                price: 500,
-                shopImage: 'assets/shop_ground_cannon.png'
-            }
-        ]
-    }
-
-    static addDefenseSystem(defenseSystemName)
-    {
-        var defenseSystems = JSON.parse(localStorage.defenseSystems)
-
-        defenseSystems.push(Weapon.FactoryFromName(defenseSystemName))
-
-        localStorage.defenseSystems = JSON.stringify(defenseSystems)
     }
 
     static debitMoney(amount)

@@ -10,17 +10,17 @@ class EnemyFollow extends Enemy
         this.lastAvoidObstaclesTimeSec = 0
     }
 
-    move(player, ray)
+    move(playerSprite, ray)
     {
         if (!this.avoidObstacle)
         {
-            this.vector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
+            this.vector = new Phaser.Math.Vector2(playerSprite.x - this.baseSprite.x, playerSprite.y - this.baseSprite.y)
             var enemyPlayerDistSquare = this.vector.lengthSq()
 
             this.vector.normalize()
 
             // Check if there is an obstacle between enemy and player
-            ray.setOrigin(this.sprite.x, this.sprite.y)
+            ray.setOrigin(this.baseSprite.x, this.baseSprite.y)
             var angle = Math.acos(this.vector.x)
             ray.setAngle(angle)
             var intersection = ray.cast()
@@ -28,13 +28,13 @@ class EnemyFollow extends Enemy
             if (typeof hitSegment !== 'undefined' && this.isMinTimeElapsed())
             {
                 // Check if intersection is closer then player
-                var vectorToHit = new Phaser.Math.Vector2(intersection.x - this.sprite.x, intersection.y - this.sprite.y)
+                var vectorToHit = new Phaser.Math.Vector2(intersection.x - this.baseSprite.x, intersection.y - this.baseSprite.y)
 
                 if (vectorToHit.lengthSq() < enemyPlayerDistSquare)
                 {
                     // Check which hit segment point is closer to the player and go for that direction
-                    const enemyToHitSegmentStartVector = new Phaser.Math.Vector2(hitSegment.x1 - this.sprite.x, hitSegment.y1 - this.sprite.y)
-                    const enemyToHitSegmentEndVector = new Phaser.Math.Vector2(hitSegment.x2 - this.sprite.x, hitSegment.y2 - this.sprite.y)
+                    const enemyToHitSegmentStartVector = new Phaser.Math.Vector2(hitSegment.x1 - this.baseSprite.x, hitSegment.y1 - this.baseSprite.y)
+                    const enemyToHitSegmentEndVector = new Phaser.Math.Vector2(hitSegment.x2 - this.baseSprite.x, hitSegment.y2 - this.baseSprite.y)
 
                     var newTargetVector;
 
@@ -63,22 +63,22 @@ class EnemyFollow extends Enemy
             {
                 this.vector.scale(this._velocity)
     
-                this.sprite.setVelocityX(this.vector.x)
-                this.sprite.setVelocityY(this.vector.y)
-                this.sprite.setRotation(this.vector.angle())    
+                this.baseSprite.setVelocityX(this.vector.x)
+                this.baseSprite.setVelocityY(this.vector.y)
+                this.baseSprite.setRotation(this.vector.angle())    
             }
         }
 
         if (this.avoidObstacle)
         {
             // Check if there is still an obstacle between enemy and player
-            ray.setOrigin(this.sprite.x, this.sprite.y)
-            var toPlayerVector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
+            ray.setOrigin(this.baseSprite.x, this.baseSprite.y)
+            var toPlayerVector = new Phaser.Math.Vector2(playerSprite.x - this.baseSprite.x, playerSprite.y - this.baseSprite.y)
             var distEnemyToPlayerSquare = toPlayerVector.lengthSq()
             toPlayerVector.normalize()
             const angle = Math.acos(toPlayerVector.x)
             ray.setAngle(angle)
-            toPlayerVector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
+            toPlayerVector = new Phaser.Math.Vector2(playerSprite.x - this.baseSprite.x, playerSprite.y - this.baseSprite.y)
 
             const intersection = ray.cast()
             var hitSegment = intersection.segment
@@ -91,14 +91,14 @@ class EnemyFollow extends Enemy
             }
             else
             {
-                var vectorToHit = new Phaser.Math.Vector2(intersection.x - this.sprite.x, intersection.y - this.sprite.y)
+                var vectorToHit = new Phaser.Math.Vector2(intersection.x - this.baseSprite.x, intersection.y - this.baseSprite.y)
                 if (distEnemyToPlayerSquare < vectorToHit.lengthSq())
                 {
                     abortBecausePlayerIsNotBehindObstacleAnymore = true
                 }                
             }
 
-            this.vector = new Phaser.Math.Vector2(this.currentTarget.x - this.sprite.x, this.currentTarget.y - this.sprite.y)
+            this.vector = new Phaser.Math.Vector2(this.currentTarget.x - this.baseSprite.x, this.currentTarget.y - this.baseSprite.y)
             if (this.vector.lengthSq() < 50 || abortBecausePlayerIsNotBehindObstacleAnymore)
             {
                 this.avoidObstacle = false
@@ -109,17 +109,17 @@ class EnemyFollow extends Enemy
                 this.vector.normalize()
                 this.vector.scale(this._velocity)
     
-                this.sprite.setVelocityX(this.vector.x)
-                this.sprite.setVelocityY(this.vector.y)
-                this.sprite.setRotation(this.vector.angle())    
+                this.baseSprite.setVelocityX(this.vector.x)
+                this.baseSprite.setVelocityY(this.vector.y)
+                this.baseSprite.setRotation(this.vector.angle())    
             }
         }
     }
 
     fire(round, player)
     {
-        var x = this.sprite.x
-        var y = this.sprite.y
+        var x = this.baseSprite.x
+        var y = this.baseSprite.y
 
         round.fire(x, y, x + this.vector.x, y + this.vector.y)
     }

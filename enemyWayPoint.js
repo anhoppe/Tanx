@@ -35,7 +35,7 @@ class EnemyWayPoint extends Enemy
 
     move(playerSprite, ray)
     {
-        var currentPos = new Phaser.Math.Vector2(this.sprite.x, this.sprite.y)
+        var currentPos = new Phaser.Math.Vector2(this.baseSprite.x, this.baseSprite.y)
         
         this.setupNextWayPoint(currentPos, playerSprite)
 
@@ -58,19 +58,19 @@ class EnemyWayPoint extends Enemy
         var velocityVector = new Phaser.Math.Vector2(this.currentDirectionVector)
         velocityVector.scale(this.velocity)
 
-        this.sprite.setVelocityX(velocityVector.x)
-        this.sprite.setVelocityY(velocityVector.y)
-        this.sprite.setRotation(this.currentDirectionVector.angle())
+        this.baseSprite.setVelocityX(velocityVector.x)
+        this.baseSprite.setVelocityY(velocityVector.y)
+        this.baseSprite.setRotation(this.currentDirectionVector.angle())
     }
 
     fire(round, playerSprite)
     {
-        var currentPos = new Phaser.Math.Vector2(this.sprite.x, this.sprite.y)
+        var currentPos = new Phaser.Math.Vector2(this.baseSprite.x, this.baseSprite.y)
         var playerPos = new Phaser.Math.Vector2(playerSprite.x, playerSprite.y)
         if (currentPos.distanceSq(playerPos) <= this.FireRangeSquare)
         {
-            var x = this.sprite.x
-            var y = this.sprite.y
+            var x = this.baseSprite.x
+            var y = this.baseSprite.y
 
             round.fire(x, y, x + this.currentDirectionVector.x, y + this.currentDirectionVector.y)
         }

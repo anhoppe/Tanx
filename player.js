@@ -27,6 +27,42 @@ class Player extends Combatant
         this.input = scene.input
 
         this.drivingAngleRad = 0
+
+        // Defense System
+        this.defenseSystemGroup = scene.physics.add.staticGroup()
+        this.lastDefenseSystemDropTimeSec = 0
+        this.defenseSystemsInTheField = []
+        this.usedDefenseSystemIndices = []
+        this.scene = scene
+        this.obstacles = obstacles
+    }
+
+    getClosesdPlayerEntity(enemy)
+    {
+        var closesdEntity = 0
+
+        var minDistSq = Number.MAX_VALUE
+
+        for (var defense of this.defenseSystemsInTheField)
+        {
+            var distVec = new Phaser.Math.Vector2(enemy.baseSprite.x - defense.baseSprite.x, enemy.baseSprite.y - defense.baseSprite.y)
+
+            var distSq = distVec.lengthSq()
+            if (distSq < minDistSq)
+            {
+                minDistSq = distSq
+                closesdEntity = defense
+            }
+        }
+
+        var distVec = new Phaser.Math.Vector2(enemy.baseSprite.x - this.baseSprite.x, enemy.baseSprite.y - this.baseSprite.y)
+        var distSq = distVec.lengthSq()
+        if (distSq < minDistSq)
+        {
+            closesdEntity = this
+        }
+
+        return closesdEntity
     }
 
     setPosition(posVector)
@@ -73,7 +109,6 @@ class Player extends Combatant
     {
         if (this.hitPoints <= 0)
         {
-            this.baseSprite.disableBody(true, true)
             this.turretSprite.disableBody(true, true)
             if (this.secondaryGun != 0)
             {
@@ -129,11 +164,28 @@ class Player extends Combatant
         {
             this.secondaryGun.update(enemyGroup, onRoundHitCallback)
         }
+
+        this.defenseSystemsInTheField = this.defenseSystemsInTheField.filter(ds => ds.baseSprite.active)
+
+        for (var defenseSystem of this.defenseSystemsInTheField)
+        {
+            if (defenseSystem.baseSprite.active)
+            {
+                defenseSystem.move(enemyGroup, onRoundHitCallback)
+            }
+        }
+
     }
 
     fire()
     {
-        if (this.input.mousePointer.leftButtonDown() && this.playerSpriteGroup.active)
+        if (!this.playerSpriteGroup.active)
+        {
+            return
+        }
+
+        // Fire primary gun
+        if (this.input.mousePointer.leftButtonDown())
         {
             var angleRad = this.getTurretAngleRad()
             var toX =  Math.sin(angleRad) * 200
@@ -142,16 +194,52 @@ class Player extends Combatant
             this.primaryGun.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
         }
 
-        if (this.input.mousePointer.rightButtonDown() && this.playerSpriteGroup.active && this.secondaryGun != 0)
+        // Fire secondary gun
+        if (this.input.mousePointer.rightButtonDown() && this.secondaryGun != 0)
         {
             this.secondaryGun.fire(this.baseSprite.x, this.baseSprite.y, this.baseSprite.x + toX, this.baseSprite.y + toY)
         }
 
+        // Activate secondary gun (e.g. dropped bombs)
         var space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
 
         if (space.isDown && this.secondaryGun != 0)
         {
             this.secondaryGun.alternativeFire()
+        }
+
+        // Drop defense system
+        var key1 = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ONE)
+        var defenseSystemIndex = PlayerStats.Defense.getSelectedIndex()
+
+        if (key1.isDown && defenseSystemIndex != -1 && this.isMinTimeElapsed())
+        {
+            this.lastDefenseSystemDropTimeSec = Date.now() / 1000
+            this.defenseSystemFactory(PlayerStats.Defense.getOwnedByPlayer()[defenseSystemIndex])
+            this.usedDefenseSystemIndices.push(defenseSystemIndex)
+            PlayerStats.Defense.setSelectedIndex(-1)
+        }
+    }
+
+    defenseSystemFactory(dataTemplate)
+    {
+        var defenseSystem = 0
+
+        switch (dataTemplate['name'])
+        {
+            case 'groundCannon':
+                defenseSystem = new GroundCannon(dataTemplate, 
+                    this.defenseSystemGroup, 
+                    this.baseSprite.x, 
+                    this.baseSprite.y, 
+                    this.scene, 
+                    this.obstacles)
+                break;
+        }
+
+        if (defenseSystem != 0)
+        {
+            this.defenseSystemsInTheField.push(defenseSystem)
         }
     }
 
@@ -159,5 +247,11 @@ class Player extends Combatant
     {
         let angleDeg = -(this.input.mousePointer.x / 2) % 360
         return angleDeg / 180 * Math.PI
+    }
+
+    isMinTimeElapsed()
+    {
+        var currentTimeSec = Date.now() / 1000
+        return (currentTimeSec - this.lastDefenseSystemDropTimeSec) > 1 ? true : false
     }
 }

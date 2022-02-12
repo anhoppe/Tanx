@@ -118,6 +118,7 @@
   <button class="tablinks" onclick="onTabClick(event, 'Home')">Home</button>
   <button class="tablinks" onclick="onTabClick(event, 'Tank')">Tanks</button>
   <button class="tablinks" onclick="onTabClick(event, 'Weapons')">Weapons</button>
+  <button class="tablinks" onclick="onTabClick(event, 'Defense')">Defense</button>
   <button class="tablinks" onclick="onTabClick(event, 'HQ')">HQ</button>
 </div>
 
@@ -159,6 +160,27 @@
     <div class="row">
       <p>Your ammo</p>
       <div id="availableAmmo"></div>
+    </div>
+  </div>
+</div>
+
+<div id="Defense" class="tabcontent">
+  <h3>Your defense systems</h3>
+  <div class="btn-group">
+    <div class="row">
+      <p id="activeDefenseSystem"></p>
+    </div>
+    <div class="row">
+      <p>Defense system slots</p>
+      <div id="availableDefenseSlots">
+        <column id="defenseSystemSlotColumn" class="column">
+          <img id="defenseSystemSlotImage"></img>
+        </column>
+      </div>
+    </div>
+    <div class="row">
+      <p>Your defense systems</p>
+      <div id="availableDefenseSystems"></div>
     </div>
   </div>
 </div>

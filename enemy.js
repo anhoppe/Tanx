@@ -1,7 +1,5 @@
 class Enemy extends Combatant
 {
-    sprite = null
-
     constructor(scene, enemyGroup, enemyData, obstacles)
     {
         var hitPointsMax = enemyData.properties.filter(x => x.name == 'hitPoints')[0].value
@@ -12,7 +10,8 @@ class Enemy extends Combatant
 
         const image = enemyData.properties.filter(x => x.name == 'image')
 
-        this.sprite = enemyGroup.create(enemyData.x, enemyData.y, image[0].value)
+        this.baseSprite = enemyGroup.create(enemyData.x, enemyData.y, image[0].value)
+
 
         this.moneyValue = 50
 
@@ -30,7 +29,7 @@ class Enemy extends Combatant
         this.weapon.scene = scene
         this.weapon.obstacles = obstacles
 
-        this.healthBar = this.makeBar(scene, enemyData.x, enemyData.y - this.sprite.height, 0xcc306c)
+        this.healthBar = this.makeBar(scene, enemyData.x, enemyData.y - this.baseSprite.height, 0xcc306c)
 
         this.isKilled = false
     }
@@ -78,39 +77,41 @@ class Enemy extends Combatant
     
     update(playerSprite, onRoundHitCallback, ray)
     {
-        if (this.sprite.active)
+        
+        if (this.baseSprite.active)
         {
+            this.move(playerSprite, ray)
+            this.fire(this.weapon, playerSprite) 
+
             if (this.hitPoints <= 0)
             {
-                this.sprite.disableBody(true, true)       
                 this.healthBar.destroy()         
             }
             else
             {
-                this.move(playerSprite, ray)
-                this.fire(this.weapon, playerSprite)    
+   
             }
         }
 
         this.weapon.update(playerSprite, onRoundHitCallback)
 
-        this.healthBar.x = this.sprite.x - this.sprite.width / 2
-        this.healthBar.y = this.sprite.y - this.sprite.height
+        this.healthBar.x = this.baseSprite.x - this.baseSprite.width / 2
+        this.healthBar.y = this.baseSprite.y - this.baseSprite.height
         this.healthBar.scaleX = this.hitPoints / this.hitPointsMax
     }
 
     move(player, ray)
     {
-        var vector = new Phaser.Math.Vector2(player.x - this.sprite.x, player.y - this.sprite.y)
+        var vector = new Phaser.Math.Vector2(player.x - this.baseSprite.x, player.y - this.baseSprite.y)
 
         vector.normalize()
-        this.sprite.setRotation(vector.angle())
+        this.baseSprite.setRotation(vector.angle())
     }
 
     fire(round, player)
     {
-        var x = this.sprite.x
-        var y = this.sprite.y
+        var x = this.baseSprite.x
+        var y = this.baseSprite.y
 
         round.fire(x, y, player.x, player.y)
     }
@@ -124,7 +125,7 @@ class Enemy extends Combatant
         bar.fillStyle(color, 1);
 
         //fill the bar with a rectangle
-        bar.fillRect(0, 0, this.sprite.width, 10);
+        bar.fillRect(0, 0, this.baseSprite.width, 10);
         
         //position the bar
         bar.x = x;

@@ -31,7 +31,7 @@ class TanxScene extends Phaser.Scene
         this.load.spritesheet('triggerBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
         this.load.spritesheet('timedBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
         this.load.spritesheet('mine', 'assets/mine.png', { frameWidth: 16, frameHeight: 16 })
-        
+        this.load.spritesheet('groundCannon', 'assets/player_ground_cannon.png', { frameWidth: 128, frameHeight: 128 })
         this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
         this.load.spritesheet('bombExplosionSmall', 'assets/bomb_explosion_small.png', { frameWidth: 256, frameHeight: 256 })
         
@@ -181,7 +181,7 @@ class TanxScene extends Phaser.Scene
         {
             this.player.move(this.enemyGroup, (sprite, damage) => {
                 this.enemies.forEach(enemy => {
-                    if (enemy.sprite === sprite)
+                    if (enemy.baseSprite === sprite)
                     {
                         enemy.takeDamage(damage)
                     }
@@ -200,14 +200,22 @@ class TanxScene extends Phaser.Scene
         let enemyForDeletion = []
 
         this.enemies.forEach(enemy => {
-            enemy.update(this.player.baseSprite, (sprite, damage) => {
+            var playerEntity = this.player.getClosesdPlayerEntity(enemy)
+
+            var playerEntitySprite = this.player.baseSprite
+            if (playerEntity != 0)
+            {
+                playerEntitySprite = playerEntity.baseSprite
+            }
+
+            enemy.update(playerEntitySprite, (sprite, damage) => {
                 if (!this.hq.isActive())
                 {
-                    this.player.takeDamage(damage)
+                    playerEntity.takeDamage(damage)
                 }
             }, this.ray)
 
-            if (!enemy.sprite.active)
+            if (!enemy.baseSprite.active)
             {
                 enemyForDeletion.push(enemy)
                 PlayerStats.addMoney(enemy.moneyValue)
@@ -226,7 +234,7 @@ class TanxScene extends Phaser.Scene
 
             for (var index = 0; index < this.enemies.length; index++)
             {
-                if (!this.enemies[index].sprite.active)
+                if (!this.enemies[index].baseSprite.active)
                 {
                     this.enemies.splice(index, 1)
                     removedKilled = true

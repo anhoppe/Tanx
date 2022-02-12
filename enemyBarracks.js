@@ -34,7 +34,7 @@ class EnemyBarracks extends Enemy
             this.rayCasting = new RayCasting(ray, this.coneAngleRad, this.viewDistance)
         }
 
-        ray.setOrigin(this.sprite.x, this.sprite.y)
+        ray.setOrigin(this.baseSprite.x, this.baseSprite.y)
 
         this.createLightConePolygon()
 
@@ -51,8 +51,8 @@ class EnemyBarracks extends Enemy
 
     takeDamage(damage)
     {
-        this.hitPoints -= damage
-
+        super.takeDamage(damage)
+        
         if (this.hitPoints < 0)
         {
             this.lampSprite.destroy()
@@ -92,7 +92,7 @@ class EnemyBarracks extends Enemy
             const spawnEnemyCount = 5
 
             for (var index = 0; index < spawnEnemyCount; index++) {
-                var soldierData = this.getSoldierTemplate(this.sprite.x + 100, this.sprite.y - spawnEnemyCount / 2 * 60 + index * 60)
+                var soldierData = this.getSoldierTemplate(this.baseSprite.x + 100, this.baseSprite.y - spawnEnemyCount / 2 * 60 + index * 60)
 
                 Enemy.factory(this.enemies, soldierData, this.scene, this.enemyGroup, this.obstacles, null)
             }
@@ -111,8 +111,8 @@ class EnemyBarracks extends Enemy
 
         if (points.length != 0) {
             points.push({
-                x: this.sprite.x,
-                y: this.sprite.y
+                x: this.baseSprite.x,
+                y: this.baseSprite.y
             })
             this.polygon = this.scene.add.polygon(0, 0, points, 0xFFF78E, 124)
             this.polygon.setOrigin(0, 0)
