@@ -138,6 +138,7 @@ class TanxScene extends Phaser.Scene
         this.physics.add.collider(this.player.playerSpriteGroup, this.world, null, null, this);
         this.physics.add.collider(this.player.playerSpriteGroup, this.weaponCollision, null, null, this);
 
+
         // Create buildings 
         var buildings = map.getObjectLayer('Buildings')
 
@@ -173,6 +174,26 @@ class TanxScene extends Phaser.Scene
 
         // Disable context menu
         this.input.mouse.disableContextMenu();
+
+        // create mini map
+        this.mapWidthInPixels = map.widthInPixels
+        this.mapHeightInPixels = map.heightInPixels
+        this.createMiniMap()
+    }
+
+    destroyMinimap()
+    {
+        this.cameras.remove(this.minimap)
+        this.minimap = 0
+    }
+
+    createMiniMap()
+    {
+        var zoomFac = 0.1
+        this.minimap = this.cameras.add(100, 1250, this.mapWidthInPixels * zoomFac, this.mapHeightInPixels * zoomFac).setZoom(zoomFac + 0.01).setName('mini');
+        this.minimap.setBackgroundColor(0x002244);
+        this.minimap.scrollX = this.mapWidthInPixels / 2;
+        this.minimap.scrollY = this.mapHeightInPixels / 2;
     }
     
     update()
@@ -188,7 +209,13 @@ class TanxScene extends Phaser.Scene
                 })
             })
             this.player.fire()
-            this.hq.displayMenuOnCollision(this.physics, this.player, this.cameras.main)
+
+            if (this.minimap == 0)
+            {
+                this.createMiniMap()
+            }
+
+            this.hq.displayMenuOnCollision(this.physics, this.player, this.cameras.main, this)
         }
 
         this.updateEnemies()

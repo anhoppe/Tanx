@@ -25,12 +25,12 @@ class Hq
         physics.add.collider(this.hqSpriteGroup, spriteGroup)
     }
 
-    displayMenuOnCollision(physics, player, camera)
+    displayMenuOnCollision(physics, player, camera, cameraManager)
     {
         const width = 800
         const height = 600
+
         physics.add.overlap(player.baseSprite, this.hqSprite, (playerSprite, hqSprite) => {
-            
             if (!this.isActive())
             {
                 this.hqMenu.x = camera.midPoint.x - width / 2
@@ -45,6 +45,8 @@ class Hq
                 this.hqMenu.visible = true
                 this.updateContent(player)
                 player.deactivate()    
+
+                cameraManager.destroyMinimap()
             }
         })
     }
