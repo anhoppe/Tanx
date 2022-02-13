@@ -5,12 +5,13 @@
     },
     "activeFile": "level1.tmx",
     "expandedProjectPaths": [
-        "E:/code/Tanx/assets",
-        "."
+        ".",
+        "E:/code/Tanx/assets"
     ],
     "file.lastUsedOpenFilter": "Tiled map files (*.tmx *.xml)",
     "fileStates": {
         "": {
+            "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "E:/code/Tanx2/assets/level1.tmx": {
@@ -67,45 +68,129 @@
         },
         "level1.tmx": {
             "scale": 0.33,
-            "selectedLayer": 0,
+            "selectedLayer": 4,
             "viewCenter": {
-                "x": 2552,
-                "y": 2286
+                "x": 2036.3636363636363,
+                "y": 1600
             }
         },
         "level1.tmx#background": {
             "scaleInDock": 1
         },
+        "level1.tmx#goundlevel1": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#ground": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#groundlevel0": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#groundlevel1": {
+            "scaleInDock": 1
+        },
         "level1.tmx#obstacles": {
             "scaleInDock": 1
         },
+        "level1.tmx#sky": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#skylevel0": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#weaponCollision": {
+            "scaleInDock": 1
+        },
+        "level1.tmx#world": {
+            "scaleInDock": 1
+        },
         "level2.tmx": {
-            "scale": 0.5,
-            "selectedLayer": 2,
+            "scale": 0.25,
+            "selectedLayer": 6,
             "viewCenter": {
-                "x": 1458,
-                "y": 1594
+                "x": 1404,
+                "y": 1600
             }
         },
         "level2.tmx#background": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "level2.tmx#ground": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level2.tmx#groundlevel0": {
+            "scaleInDock": 1
+        },
+        "level2.tmx#groundlevel1": {
+            "scaleInDock": 1
+        },
         "level2.tmx#obstacles": {
             "scaleInDock": 1
         },
+        "level2.tmx#sky": {
+            "scaleInDock": 1
+        },
+        "level2.tmx#skylevel": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level2.tmx#skylevel0": {
+            "scaleInDock": 1
+        },
+        "level2.tmx#weaponCollision": {
+            "scaleInDock": 1
+        },
+        "level2.tmx#world": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
         "level3.tmx": {
-            "scale": 0.3360625,
-            "selectedLayer": 2,
+            "scale": 0.25,
+            "selectedLayer": 3,
             "viewCenter": {
-                "x": 1362.8417333085363,
-                "y": 1597.9170541193973
+                "x": 1600,
+                "y": 1600
             }
         },
         "level3.tmx#background": {
             "scaleInDock": 1
         },
+        "level3.tmx#ground": {
+            "scaleInDock": 1
+        },
         "level3.tmx#obstacles": {
+            "scaleInDock": 1
+        },
+        "level3.tmx#sky": {
+            "scaleInDock": 1
+        },
+        "level3.tmx#weaponCollision": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "level3.tmx#world": {
+            "scaleInDock": 1
+        },
+        "level4.tmx": {
+            "scale": 0.29331250000000003,
+            "selectedLayer": 6,
+            "viewCenter": {
+                "x": 1602.3865331344557,
+                "y": 1602.3865331344555
+            }
+        },
+        "level4.tmx#ground": {
+            "scaleInDock": 1
+        },
+        "level4.tmx#sky": {
+            "scaleInDock": 1
+        },
+        "level4.tmx#weaponCollision": {
+            "scaleInDock": 1
+        },
+        "level4.tmx#world": {
             "scaleInDock": 1
         }
     },
@@ -123,14 +208,16 @@
     "openFiles": [
         "level2.tmx",
         "level1.tmx",
-        "level3.tmx"
+        "level3.tmx",
+        "level4.tmx"
     ],
     "project": "Tanx.tiled-project",
     "property.type": "string",
     "recentFiles": [
         "level2.tmx",
-        "level1.tmx",
+        "level4.tmx",
         "level3.tmx",
+        "level1.tmx",
         "E:/code/Tanx2/assets/level1.tmx",
         "E:/code/Tanx2/maps/enemies.tsx",
         "E:/code/Tanx2/maps/obstacles.tsx",

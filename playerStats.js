@@ -4,13 +4,13 @@ class PlayerStats
     static Player = 0
 
     // Absolute number of levels that are available
-    static TotalLevelCount = 3
+    static TotalLevelCount = 4
 
     static reset()
     {
         localStorage.maxLevelReached = JSON.stringify(1)
         localStorage.currentLevel = JSON.stringify(1)
-        localStorage.money = JSON.stringify(1000)
+        localStorage.money = JSON.stringify(10000)
         localStorage.hitPoints = JSON.stringify(50)
         localStorage.rotationSpeedRad = JSON.stringify(0.02)
         localStorage.repairKitCount = JSON.stringify(0)
@@ -27,8 +27,15 @@ class PlayerStats
 
         var weapons = [Weapon.FactoryFromName("gun")]
         localStorage.primaryWeapons = JSON.stringify(weapons)
-
         localStorage.mountedPrimaryWeaponIndex = JSON.stringify(0)
+
+        var secondaryWeapons = []
+        localStorage.secondaryWeapons = JSON.stringify(secondaryWeapons)
+        localStorage.mountedSecondaryWeaponIndex = JSON.stringify(-1)
+
+        var ammunition = []
+        localStorage.ammunition = JSON.stringify(ammunition)
+        localStorage.selectedSecondaryWeaponAmmoIndex = JSON.stringify(-1)
     }
 
     static getMoney()
@@ -160,12 +167,47 @@ class PlayerStats
         var weapons = JSON.parse(localStorage.primaryWeapons)
 
         var count = 0
-        for (weapon of weapons)
+        for (var weapon of weapons)
         {
             weapon.index = count++
         }
 
         return weapons
+    }
+
+    static getAllSecondaryWeaponsOwnedByPlayer()
+    {
+        var weapons = JSON.parse(localStorage.secondaryWeapons)
+
+        var count = 0
+        for (var weapon of weapons)
+        {
+            weapon.index = count++
+        }
+
+        return weapons
+    }
+
+    static getAllAmmoOwnedByPlayer()
+    {
+        var ammunition = JSON.parse(localStorage.ammunition)
+
+        var count = 0
+        for (var ammo of ammunition)
+        {
+            ammo.index = count++
+        }
+
+        return ammunition
+    }
+
+    static decAmmoUnitCount(index)
+    {
+        var ammunition = JSON.parse(localStorage.ammunition)
+
+        ammunition[index].units--
+
+        localStorage.ammunition = JSON.stringify(ammunition)
     }
 
     static addWeapon(weaponName)
@@ -177,27 +219,124 @@ class PlayerStats
         localStorage.primaryWeapons = JSON.stringify(weapons)
     }
 
+    static addSecondaryWeapon(weaponName)
+    {
+        var secondaryWeapons = JSON.parse(localStorage.secondaryWeapons)
+
+        secondaryWeapons.push(Weapon.FactoryFromName(weaponName))
+
+        localStorage.secondaryWeapons = JSON.stringify(secondaryWeapons)
+    }
+
+    static addAmmo(ammoTemplateIndex)
+    {
+        var ammunition = JSON.parse(localStorage.ammunition)
+
+        var ammoTemplates = PlayerStats.getBuyableAmmunition()
+
+        ammunition.push(ammoTemplates[ammoTemplateIndex])
+
+        localStorage.ammunition = JSON.stringify(ammunition)
+    }
+
     static getBuyableWeapons()
     {
-        return [{
-            index: 0,
-            name: "gun",
-            price: 200,
-            shopImage: "assets/shop_gun.png"
-        },
-        {
-            index: 1,
-            name: "rearGun",
-            price: 500,
-            shopImage: "assets/shop_rearGun.png"
-        },
-        {
-            index: 2,
-            name: "spreadGun",
-            price: 1000,
-            shopImage: "assets/shop_spread_gun.png"
-        },
-    ]
+        return [
+            {
+                index: 0,
+                name: "gun",
+                price: 200,
+                shopImage: "assets/shop_gun.png"
+            },
+            {
+                index: 1,
+                name: "rearGun",
+                price: 500,
+                shopImage: "assets/shop_rearGun.png"
+            },
+            {
+                index: 2,
+                name: "spreadGun",
+                price: 1000,
+                shopImage: "assets/shop_spread_gun.png"
+            },
+        ]
+    }
+
+    static getBuyableSecondaryWeapons()
+    {
+        return [
+            {
+                index: 0,
+                name: "bombCarrier",
+                price: 2000,
+                shopImage: "assets/shop_bomb_carrier.png"
+            },
+            {
+                index: 1,
+                name: "minelayer",
+                price: 1200,
+                shopImage: "assets/shop_minelayer.png",
+            }
+        ]
+    }
+
+    static getBuyableAmmunition()
+    {
+        return [
+            {
+                index: 0,
+                name: "triggerBombSmall",
+                price: 500,
+                shopImage: "assets/shop_trigger_bomb_small.png",
+                weaponType: "bombCarrier",
+                radius: 128,
+                damage: 500,
+                type: 'trigger'
+            },
+            {
+                index: 1,
+                name: "timedBombSmall",
+                price: 200,
+                shopImage: "assets/shop_timed_bomb_small.png",
+                weaponType: "bombCarrier",
+                type: 'time',
+                radius: 128,
+                damage: 500,
+                durationSec: 5
+            },
+            {
+                index: 2,
+                name: "mine",
+                price: 200,
+                shopImage: "assets/shop_mine.png",
+                weaponType: "minelayer",
+                type: 'direct',
+                damage: 120,
+                units: 10
+            },
+            {
+                index: 3,
+                name: "mine",
+                price: 500,
+                shopImage: "assets/shop_mine.png",
+                weaponType: "minelayer",
+                type: 'direct',
+                damage: 120,
+                units: 20
+            },
+            {
+                index: 4,
+                name: "mine",
+                price: 500,
+                shopImage: "assets/shop_mine_area_damage.png",
+                weaponType: "minelayer",
+                type: 'area',
+                radius: 128,
+                damage: 100,
+                units: 5
+            }
+        ]
     }
 
     static getWeaponByIndex(index)
@@ -210,6 +349,26 @@ class PlayerStats
     static setMountedPrimaryWeaponIndex(index)
     {
         localStorage.mountedPrimaryWeaponIndex = JSON.stringify(index)
+    }
+
+    static getMountedPrimaryWeaponIndex()
+    {
+        return parseInt(JSON.parse(localStorage.mountedPrimaryWeaponIndex))
+    }
+
+    static setMountedSecondaryWeaponIndex(index)
+    {
+        localStorage.mountedSecondaryWeaponIndex = JSON.stringify(index)
+    }
+
+    static getMountedSecondaryWeaponIndex()
+    {
+        return parseInt(JSON.parse(localStorage.mountedSecondaryWeaponIndex))
+    }
+
+    static setSelectedSecondaryWeaponAmmoIndex(index)
+    {
+        localStorage.selectedSecondaryWeaponAmmoIndex = JSON.stringify(index)
     }
 
     static getActiveWeapon(scene, obstacles)
@@ -225,12 +384,58 @@ class PlayerStats
         return activeWeapon
     }
 
+    static getActiveSecondaryWeapon()
+    {
+        var activeWeapon = 0
+
+        var weapons = JSON.parse(localStorage.secondaryWeapons)
+        var index = parseInt(JSON.parse(localStorage.mountedSecondaryWeaponIndex))
+        
+        if (index != -1)
+        {
+            var activeWeaponTemplate = weapons[index]
+
+            activeWeapon = Weapon.FactoryFromTemplate(activeWeaponTemplate)    
+        }
+
+        return activeWeapon
+    }
+
+    static getSelectedSecondaryWeaponAmmoIndex()
+    {
+        return JSON.parse(localStorage.selectedSecondaryWeaponAmmoIndex)
+    }
+
+    static getSelectedAmmo()
+    {
+        var ammo = PlayerStats.getAllAmmoOwnedByPlayer()
+
+        var index = PlayerStats.getSelectedSecondaryWeaponAmmoIndex()
+
+        if (index != -1)
+        {
+            return ammo[PlayerStats.getSelectedSecondaryWeaponAmmoIndex()]
+        }
+
+        return 0
+    }
+
+    static removeSecondaryWeaponAmmoByIndex(index)
+    {
+        if (index != -1)
+        {
+            var ammunition = JSON.parse(localStorage.ammunition)
+            ammunition.splice(index, 1)
+            localStorage.ammunition = JSON.stringify(ammunition)
+        }
+    }
+
     static upgradeWeapon(index, statName)
     {
         var weapons = JSON.parse(localStorage.primaryWeapons)
         var weapon = weapons[index]
         var oldStats = weapon.stats[statName]
-        weapon.stats[statName] = {value: oldStats.value+oldStats.incLevel, incCount: oldStats.incCount+1, incLevel: oldStats.incLevel, basePrice: oldStats.basePrice}
+        weapon.stats[statName] = {value: oldStats.value + oldStats.incLevel, incCount: oldStats.incCount+1, incLevel: oldStats.incLevel, basePrice: oldStats.basePrice}
         localStorage.primaryWeapons = JSON.stringify(weapons)
     }
 

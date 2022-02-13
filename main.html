@@ -4,7 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="playerStats.js"></script>
+  <script src="imageCreator.js"></script>
   <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
@@ -31,18 +33,7 @@
     <div id="tankShopImages" class="row"></div>
     <button id="buyTankButton" type="button" class=btn>Buy Tank</button>
     <button id="buyTankEquipmentButton" type="button" class=btn>Buy Equipment</button>
-    <button id="monuntWeaponToTank" type="button" class=btn>Mount Weapon</button>
-  </div>
-</div>
-
-<div id="Weapon" class="tabcontent">
-  <h3>Your weapon systems</h3>
-  <div class="btn-group">
-    <div id="weaponShopImages" class="row">
-    </div>
-    <button id="buyWeapon" type="button" class=btn>Buy</button>
-    <button id="sellWeapon" type="button" class=btn>Sell</button>
-    <button id="upgradeWeapon" type="button" class=btn>Upgrade</button>
+    <button id="mountWeaponToTank" type="button" class=btn>Mount Weapon</button>
   </div>
 </div>
 
@@ -50,6 +41,18 @@
   <h3>Manage your HQ</h3>
   <div class="btn-group">
     <button id="buyHqEquipmentButton" type="button" class=btn>Buy Equipment</button>
+  </div>
+</div>
+
+<div id="Weapon" class="tabcontent">
+  <h3>Your weapon systems</h3>
+  <div class="btn-group">
+    <div id="weaponShopImages" class="row"></div>
+    <div id="secondaryWeaponShopIamges" class="row"></div>
+    <button id="buyWeapon" type="button" class=btn>Buy Primary Weapon</button>
+    <button id="buySecondaryWeapon" type="button" class=btn>Buy Secondary Weapon</button>
+    <button id="buyAmmunition" type="button" class=btn>Buy Ammunition</button>
+    <button id="upgradeWeapon" type="button" class=btn disabled>Upgrade</button>
   </div>
 </div>
 
@@ -61,7 +64,10 @@
   }
 
   document.getElementById("quitButton").onclick = function () {
-      location.href = "index.html"
+      if (confirm("Do you really want to quit? All progress will be lost") == true) 
+      {
+        location.href = "index.html"
+      } 
   }
 
   // Tank
@@ -96,10 +102,9 @@
   document.getElementById("buyTankEquipmentButton").onclick = function () {
         location.href = "buy.html"
   }
-  document.getElementById("monuntWeaponToTank").onclick = function () {
+  document.getElementById("mountWeaponToTank").onclick = function () {
         location.href = "mountWeapon.html"
   }
-  
 
   // Weapons
 
@@ -107,28 +112,49 @@
   var weapons = PlayerStats.getAllWeaponsOwnedByPlayer()
   for (var weapon of weapons)
   {
-    var image = document.createElement("img");
-    image.setAttribute("src", weapon.shopImage);
-    image.setAttribute("id", weapon.index)
+    var image = createImage("weaponShopImages", weapon.shopImage, weapon.index)
     
-    image.onclick = () => {
+    image.onclick = (event) => {
       var index = parseInt(event.srcElement.id)
 
       document.getElementById("upgradeWeapon").innerHTML = "Upgrade (" + weapons[index].type + ")"
 
-      localStorage.selectedWeaponForUpgradeIndex = JSON.stringify(index)
-    }
-    
-    var column = document.createElement("column")
-    column.setAttribute("class", "column")
-    column.appendChild(image)
+      var weaponImagesDiv = document.getElementById("weaponShopImages")
+      var weaponImages = weaponImagesDiv.getElementsByTagName("column")
+      for (i = 0; i < weaponImages.length; i++) {
+        weaponImages[i].className = "column"
+      }
+      weaponImages[index].className = "activeColumn"
 
-    document.getElementById("weaponShopImages").appendChild(column)
+      var upgradeButton = document.getElementById("upgradeWeapon")
+      upgradeButton.disabled = false
+
+      localStorage.selectedWeaponForUpgradeIndex = JSON.stringify(index)
+    }    
+  }
+
+  // Add all secondary weapons in player's stock to the visualization
+  var secondaryWeapons = PlayerStats.getAllSecondaryWeaponsOwnedByPlayer()
+  for (weapon of secondaryWeapons)
+  {
+
+    var image = createImage("secondaryWeaponShopIamges", weapon.shopImage, weapon.index)
+
+    // ToDo: add on click method
   }
 
   document.getElementById("buyWeapon").onclick = function() {
     location.href = "weaponBuy.html"
   }
+
+  document.getElementById("buySecondaryWeapon").onclick = function() {
+    location.href = "secondaryWeaponBuy.html"
+  }
+
+  document.getElementById("buyAmmunition").onclick = function() {
+    location.href = "ammunitionBuy.html"
+  }
+
   document.getElementById("upgradeWeapon").onclick = function () {
     location.href = "weapon.html"
   }

@@ -4,16 +4,15 @@
         <meta charset="UTF-8" />
         <script src="imageCreator.js"></script>
         <script src="weapon.js"></script>
-        <script src="gun.js"></script>
-        <script src="rearGun.js"></script>
-        <script src="spreadGun.js"></script>
+        <script src="bombCarrier.js"></script>
+        <script src="minelayer.js"></script>
         <script src="playerStats.js"></script>
         <title>Tanx2 - Return of the Killer Tanx</title>
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <div class="mainDivContent">
-            <h3>Buy new weapon systems</h3>
+            <h3>Buy new secondary weapon systems</h3>
             <label id="moneyLabel"></label>
             <div class="btn-group">
                 <div id="shopImages" class="row">
@@ -29,15 +28,15 @@
 
     var selectedWeaponToBuyIndex = 0
 
-    var weapons = PlayerStats.getBuyableWeapons()
+    var weapons = PlayerStats.getBuyableSecondaryWeapons()
     var weaponIds = []
 
     for (var weapon of weapons)
     {
         var image = createImageWithText("shopImages", weapon.shopImage, weapon.index, weapon.price + "€")
-
         image.onclick = (event) => {
             selectedWeaponToBuyIndex = weaponIds[event.srcElement.id]
+
             var weaponImages = document.getElementsByTagName("column")
             for (i = 0; i < weaponImages.length; i++) {
                 weaponImages[i].className = "column"
@@ -52,11 +51,11 @@
     }
 
     document.getElementById("buyWeapon").onclick = function() {
-        var weapons = PlayerStats.getBuyableWeapons()
+        var weapons = PlayerStats.getBuyableSecondaryWeapons()
         var weapon = weapons[selectedWeaponToBuyIndex]
         if (PlayerStats.debitMoney(weapon.price))
         {
-            PlayerStats.addWeapon(weapon.name)
+            PlayerStats.addSecondaryWeapon(weapon.name)
         }
         update()
     }

@@ -62,6 +62,30 @@ class Weapon
             }
             weapon = new SpreadGun(template)
         }
+        else if (weaponName == "bombCarrier")
+        {
+            var template = {
+                stats: {
+
+                },
+                gameImage: "player_bombCarrier",
+                shopImage: "assets/shop_bomb_carrier.png"    
+            }
+
+            weapon = new BombCarrier(template)
+        }
+        else if (weaponName == "minelayer")
+        {
+            var template = {
+                stats: {
+                    "mineDropDelaySec": { value: 3, incCount: 0, incLevel: -0.5, basePrice: 20 },
+                },
+                gameImage: "player_minelayer",
+                shopImage: "assets/shop_minelayer.png"
+            }
+
+            weapon = new Minelayer(template)
+        }
         else
         {
 
@@ -85,6 +109,14 @@ class Weapon
         else if (template.type == "spreadGun")
         {
             weapon = new SpreadGun(template)
+        }
+        else if (template.type == "bombCarrier")
+        {
+            weapon = new BombCarrier(template)
+        }
+        else if (template.type == "minelayer")
+        {
+            weapon = new Minelayer(template)
         }
 
         return weapon
@@ -111,6 +143,11 @@ class Weapon
                 }, null, this.scene)
             }
         }
+    }
+
+    alternativeFire()
+    {
+        // the alternativeFire method can be used by derived weapons to trigger special weapon behavior, e.g. for bomb carrier to trigger the detonation of the dropped bomb
     }
 
     update(combatantGroup, onRoundHitCallback)

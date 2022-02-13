@@ -11,26 +11,41 @@ class TanxScene extends Phaser.Scene
     preload()
     {
         this.load.html('hqWarMenu', 'assets/hqWarMenu.html')
+        this.load.html('hqWarMenuLoadSecondary', 'assets/hqWarMenuLoadSecondary.html')
         this.load.image('round', 'assets/round.png')
     
         this.load.image('brum-boss', 'assets/brum_boss.png')
         this.load.image('enemy', 'assets/enemy.png')
         this.load.image('turret', 'assets/turret.png')
+        this.load.image('barracks', 'assets/barracks.png')
+        this.load.image('barracks_lamp', 'assets/barracks_lamp.png')
+        this.load.image('soldier', 'assets/soldier.png')
         this.load.image('gun', 'assets/gun.png')
 
 
         this.load.spritesheet('player_ant_base', 'assets/player_ant_base.png', { frameWidth: 48, frameHeight: 48 });
         this.load.spritesheet('player_cat_base', 'assets/player_cat_base.png', { frameWidth: 48, frameHeight: 48 });   
 
-        this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 });
-        this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('player_turret', 'assets/player_turret.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_rearGun', 'assets/player_rearGun.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_spreadGun', 'assets/player_spreadGun.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_bombCarrier', 'assets/player_bombCarrier.png', { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('player_minelayer', "assets/player_minelayer.png", { frameWidth: 48, frameHeight: 48 })
+        this.load.spritesheet('triggerBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('timedBombSmall', 'assets/bomb.png', { frameWidth: 16, frameHeight: 16 })
+        this.load.spritesheet('mine', 'assets/mine.png', { frameWidth: 16, frameHeight: 16 })
+        
 
+        this.load.spritesheet('explosion', 'assets/explosion.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.spritesheet('bombExplosionSmall', 'assets/bomb_explosion_small.png', { frameWidth: 256, frameHeight: 256 })
+        
         this.load.image('hq', 'assets/hq.png')
 
-        this.load.image('background', 'assets/background.png')
-        this.load.image('obstacles', 'assets/obstacles.png')
+        this.load.image('ground', 'assets/ground.png')
+        this.load.image('world', 'assets/world.png')
+        this.load.image('weaponCollision', 'assets/weaponCollision.png')
+
+        this.load.image('sky', 'assets/sky.png')
 
         var fileName = 'assets/level' + PlayerStats.getCurrentLevel() + '.json' 
         this.load.tilemapTiledJSON('tilemap', fileName)
@@ -38,47 +53,106 @@ class TanxScene extends Phaser.Scene
     
     create()
     {
+        //////////////////////////////////////////////////
         // Create raycaster
-        this.raycaster = this.raycasterPlugin.createRaycaster();
+        // Do not deleted out-commented code, can be used for debugging raycasting
+        //
+        // Normal raycaster creation. Comment-out if debug raycaster instance is used
+        this.raycaster = this.raycasterPlugin.createRaycaster({
+            autoUpdate: true
+        });
+
+        // Use this if debugging of the raycaster is needed
+        // this.raycaster = this.raycasterPlugin.createRaycaster({
+        //     debug: {
+        //     enabled: false, //enable debug mode
+        //     maps: true, //enable maps debug
+        //     rays: true, //enable rays debug
+        //     graphics: {
+        //         ray: 0x00ff00, //debug ray color; set false to disable
+        //         rayPoint: 0xff00ff, //debug ray point color; set false to disable
+        //         mapPoint: 0x00ffff, //debug map point color; set false to disable
+        //         mapSegment: 0x0000ff, //debug map segment color; set false to disable
+        //         mapBoundingBox: 0xff0000 //debug map bounding box color; set false to disable
+        //     }
+        //     },
+        //     autoUpdate: true
+        // });
+
+        // //change debug options after initialization
+        // this.raycaster.debugOptions.enabled = true;
+
+        // this.raycaster.setOptions({
+        //     debug: true
+        // });
+        //////////////////////////////////////////////////
+
         this.ray = this.raycaster.createRay();
 
-        // Create animations for explosion
+        // Create animations for explosions
         this.anims.create({
             key: 'explosion',
             frames: this.anims.generateFrameNumbers('explosion', { start: 0, end: 7 }),
             frameRate: 10,
             repeat: 0
-        });
+        })
+
+        this.anims.create({
+            key: 'bombExplosionSmall',
+            frames: this.anims.generateFrameNumbers('bombExplosionSmall', { start: 0, end: 8}),
+            frameRate: 15,
+            repeat: 0
+        })
 
         // create the Tilemap
         const map = this.make.tilemap({ key: 'tilemap' })
 
-        // add the tileset image we are using
-        const backgroundTileset = map.addTilesetImage('background', 'background')
-        
-        // Create background layer
-        map.createLayer('Background', backgroundTileset)
+        // Setup ground
+        const groundTileset = map.addTilesetImage('ground', 'ground')
+        this.ground = map.createLayer('ground', groundTileset)
 
-        // Create obstacle layer
-        const obstacleTileset = map.addTilesetImage('obstacles', 'obstacles');
-        this.obstacles = map.createLayer('Obstacles', obstacleTileset);
-        this.obstacles.setCollisionByExclusion([-1]);
-        this.raycaster.mapGameObjects(this.obstacles, false, {
-            collisionTiles: this.obstacles.layer.collideIndexes
+        // Setup world (Contains non-collision objects and objects the combatants can collide with)
+        const worldTileset = map.addTilesetImage('world', 'world')
+        this.world = map.createLayer('world', worldTileset)
+        this.world.setCollisionByProperty({ collides: true })
+        this.raycaster.mapGameObjects(this.world, false, {
+            collisionTiles: this.world.layer.collideIndexes
         })
 
+        // Setup weapon collision (contains tiles the round AND the combatants can collide with)
+        const weaponCollisionTileset = map.addTilesetImage('weaponCollision', 'weaponCollision')
+        this.weaponCollision = map.createLayer('weaponCollision', weaponCollisionTileset)
+        this.weaponCollision.setCollisionByProperty({ collides: true })
+
+        // Setup sky level
+        const skyTileset = map.addTilesetImage('sky', 'sky')
+        this.sky = map.createLayer('sky', skyTileset)
+        this.sky.setDepth(10)
+
         // Create player with camera
-        this.player = new Player(this, this.obstacles)
+        this.player = new Player(this, this.weaponCollision)
         PlayerStats.Player = this.player
 
-        this.cameras.main.setBounds(0, 0, 100*64, 100*64);
+        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(this.player.baseSprite);
-        this.cameras.main.zoom = 2;
-        this.physics.add.collider(this.player.playerSpriteGroup, this.obstacles, null, null, this);
+        this.cameras.main.zoom = 1;
+        this.raycaster.mapGameObjects(this.player.baseSprite, true)
 
-        // Create HQ + HQ Meno
-        this.hq = new Hq(this, map, this.player)
-        this.raycaster.mapGameObjects(this.hq.hqSprite)
+        // Player collision
+        this.physics.add.collider(this.player.playerSpriteGroup, this.world, null, null, this);
+        this.physics.add.collider(this.player.playerSpriteGroup, this.weaponCollision, null, null, this);
+
+        // Create buildings 
+        var buildings = map.getObjectLayer('Buildings')
+
+        for (var building of buildings.objects)
+        {
+            if (building.name == "hq")
+            {
+                this.hq = new Hq(this, building, this.player)
+                this.raycaster.mapGameObjects(this.hq.hqSprite)
+            }
+        }
         
         // Create waypoints for enemies
         const wayPoints = map.getObjectLayer('Waypoints')
@@ -87,17 +161,22 @@ class TanxScene extends Phaser.Scene
         this.enemies = []
         this.enemyGroup = this.physics.add.group()
         const enemyData = map.getObjectLayer('Enemies').objects
-        Enemy.factory(this.enemies, enemyData, this, this.enemyGroup, this.obstacles, wayPoints)
-        this.physics.add.collider(this.enemyGroup, this.obstacles);
+
+        Enemy.multiFactory(this.enemies, enemyData, this, this.enemyGroup, this.weaponCollision, wayPoints)
+        this.physics.add.collider(this.enemyGroup, this.world);
+        this.physics.add.collider(this.enemyGroup, this.weaponCollision);
         this.physics.add.collider(this.enemyGroup, this.enemyGroup);
         this.hq.setupCollision(this.physics, this.enemyGroup)
         this.physics.add.collider(this.enemyGroup, this.hq.hqSprite)
 
         // World bounds
-        this.physics.world.setBounds(0, 0, 100*64, 100*64)
+        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
 
         // Hide mouse pointer
         this.sys.canvas.style.cursor = 'none'
+
+        // Disable context menu
+        this.input.mouse.disableContextMenu();
     }
     
     update()
@@ -112,12 +191,9 @@ class TanxScene extends Phaser.Scene
                     }
                 })
             })
+            this.player.fire()
+            this.hq.displayMenuOnCollision(this.physics, this.player, this.cameras.main)
         }
-
-        this.player.fire()
-
-        this.hq.displayMenuOnCollision(this.physics, this.player)
-
 
         this.updateEnemies()
         this.checkGameFinished()
@@ -141,8 +217,27 @@ class TanxScene extends Phaser.Scene
                 PlayerStats.addMoney(enemy.moneyValue)
             }
         })
+        
+        this.removeKilledEnemiesFromList()
+    }
 
-        this.enemies = this.enemies.filter(item => !enemyForDeletion.includes(item))
+    removeKilledEnemiesFromList()
+    {
+        var removedKilled = true
+        while (removedKilled)
+        {
+            removedKilled = false
+
+            for (var index = 0; index < this.enemies.length; index++)
+            {
+                if (!this.enemies[index].sprite.active)
+                {
+                    this.enemies.splice(index, 1)
+                    removedKilled = true
+                    break
+                }
+            }
+        }
     }
 
     checkGameFinished()

@@ -2,7 +2,7 @@ class Enemy extends Combatant
 {
     sprite = null
 
-    constructor(scene, group, enemyData, obstacles)
+    constructor(scene, enemyGroup, enemyData, obstacles)
     {
         var hitPointsMax = enemyData.properties.filter(x => x.name == 'hitPoints')[0].value
 
@@ -12,7 +12,7 @@ class Enemy extends Combatant
 
         const image = enemyData.properties.filter(x => x.name == 'image')
 
-        this.sprite = group.create(enemyData.x, enemyData.y, image[0].value)
+        this.sprite = enemyGroup.create(enemyData.x, enemyData.y, image[0].value)
 
         this.moneyValue = 50
 
@@ -25,39 +25,55 @@ class Enemy extends Combatant
             },
             shopImage: "assets/shop_gun.png"
         }
+
         this.weapon = new Gun(gunTemplate)
         this.weapon.scene = scene
         this.weapon.obstacles = obstacles
 
         this.healthBar = this.makeBar(scene, enemyData.x, enemyData.y - this.sprite.height, 0xcc306c)
+
+        this.isKilled = false
     }
 
-    static factory(enemies, data, scene, group, obstacles, wayPoints)
+    static multiFactory(enemies, data, scene, enemyGroup, obstacles, wayPoints)
     {        
         for (const [key, enemyData] of Object.entries(data)) 
         {
-            var enemy = 0
-
-            if (enemyData.name == 'base')
-            {
-                enemy = new Enemy(scene, group, enemyData, obstacles)
-            }
-            else if (enemyData.name == 'follow')
-            {
-                enemy = new EnemyFollow(scene, group, enemyData, obstacles)
-            }
-            else if (enemyData.name == 'waypoint')
-            {
-                enemy = new EnemyWayPoint(scene, group, enemyData, obstacles, wayPoints)
-            }
-            else
-            {
-                console.error('Unknown enemy type in Enemies layer:' + value.name)
-                continue
-            }
-            
-            enemies.push(enemy)
+            Enemy.factory(enemies, enemyData, scene, enemyGroup, obstacles, wayPoints)
         }
+    }
+
+    static factory(enemies, enemyData, scene, enemyGroup, obstacles, wayPoints)
+    {        
+        var enemy = 0
+
+        if (enemyData.name == 'base')
+        {
+            enemy = new Enemy(scene, enemyGroup, enemyData, obstacles)
+        }
+        else if (enemyData.name == 'follow')
+        {
+            enemy = new EnemyFollow(scene, enemyGroup, enemyData, obstacles)
+        }
+        else if (enemyData.name == 'waypoint')
+        {
+            enemy = new EnemyWayPoint(scene, enemyGroup, enemyData, obstacles, wayPoints)
+        }
+        else if (enemyData.name == 'watch')
+        {
+            enemy = new EnemyWatch(scene, enemyGroup, enemyData, obstacles, wayPoints)
+        }
+        else if (enemyData.name == 'barracks')
+        {
+            enemy = new EnemyBarracks(scene, enemyGroup, enemyData, obstacles, enemies)
+        }
+        else
+        {
+            console.error('Unknown enemy type in Enemies layer:' + value.name)
+            return
+        }
+        
+        enemies.push(enemy)
     }
     
     update(playerSprite, onRoundHitCallback, ray)
