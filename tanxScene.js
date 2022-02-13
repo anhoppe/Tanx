@@ -101,35 +101,37 @@ class TanxScene extends Phaser.Scene
         })
 
         // create the Tilemap
-        const map = this.make.tilemap({ key: 'tilemap' })
+        this.map = this.make.tilemap({ key: 'tilemap' })
+        this.mapWidthInPixels = this.map.widthInPixels
+        this.mapHeightInPixels = this.map.heightInPixels
 
         // Setup ground
-        const groundTileset = map.addTilesetImage('ground', 'ground')
-        this.ground = map.createLayer('ground', groundTileset)
+        const groundTileset = this.map.addTilesetImage('ground', 'ground')
+        this.ground = this.map.createLayer('ground', groundTileset)
 
         // Setup world (Contains non-collision objects and objects the combatants can collide with)
-        const worldTileset = map.addTilesetImage('world', 'world')
-        this.world = map.createLayer('world', worldTileset)
+        const worldTileset = this.map.addTilesetImage('world', 'world')
+        this.world = this.map.createLayer('world', worldTileset)
         this.world.setCollisionByProperty({ collides: true })
         this.raycaster.mapGameObjects(this.world, false, {
             collisionTiles: this.world.layer.collideIndexes
         })
 
         // Setup weapon collision (contains tiles the round AND the combatants can collide with)
-        const weaponCollisionTileset = map.addTilesetImage('weaponCollision', 'weaponCollision')
-        this.weaponCollision = map.createLayer('weaponCollision', weaponCollisionTileset)
+        const weaponCollisionTileset = this.map.addTilesetImage('weaponCollision', 'weaponCollision')
+        this.weaponCollision = this.map.createLayer('weaponCollision', weaponCollisionTileset)
         this.weaponCollision.setCollisionByProperty({ collides: true })
 
         // Setup sky level
-        const skyTileset = map.addTilesetImage('sky', 'sky')
-        this.sky = map.createLayer('sky', skyTileset)
+        const skyTileset = this.map.addTilesetImage('sky', 'sky')
+        this.sky = this.map.createLayer('sky', skyTileset)
         this.sky.setDepth(10)
 
         // Create player with camera
         this.player = new Player(this, this.weaponCollision)
         PlayerStats.Player = this.player
 
-        this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(0, 0, this.mapWidthInPixels, this.mapHeightInPixels);
         this.cameras.main.startFollow(this.player.baseSprite);
         this.cameras.main.zoom = 2;
         this.raycaster.mapGameObjects(this.player.baseSprite, true)
@@ -140,7 +142,7 @@ class TanxScene extends Phaser.Scene
 
 
         // Create buildings 
-        var buildings = map.getObjectLayer('Buildings')
+        var buildings = this.map.getObjectLayer('Buildings')
 
         for (var building of buildings.objects)
         {
@@ -152,12 +154,12 @@ class TanxScene extends Phaser.Scene
         }
         
         // Create waypoints for enemies
-        const wayPoints = map.getObjectLayer('Waypoints')
+        const wayPoints = this.map.getObjectLayer('Waypoints')
 
         // Create enemies
         this.enemies = []
         this.enemyGroup = this.physics.add.group()
-        const enemyData = map.getObjectLayer('Enemies').objects
+        const enemyData = this.map.getObjectLayer('Enemies').objects
 
         Enemy.multiFactory(this.enemies, enemyData, this, this.enemyGroup, this.weaponCollision, wayPoints)
         this.physics.add.collider(this.enemyGroup, this.world);
@@ -167,7 +169,7 @@ class TanxScene extends Phaser.Scene
         this.physics.add.collider(this.enemyGroup, this.hq.hqSprite)
 
         // World bounds
-        this.physics.world.setBounds(0, 0, map.widthInPixels, map.heightInPixels)
+        this.physics.world.setBounds(0, 0, this.mapWidthInPixels, this.mapHeightInPixels)
 
         // Hide mouse pointer
         this.sys.canvas.style.cursor = 'none'
@@ -176,8 +178,6 @@ class TanxScene extends Phaser.Scene
         this.input.mouse.disableContextMenu();
 
         // create mini map
-        this.mapWidthInPixels = map.widthInPixels
-        this.mapHeightInPixels = map.heightInPixels
         this.createMiniMap()
     }
 
@@ -200,7 +200,24 @@ class TanxScene extends Phaser.Scene
     {
         if (!this.hq.isActive())
         {
-            this.player.move(this.enemyGroup, (sprite, damage) => {
+            var pointerTileX = this.map.worldToTileX(this.player.baseSprite.x);
+            var pointerTileY = this.map.worldToTileY(this.player.baseSprite.y);
+
+            var velocityFac = 1
+
+            var tile = this.map.getTileAt(pointerTileX, pointerTileY, false, this.world);
+
+            if (!tile)
+            {
+                tile = this.map.getTileAt(pointerTileX, pointerTileY, false, this.ground);
+            }
+
+            if (tile)
+            {
+                velocityFac = parseFloat(tile.properties['velocityFactor'])
+            }
+
+            this.player.move(this.enemyGroup, velocityFac, (sprite, damage) => {
                 this.enemies.forEach(enemy => {
                     if (enemy.sprite === sprite)
                     {

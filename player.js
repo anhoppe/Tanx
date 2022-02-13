@@ -69,7 +69,7 @@ class Player extends Combatant
         this.playerSpriteGroup.setVelocityY(0)
     }
 
-    move(enemyGroup, onRoundHitCallback)
+    move(enemyGroup, velocityFac, onRoundHitCallback)
     {
         if (this.hitPoints <= 0)
         {
@@ -91,12 +91,12 @@ class Player extends Combatant
         
             if (keyW.isDown)
             {
-                velocityY -= 160
+                velocityY -= 160 * velocityFac
             }
         
             if (keyS.isDown)
             {
-                velocityY += 160
+                velocityY += 160 * velocityFac
             }
 
             if (keyA.isDown)
