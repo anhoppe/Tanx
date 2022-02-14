@@ -22,7 +22,6 @@ class Player extends Combatant
         {
             console.log("tank name does not match ");
         }
-        this.baseSprite = this.playerSpriteGroup.create(0, 0, 'player_base')
 
         if (this.secondaryGun != 0)
         {
